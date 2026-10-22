@@ -1,0 +1,58 @@
+/* Scoped to Streamlit's documented test hooks and our own components. */
+[data-testid="stMainBlockContainer"] {
+  max-width: 1240px;
+  padding: 4.25rem 2.25rem 3rem;
+}
+[data-testid="stHeader"] { background: #0b1020; }
+[data-testid="stSidebar"] { border-right: 1px solid #263249; }
+[data-testid="stSidebar"] [data-testid="stSidebarUserContent"] { padding-top: 2rem; }
+h1 { font-size: clamp(1.9rem, 3.2vw, 2.65rem) !important; line-height: 1.18 !important; letter-spacing: -.8px; }
+h2 { font-size: 1.55rem !important; letter-spacing: -.35px; }
+h3 { font-size: 1.2rem !important; }
+p, li { line-height: 1.6; }
+[data-testid="stCaptionContainer"] { color: #aab8cf; }
+[data-testid="stTextArea"] textarea, [data-testid="stSelectbox"] { font-size: .95rem; }
+[data-testid="stBaseButton-primary"] {
+  color: #071b1c !important;
+  background: #73e2ca !important;
+  border-color: #73e2ca !important;
+  font-weight: 700;
+  min-height: 2.85rem;
+  min-width: 220px;
+  border-radius: .65rem;
+}
+[data-testid="stBaseButton-primary"] p { color: #071b1c !important; }
+button:focus-visible, textarea:focus-visible { outline: 2px solid #73e2ca !important; outline-offset: 3px; }
+[data-testid="stTabs"] [role="tablist"] { gap: 1.2rem; flex-wrap: wrap; height: auto; }
+[data-testid="stTabs"] [role="tab"] { white-space: normal; height: auto; min-height: 2.8rem; padding-bottom: .6rem; }
+.op-eyebrow { color: #73e2ca; font-size: .73rem; letter-spacing: .12em; font-weight: 700; margin-bottom: .65rem; }
+.op-intro { color: #b6c4d9; max-width: 720px; margin: .2rem 0 1.5rem; font-size: 1rem; }
+.op-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .8rem; margin: 1.1rem 0 1.4rem; }
+.op-stat { min-width: 0; border: 1px solid #2b3850; border-radius: .8rem; padding: 1.05rem; background: #151e31; }
+.op-stat-label { color: #b6c4d9; font-size: .79rem; line-height: 1.35; min-height: 2.2em; }
+.op-stat-value { font-size: clamp(1.35rem, 2.2vw, 1.9rem); line-height: 1.25; font-weight: 700; margin: .4rem 0; overflow-wrap: anywhere; }
+.op-stat-help { color: #aab8cf; font-size: .76rem; line-height: 1.5; }
+.op-badge { display: inline-block; color: #94f0db; background: #15382f; border: 1px solid #2b5c50; border-radius: 20px; padding: .28rem .7rem; font-size: .76rem; margin-bottom: .7rem; }
+.op-badge.neutral { color: #c2d0e4; background: #202c42; border-color: #36445e; }
+.op-stat.high .op-stat-value, .op-stat.critical .op-stat-value { color: #ffadac; }
+.op-stat.medium .op-stat-value { color: #ffd38a; }
+.op-empty { padding: 1.4rem; background: #121c2d; border: 1px dashed #3a4d6a; border-radius: .8rem; margin-top: 1rem; }
+.op-empty strong { color: #e8effa; } .op-empty p { color: #afbed4; margin: .4rem 0 0; }
+.op-fact { border-left: 3px solid #73e2ca; padding: .65rem 1rem; background: #142431; border-radius: 0 .5rem .5rem 0; margin: .7rem 0; }
+.op-fact-label { font-weight: 650; font-size: .95rem; margin-bottom: .25rem; }
+.op-fact-text { color: #c2d0e4; font-size: .9rem; line-height: 1.55; overflow-wrap: anywhere; }
+.op-inventory { display: grid; gap: .45rem; margin: .7rem 0; }
+.op-inventory div { display: flex; gap: .7rem; align-items: center; border: 1px solid #2b3850; border-radius: .6rem; padding: .45rem .75rem; }
+.op-inventory strong { width: 2rem; font-size: 1.25rem; color: #eaf1fa; }
+.op-inventory span { font-size: .85rem; color: #b6c4d9; }
+@media (max-width: 1100px) {
+  [data-testid="stMain"] [data-testid="stHorizontalBlock"] { flex-direction: column; gap: 1rem; }
+  [data-testid="stMain"] [data-testid="stHorizontalBlock"] > [data-testid="stColumn"] { width: 100% !important; flex: 1 1 100% !important; min-width: 0; }
+  .op-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 600px) {
+  [data-testid="stMainBlockContainer"] { padding: 4rem 1rem 2rem; }
+  .op-grid { gap: .6rem; } .op-stat { padding: .85rem; }
+  .op-stat-label { font-size: .75rem; } .op-stat-help { font-size: .73rem; }
+  [data-testid="stTabs"] [role="tablist"] { gap: .7rem; }
+}

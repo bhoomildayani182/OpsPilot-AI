@@ -13,7 +13,7 @@ selected tools, literal evidence, causal hypotheses and missing information.
 
 ## Verified locally
 
-54 tests passed (1 optional runtime check skipped); 94% source coverage. Genuine
+58 tests passed (1 optional runtime check skipped); 95% source coverage. Genuine
 Decider inference passed all four fixtures; Decider + Strands + Bedrock reporting
 passed CPU saturation and failed deployment. See [execution evidence](docs/verification.md).
 
@@ -30,7 +30,7 @@ cp .env.example .env
 streamlit run app.py --server.address 127.0.0.1 --server.port 8501
 ```
 
-Open http://127.0.0.1:8501. **Local evidence preview** works without AWS or model
+Open http://127.0.0.1:8501. **Explore sample data · no AI** works without AWS or model
 weights. You manually choose tools; this mode does not claim an AI decision or
 Bedrock-generated report. Select an incident and press **Investigate incident**.
 
@@ -80,8 +80,7 @@ hardcode that ID. To discover models and check authentication:
 
 Restart Streamlit after changing `.env`.
 
-Select **Decider 2B + Bedrock** to run the combined workflow, or **Decider 2B +
-evidence only** to verify routing without generative AWS calls. Synthetic telemetry
+Select **Full AI investigation** to run the combined workflow, or **AI tool selection only** to verify routing without generative AWS calls. Synthetic telemetry
 is analyzed locally; only the incident and selected observed evidence go to Bedrock.
 See [security and least privilege](docs/security.md).
 
@@ -103,6 +102,13 @@ usage charges. Test doubles in offline tests verify contracts and error handling
 not live model availability. A run with no generated report is not a completed
 Bedrock integration verification. Actual results are recorded in
 [verification](docs/verification.md) and [execution checklist](CHECKLIST.md).
+
+## Read the dashboard
+
+See the [plain-language dashboard guide](docs/dashboard-guide.md) for the meaning
+of urgency, tool choice certainty, cause confidence and evidence IDs. The UI
+separates observations from possible explanations and clears old findings when
+you change the inputs.
 
 ## How it works
 

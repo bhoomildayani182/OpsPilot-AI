@@ -1,0 +1,62 @@
+{
+  "mobile": {
+    "cards": [
+      {
+        "label": "Suggested urgency",
+        "left": 16,
+        "right": 184.703125,
+        "width": 168.703125
+      },
+      {
+        "label": "Tool choice certainty",
+        "left": 194.296875,
+        "right": 363,
+        "width": 168.703125
+      },
+      {
+        "label": "Evidence items",
+        "left": 16,
+        "right": 184.703125,
+        "width": 168.703125
+      },
+      {
+        "label": "Cause confidence",
+        "left": 194.296875,
+        "right": 363,
+        "width": 168.703125
+      }
+    ],
+    "pageWidth": 390,
+    "viewport": 390
+  },
+  "desktop": {
+    "cards": [
+      {
+        "label": "Suggested urgency",
+        "left": 336,
+        "right": 550.6484375,
+        "width": 214.6484375
+      },
+      {
+        "label": "Tool choice certainty",
+        "left": 563.4453125,
+        "right": 778.1015625,
+        "width": 214.65625
+      },
+      {
+        "label": "Evidence items",
+        "left": 790.8984375,
+        "right": 1005.546875,
+        "width": 214.6484375
+      },
+      {
+        "label": "Cause confidence",
+        "left": 1018.34375,
+        "right": 1233,
+        "width": 214.65625
+      }
+    ],
+    "pageWidth": 1280,
+    "viewport": 1280
+  }
+}

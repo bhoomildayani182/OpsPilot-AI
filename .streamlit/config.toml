@@ -9,3 +9,5 @@ font = "sans serif"
 address = "127.0.0.1"
 [browser]
 gatherUsageStats = false
+[client]
+toolbarMode = "minimal"

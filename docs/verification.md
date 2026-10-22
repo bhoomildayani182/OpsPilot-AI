@@ -13,7 +13,7 @@
 
 ## Automated checks
 
-**54 passed, 1 skipped; source statement coverage 94%** (361 statements, 21 missed).
+**58 passed, 1 skipped; source statement coverage 95%** (383 statements, 20 missed).
 Actual output: `artifacts/test-output.txt`; JUnit: `artifacts/test-results.xml`;
 coverage data: `artifacts/coverage.json`.
 
@@ -95,3 +95,22 @@ Screenshots in `artifacts/` record the actual UI, rather than a design mockup.
 - Entrant confirms eligibility and terms. No registration or submission is claimed.
 - Optional live CloudWatch ingestion is deferred. All shipped scenarios use
   synthetic/supplied telemetry; no production resources were inspected.
+
+## Dashboard clarity and CSS review
+
+The revised UI explains all four summary cards, uses readable evidence names,
+shows supplied data without requiring JSON knowledge, and keeps model internals
+in optional expanders. A new state check clears results when inputs change.
+
+Browser verification covered 1280-pixel desktop and 390-pixel mobile widths.
+Measured page width matched the viewport at both widths; all four result cards
+fit within their available width. Mobile controls use labeled checkboxes, with
+no clipped multiselect chips. Measurements: `artifacts/dashboard-layout-checks.json`;
+mobile screenshot: `artifacts/dashboard-mobile.jpg`. The temporary viewport was reset.
+
+A fresh real CPU investigation through the revised dashboard returned a Bedrock
+report, 89% tool-choice certainty, high suggested urgency and low causal
+confidence. `artifacts/dashboard-report.jpg` shows the actual result. The JSON
+was downloaded through the UI and retained as `artifacts/dashboard-ai-run.json`.
+The report-view test also uses explicitly recorded integration data to check
+rendering without additional AWS calls. Those offline tests do not claim new inference.

@@ -14,15 +14,15 @@ Bedrock turns the observed evidence into a report. Everything is read-only.”
 
 ## 0:20–1:10 · CPU investigation
 
-**Screen:** Select Decider 2B + Bedrock, CPU saturation, click Investigate. Include
-real waiting time or clearly label any cut. Open Decision trace.
+**Screen:** Select Full AI investigation, CPU saturation, click Investigate. Include
+real waiting time or clearly label any cut. Open Why these checks? and its technical trace.
 
 **Say:** “This is synthetic CPU telemetry. The tool decision comes from the real
 local Decider model, not a keyword router. Here are its typed question, option
 probabilities, loaded checkpoint and measured round-trip time. These numbers are
 from this run; they are not a speed comparison against another model.”
 
-**Screen:** Observed evidence, then Report.
+**Screen:** Evidence explained, then Findings & next steps.
 
 **Say:** “The metrics tool calculates the sample statistics. Evidence has stable
 IDs. Bedrock receives only the selected diagnostics and cites those IDs. Potential
@@ -39,7 +39,7 @@ it caused an outage. Missing telemetry stays visible.”
 
 ## 1:55–2:25 · Guardrails and reuse
 
-**Screen:** Decision trace and reusable pattern documentation.
+**Screen:** Why these checks? and reusable pattern documentation.
 
 **Say:** “Low-confidence decisions are flagged; very uncertain routing abstains.
 A missing model never becomes a fake AI result. The reporting agent has no tools
@@ -48,7 +48,7 @@ set, client, enforced routing seam and a guide another builder can adapt.”
 
 ## 2:25–2:45 · Close
 
-**Screen:** Report next steps, export button, then final repository/article links.
+**Screen:** Findings & next steps, Download tab, then final repository/article links.
 
 **Say:** “OpsPilot makes incident investigation inspectable: why a tool ran, what
 it actually observed, and what remains uncertain. The project includes four sample

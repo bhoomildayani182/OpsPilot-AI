@@ -73,8 +73,8 @@ never claims to have used Decider or generated a Bedrock report.
 
 ## Verification and lessons
 
-The final offline test run passed 54 tests, with one optional runtime-import
-check skipped in the app environment; source statement coverage was 94%. The
+The final offline test run passed 58 tests, with one optional runtime-import
+check skipped in the app environment; source statement coverage was 95%. The
 real Decider ran all four scenarios. It chose metrics for CPU saturation, logs
 plus deployments for HTTP 500s, deployments for the failed release, and logs plus
 metrics for database timeouts. All four real requests and responses also passed
