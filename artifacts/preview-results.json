@@ -1,0 +1,560 @@
+[
+  {
+    "scenario": "CPU saturation",
+    "mode": "Local evidence preview \u2014 no AI decision or Bedrock",
+    "incident": {
+      "title": "EC2 CPU utilization is above 90%; investigate resource saturation.",
+      "started_at": "2026-10-22T09:01:00Z",
+      "data_source": "synthetic sample",
+      "metrics": [
+        {
+          "name": "cpu_percent",
+          "timestamp": "2026-10-22T09:00:00Z",
+          "value": 88.0
+        },
+        {
+          "name": "cpu_percent",
+          "timestamp": "2026-10-22T09:02:00Z",
+          "value": 94.0
+        },
+        {
+          "name": "cpu_percent",
+          "timestamp": "2026-10-22T09:04:00Z",
+          "value": 97.0
+        },
+        {
+          "name": "cpu_percent",
+          "timestamp": "2026-10-22T09:06:00Z",
+          "value": 96.0
+        },
+        {
+          "name": "memory_percent",
+          "timestamp": "2026-10-22T09:00:00Z",
+          "value": 54.0
+        },
+        {
+          "name": "memory_percent",
+          "timestamp": "2026-10-22T09:02:00Z",
+          "value": 55.0
+        },
+        {
+          "name": "memory_percent",
+          "timestamp": "2026-10-22T09:04:00Z",
+          "value": 56.0
+        },
+        {
+          "name": "memory_percent",
+          "timestamp": "2026-10-22T09:06:00Z",
+          "value": 55.0
+        }
+      ],
+      "logs": [
+        {
+          "timestamp": "2026-10-22T09:02:00Z",
+          "level": "WARN",
+          "message": "Worker queue is growing"
+        }
+      ],
+      "deployments": []
+    },
+    "selected_tools": [
+      "metrics",
+      "logs",
+      "deployments"
+    ],
+    "results": [
+      {
+        "tool": "metrics",
+        "evidence": [
+          {
+            "id": "M1",
+            "tool": "metrics",
+            "observation": "cpu_percent: 4 samples, min=88, max=97, mean=93.75; 3 strictly above demo threshold 90. Window 2026-10-22T09:00:00+00:00 to 2026-10-22T09:06:00+00:00.",
+            "source": "synthetic sample"
+          },
+          {
+            "id": "M2",
+            "tool": "metrics",
+            "observation": "memory_percent: 4 samples, min=54, max=56, mean=55.00; 0 strictly above demo threshold 90. Window 2026-10-22T09:00:00+00:00 to 2026-10-22T09:06:00+00:00.",
+            "source": "synthetic sample"
+          }
+        ],
+        "limitations": [
+          "Thresholds are demo heuristics, not service SLOs. Samples do not establish a root cause."
+        ],
+        "details": {
+          "cpu_percent": {
+            "min": 88.0,
+            "max": 97.0,
+            "mean": 93.75,
+            "samples": 4,
+            "above_threshold": 3,
+            "threshold": 90
+          },
+          "memory_percent": {
+            "min": 54.0,
+            "max": 56.0,
+            "mean": 55.0,
+            "samples": 4,
+            "above_threshold": 0,
+            "threshold": 90
+          }
+        }
+      },
+      {
+        "tool": "logs",
+        "evidence": [],
+        "limitations": [
+          "Matches describe supplied log lines only. Their frequency is not a service error rate.",
+          "Absence of a matched line does not prove absence of errors."
+        ],
+        "details": {
+          "total_lines": 1,
+          "matching_lines": 0,
+          "patterns": {}
+        }
+      },
+      {
+        "tool": "deployments",
+        "evidence": [],
+        "limitations": [
+          "Temporal proximity is a correlation, not proof that a deployment caused the incident.",
+          "The correlation window is a demo heuristic: 60 minutes before to 15 minutes after onset.",
+          "No deployment events were supplied."
+        ],
+        "details": {
+          "events": []
+        }
+      }
+    ],
+    "decision": null,
+    "report": null,
+    "report_error": null,
+    "report_metadata": null
+  },
+  {
+    "scenario": "HTTP 500 errors",
+    "mode": "Local evidence preview \u2014 no AI decision or Bedrock",
+    "incident": {
+      "title": "The checkout application returns HTTP 500 errors after a release.",
+      "started_at": "2026-10-22T09:01:00Z",
+      "data_source": "synthetic sample",
+      "metrics": [
+        {
+          "name": "error_rate_percent",
+          "timestamp": "2026-10-22T09:00:00Z",
+          "value": 0.2
+        },
+        {
+          "name": "error_rate_percent",
+          "timestamp": "2026-10-22T09:02:00Z",
+          "value": 6.0
+        },
+        {
+          "name": "error_rate_percent",
+          "timestamp": "2026-10-22T09:04:00Z",
+          "value": 11.0
+        },
+        {
+          "name": "error_rate_percent",
+          "timestamp": "2026-10-22T09:06:00Z",
+          "value": 12.0
+        }
+      ],
+      "logs": [
+        {
+          "timestamp": "2026-10-22T09:01:00Z",
+          "level": "ERROR",
+          "message": "HTTP 500 POST /checkout NullReferenceException in PaymentHandler"
+        },
+        {
+          "timestamp": "2026-10-22T09:03:00Z",
+          "level": "ERROR",
+          "message": "HTTP 500 POST /checkout NullReferenceException in PaymentHandler"
+        }
+      ],
+      "deployments": [
+        {
+          "timestamp": "2026-10-22T09:00:00Z",
+          "status": "succeeded",
+          "version": "v1.8.0",
+          "details": "Checkout release completed."
+        }
+      ]
+    },
+    "selected_tools": [
+      "metrics",
+      "logs",
+      "deployments"
+    ],
+    "results": [
+      {
+        "tool": "metrics",
+        "evidence": [
+          {
+            "id": "M1",
+            "tool": "metrics",
+            "observation": "error_rate_percent: 4 samples, min=0.2, max=12, mean=7.30; 3 strictly above demo threshold 5. Window 2026-10-22T09:00:00+00:00 to 2026-10-22T09:06:00+00:00.",
+            "source": "synthetic sample"
+          }
+        ],
+        "limitations": [
+          "Thresholds are demo heuristics, not service SLOs. Samples do not establish a root cause."
+        ],
+        "details": {
+          "error_rate_percent": {
+            "min": 0.2,
+            "max": 12.0,
+            "mean": 7.3,
+            "samples": 4,
+            "above_threshold": 3,
+            "threshold": 5
+          }
+        }
+      },
+      {
+        "tool": "logs",
+        "evidence": [
+          {
+            "id": "L1",
+            "tool": "logs",
+            "observation": "2026-10-22T09:01:00+00:00 [ERROR] HTTP 500 POST /checkout NullReferenceException in PaymentHandler",
+            "source": "synthetic sample"
+          },
+          {
+            "id": "L2",
+            "tool": "logs",
+            "observation": "2026-10-22T09:03:00+00:00 [ERROR] HTTP 500 POST /checkout NullReferenceException in PaymentHandler",
+            "source": "synthetic sample"
+          }
+        ],
+        "limitations": [
+          "Matches describe supplied log lines only. Their frequency is not a service error rate.",
+          "Absence of a matched line does not prove absence of errors."
+        ],
+        "details": {
+          "total_lines": 2,
+          "matching_lines": 2,
+          "patterns": {
+            "exception": 2,
+            "http_500": 2
+          }
+        }
+      },
+      {
+        "tool": "deployments",
+        "evidence": [
+          {
+            "id": "D1",
+            "tool": "deployments",
+            "observation": "Version v1.8.0 succeeded at 2026-10-22T09:00:00+00:00 (-1.0 minutes from incident onset); within [-60,+15] minute correlation window: True. Checkout release completed.",
+            "source": "synthetic sample"
+          }
+        ],
+        "limitations": [
+          "Temporal proximity is a correlation, not proof that a deployment caused the incident.",
+          "The correlation window is a demo heuristic: 60 minutes before to 15 minutes after onset."
+        ],
+        "details": {
+          "events": [
+            {
+              "version": "v1.8.0",
+              "status": "succeeded",
+              "minutes_from_onset": -1.0,
+              "within_correlation_window": true
+            }
+          ]
+        }
+      }
+    ],
+    "decision": null,
+    "report": null,
+    "report_error": null,
+    "report_metadata": null
+  },
+  {
+    "scenario": "Failed deployment",
+    "mode": "Local evidence preview \u2014 no AI decision or Bedrock",
+    "incident": {
+      "title": "A deployment failed; investigate the release events and startup failure.",
+      "started_at": "2026-10-22T09:01:00Z",
+      "data_source": "synthetic sample",
+      "metrics": [],
+      "logs": [
+        {
+          "timestamp": "2026-10-22T09:01:00Z",
+          "level": "ERROR",
+          "message": "StartupException: required environment variable PAYMENT_ENDPOINT missing"
+        }
+      ],
+      "deployments": [
+        {
+          "timestamp": "2026-10-22T09:00:00Z",
+          "status": "failed",
+          "version": "v1.9.0",
+          "details": "Health check failed during rollout."
+        },
+        {
+          "timestamp": "2026-10-22T09:03:00Z",
+          "status": "rolled_back",
+          "version": "v1.8.0",
+          "details": "Previous version restored by the release system."
+        }
+      ]
+    },
+    "selected_tools": [
+      "metrics",
+      "logs",
+      "deployments"
+    ],
+    "results": [
+      {
+        "tool": "metrics",
+        "evidence": [],
+        "limitations": [
+          "Thresholds are demo heuristics, not service SLOs. Samples do not establish a root cause.",
+          "No metrics were supplied; normal infrastructure health cannot be inferred."
+        ],
+        "details": {}
+      },
+      {
+        "tool": "logs",
+        "evidence": [
+          {
+            "id": "L1",
+            "tool": "logs",
+            "observation": "2026-10-22T09:01:00+00:00 [ERROR] StartupException: required environment variable PAYMENT_ENDPOINT missing",
+            "source": "synthetic sample"
+          }
+        ],
+        "limitations": [
+          "Matches describe supplied log lines only. Their frequency is not a service error rate.",
+          "Absence of a matched line does not prove absence of errors."
+        ],
+        "details": {
+          "total_lines": 1,
+          "matching_lines": 1,
+          "patterns": {
+            "exception": 1
+          }
+        }
+      },
+      {
+        "tool": "deployments",
+        "evidence": [
+          {
+            "id": "D1",
+            "tool": "deployments",
+            "observation": "Version v1.9.0 failed at 2026-10-22T09:00:00+00:00 (-1.0 minutes from incident onset); within [-60,+15] minute correlation window: True. Health check failed during rollout.",
+            "source": "synthetic sample"
+          },
+          {
+            "id": "D2",
+            "tool": "deployments",
+            "observation": "Version v1.8.0 rolled_back at 2026-10-22T09:03:00+00:00 (+2.0 minutes from incident onset); within [-60,+15] minute correlation window: True. Previous version restored by the release system.",
+            "source": "synthetic sample"
+          }
+        ],
+        "limitations": [
+          "Temporal proximity is a correlation, not proof that a deployment caused the incident.",
+          "The correlation window is a demo heuristic: 60 minutes before to 15 minutes after onset."
+        ],
+        "details": {
+          "events": [
+            {
+              "version": "v1.9.0",
+              "status": "failed",
+              "minutes_from_onset": -1.0,
+              "within_correlation_window": true
+            },
+            {
+              "version": "v1.8.0",
+              "status": "rolled_back",
+              "minutes_from_onset": 2.0,
+              "within_correlation_window": true
+            }
+          ]
+        }
+      }
+    ],
+    "decision": null,
+    "report": null,
+    "report_error": null,
+    "report_metadata": null
+  },
+  {
+    "scenario": "Database timeouts",
+    "mode": "Local evidence preview \u2014 no AI decision or Bedrock",
+    "incident": {
+      "title": "The application is slow and database timeouts appear in logs.",
+      "started_at": "2026-10-22T09:01:00Z",
+      "data_source": "synthetic sample",
+      "metrics": [
+        {
+          "name": "latency_ms",
+          "timestamp": "2026-10-22T09:00:00Z",
+          "value": 300.0
+        },
+        {
+          "name": "latency_ms",
+          "timestamp": "2026-10-22T09:02:00Z",
+          "value": 1800.0
+        },
+        {
+          "name": "latency_ms",
+          "timestamp": "2026-10-22T09:04:00Z",
+          "value": 2500.0
+        },
+        {
+          "name": "latency_ms",
+          "timestamp": "2026-10-22T09:06:00Z",
+          "value": 3000.0
+        },
+        {
+          "name": "db_connections_percent",
+          "timestamp": "2026-10-22T09:00:00Z",
+          "value": 72.0
+        },
+        {
+          "name": "db_connections_percent",
+          "timestamp": "2026-10-22T09:02:00Z",
+          "value": 89.0
+        },
+        {
+          "name": "db_connections_percent",
+          "timestamp": "2026-10-22T09:04:00Z",
+          "value": 96.0
+        },
+        {
+          "name": "db_connections_percent",
+          "timestamp": "2026-10-22T09:06:00Z",
+          "value": 99.0
+        }
+      ],
+      "logs": [
+        {
+          "timestamp": "2026-10-22T09:02:00Z",
+          "level": "ERROR",
+          "message": "DatabaseTimeoutException: query timed out after 2000ms"
+        },
+        {
+          "timestamp": "2026-10-22T09:04:00Z",
+          "level": "ERROR",
+          "message": "Connection pool exhausted; request timed out"
+        }
+      ],
+      "deployments": [
+        {
+          "timestamp": "2026-10-22T09:00:00Z",
+          "status": "succeeded",
+          "version": "v2.0.0",
+          "details": "Database client settings updated."
+        }
+      ]
+    },
+    "selected_tools": [
+      "metrics",
+      "logs",
+      "deployments"
+    ],
+    "results": [
+      {
+        "tool": "metrics",
+        "evidence": [
+          {
+            "id": "M1",
+            "tool": "metrics",
+            "observation": "db_connections_percent: 4 samples, min=72, max=99, mean=89.00; 3 strictly above demo threshold 85. Window 2026-10-22T09:00:00+00:00 to 2026-10-22T09:06:00+00:00.",
+            "source": "synthetic sample"
+          },
+          {
+            "id": "M2",
+            "tool": "metrics",
+            "observation": "latency_ms: 4 samples, min=300, max=3000, mean=1900.00; 3 strictly above demo threshold 1000. Window 2026-10-22T09:00:00+00:00 to 2026-10-22T09:06:00+00:00.",
+            "source": "synthetic sample"
+          }
+        ],
+        "limitations": [
+          "Thresholds are demo heuristics, not service SLOs. Samples do not establish a root cause."
+        ],
+        "details": {
+          "db_connections_percent": {
+            "min": 72.0,
+            "max": 99.0,
+            "mean": 89.0,
+            "samples": 4,
+            "above_threshold": 3,
+            "threshold": 85
+          },
+          "latency_ms": {
+            "min": 300.0,
+            "max": 3000.0,
+            "mean": 1900.0,
+            "samples": 4,
+            "above_threshold": 3,
+            "threshold": 1000
+          }
+        }
+      },
+      {
+        "tool": "logs",
+        "evidence": [
+          {
+            "id": "L1",
+            "tool": "logs",
+            "observation": "2026-10-22T09:02:00+00:00 [ERROR] DatabaseTimeoutException: query timed out after 2000ms",
+            "source": "synthetic sample"
+          },
+          {
+            "id": "L2",
+            "tool": "logs",
+            "observation": "2026-10-22T09:04:00+00:00 [ERROR] Connection pool exhausted; request timed out",
+            "source": "synthetic sample"
+          }
+        ],
+        "limitations": [
+          "Matches describe supplied log lines only. Their frequency is not a service error rate.",
+          "Absence of a matched line does not prove absence of errors."
+        ],
+        "details": {
+          "total_lines": 2,
+          "matching_lines": 2,
+          "patterns": {
+            "timeout": 2,
+            "exception": 1,
+            "connection": 1
+          }
+        }
+      },
+      {
+        "tool": "deployments",
+        "evidence": [
+          {
+            "id": "D1",
+            "tool": "deployments",
+            "observation": "Version v2.0.0 succeeded at 2026-10-22T09:00:00+00:00 (-1.0 minutes from incident onset); within [-60,+15] minute correlation window: True. Database client settings updated.",
+            "source": "synthetic sample"
+          }
+        ],
+        "limitations": [
+          "Temporal proximity is a correlation, not proof that a deployment caused the incident.",
+          "The correlation window is a demo heuristic: 60 minutes before to 15 minutes after onset."
+        ],
+        "details": {
+          "events": [
+            {
+              "version": "v2.0.0",
+              "status": "succeeded",
+              "minutes_from_onset": -1.0,
+              "within_correlation_window": true
+            }
+          ]
+        }
+      }
+    ],
+    "decision": null,
+    "report": null,
+    "report_error": null,
+    "report_metadata": null
+  }
+]

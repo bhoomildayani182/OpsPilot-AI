@@ -1,0 +1,11 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "InvokeOnlyChosenReportModel",
+      "Effect": "Allow",
+      "Action": ["bedrock:InvokeModel", "bedrock:InvokeModelWithResponseStream"],
+      "Resource": ["REPLACE_WITH_CHOSEN_MODEL_OR_INFERENCE_PROFILE_ARNS"]
+    }
+  ]
+}

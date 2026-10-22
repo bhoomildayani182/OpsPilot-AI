@@ -1,0 +1,3 @@
+# Official source pinned for the verified MLX support (not yet in the PyPI release).
+# On Linux/CPU the MLX extra is automatically excluded by upstream platform markers.
+strands-decider[mlx] @ git+https://github.com/strands-labs/strands-decider.git@d942e5515db750f80a51032629ec312455a87976

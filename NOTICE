@@ -1,0 +1,8 @@
+OpsPilot AI
+Copyright 2026 OpsPilot AI contributors
+
+This project integrates Strands Agents SDK and the Strands Decider model server.
+Both are independently maintained Apache-2.0 projects. Model artifacts retain their
+own licenses. No upstream weights or source code are redistributed in this repository.
+API shapes were verified against strands-labs/strands-decider commit
+d942e5515db750f80a51032629ec312455a87976.
