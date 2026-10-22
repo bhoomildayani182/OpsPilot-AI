@@ -1,0 +1,191 @@
+[
+  {
+    "attempt": 1,
+    "report": {
+      "incident_summary": "The user reports that EC2 CPU utilization is above 90%. Metrics show CPU utilization above 90% for three out of four samples, while memory utilization remains below the threshold.",
+      "severity": "medium",
+      "severity_rationale": {
+        "statement": "CPU utilization is above the 90% threshold for three out of four samples, indicating potential resource saturation.",
+        "evidence_ids": [
+          "M1"
+        ]
+      },
+      "potential_root_causes": [
+        {
+          "statement": "The high CPU utilization could be due to an increased workload or inefficient processes running on the instance.",
+          "evidence_ids": [
+            "M1"
+          ]
+        },
+        {
+          "statement": "There could be a misconfiguration or an unexpected spike in traffic causing the high CPU usage.",
+          "evidence_ids": [
+            "M1"
+          ]
+        }
+      ],
+      "confidence": "low",
+      "uncertainty": [
+        "Service impact and SLOs are unknown.",
+        "Memory utilization is within acceptable limits, suggesting the issue may be specific to CPU usage.",
+        "No other metrics or logs are available to confirm the root cause."
+      ],
+      "recommended_steps": [
+        "Review recent changes to the workload or application code that could have increased CPU usage.",
+        "Check for any misconfigurations or unexpected traffic spikes that could be causing the high CPU utilization.",
+        "Consider scaling the instance or optimizing the processes to better utilize the available resources."
+      ],
+      "additional_information_required": [
+        "More detailed logs or metrics from the application running on the instance.",
+        "Information on recent changes to the workload or application code.",
+        "Details on any recent changes to the instance configuration or network traffic."
+      ]
+    },
+    "metadata": {
+      "provider": "Amazon Bedrock",
+      "model_id": "amazon.nova-lite-v1:0",
+      "region": "us-east-1",
+      "started_at_utc": "2026-10-22T11:40:13.761567+00:00",
+      "sdk": "strands-agents",
+      "structured_output_validated": true,
+      "aws_responses": [
+        {
+          "received_at_utc": "2026-10-22T11:40:14.981852+00:00",
+          "operation": "ConverseStream",
+          "request_id": "4c5fa53c-9c81-413c-87b0-8dc8f219c46b",
+          "http_status": 200,
+          "error_code": null
+        }
+      ],
+      "latency_ms": 3423.89
+    }
+  },
+  {
+    "attempt": 2,
+    "report": {
+      "incident_summary": "The user reports that EC2 CPU utilization is above 90%. Metrics show CPU utilization above 90% for three out of four samples, while memory utilization remains below the threshold.",
+      "severity": "medium",
+      "severity_rationale": {
+        "statement": "CPU utilization is above the 90% threshold for three out of four samples, indicating potential resource saturation.",
+        "evidence_ids": [
+          "M1"
+        ]
+      },
+      "potential_root_causes": [
+        {
+          "statement": "The high CPU utilization may be due to an increased workload or inefficient processes running on the instance.",
+          "evidence_ids": [
+            "M1"
+          ]
+        }
+      ],
+      "confidence": "low",
+      "uncertainty": [
+        "Service impact and SLOs are unknown.",
+        "Memory utilization is below the threshold, suggesting memory is not a contributing factor.",
+        "No other metrics or logs are available to confirm the root cause."
+      ],
+      "recommended_steps": [
+        "Check the instance's process list to identify any resource-intensive processes.",
+        "Review recent changes to the application or infrastructure that could have led to increased load.",
+        "Consider scaling the instance or optimizing the application to handle the current load."
+      ],
+      "additional_information_required": [
+        "More detailed metrics or logs to identify the specific cause of high CPU usage.",
+        "Information on recent changes to the application or infrastructure.",
+        "Service level objectives (SLOs) for CPU and memory utilization."
+      ]
+    },
+    "metadata": {
+      "provider": "Amazon Bedrock",
+      "model_id": "amazon.nova-lite-v1:0",
+      "region": "us-east-1",
+      "started_at_utc": "2026-10-22T11:40:17.389734+00:00",
+      "sdk": "strands-agents",
+      "structured_output_validated": true,
+      "aws_responses": [
+        {
+          "received_at_utc": "2026-10-22T11:40:18.404187+00:00",
+          "operation": "ConverseStream",
+          "request_id": "7ab1a84f-0ba3-4e2e-ab59-d7b6fdc52a92",
+          "http_status": 200,
+          "error_code": null
+        },
+        {
+          "received_at_utc": "2026-10-22T11:40:21.150064+00:00",
+          "operation": "ConverseStream",
+          "request_id": "a5fe5bd0-9e8f-4706-8b03-fb46a3a43a01",
+          "http_status": 200,
+          "error_code": null
+        }
+      ],
+      "latency_ms": 5763.12
+    }
+  },
+  {
+    "attempt": 3,
+    "report": {
+      "incident_summary": "The user reported that EC2 CPU utilization is above 90% and requested an investigation into resource saturation. Metrics show CPU utilization above the 90% threshold, with 3 out of 4 samples strictly above the threshold. Memory utilization is within acceptable limits. The severity and impact on the service are unknown due to the lack of service-specific SLOs and service impact data. The potential root causes and confidence are low due to the limited evidence.",
+      "severity": "medium",
+      "severity_rationale": {
+        "statement": "CPU utilization is above the 90% threshold, but the impact on the service is unknown.",
+        "evidence_ids": [
+          "M1"
+        ]
+      },
+      "potential_root_causes": [
+        {
+          "statement": "High CPU utilization may be due to increased workload or inefficient processes.",
+          "evidence_ids": [
+            "M1"
+          ]
+        },
+        {
+          "statement": "Potential resource saturation due to insufficient CPU resources.",
+          "evidence_ids": [
+            "M1"
+          ]
+        }
+      ],
+      "confidence": "low",
+      "uncertainty": [
+        "Impact on the service is unknown due to lack of service-specific SLOs and service impact data.",
+        "Thresholds are demo heuristics, not service SLOs. Samples do not establish a root cause."
+      ],
+      "recommended_steps": [
+        "Review recent changes to the application or workload that may have increased CPU usage.",
+        "Investigate running processes to identify any inefficient or resource-intensive operations.",
+        "Consider scaling up the instance type or adding more instances to handle the load."
+      ],
+      "additional_information_required": [
+        "Service-specific SLOs and impact data.",
+        "Detailed process and workload information."
+      ]
+    },
+    "metadata": {
+      "provider": "Amazon Bedrock",
+      "model_id": "amazon.nova-lite-v1:0",
+      "region": "us-east-1",
+      "started_at_utc": "2026-10-22T11:40:23.201996+00:00",
+      "sdk": "strands-agents",
+      "structured_output_validated": true,
+      "aws_responses": [
+        {
+          "received_at_utc": "2026-10-22T11:40:24.162061+00:00",
+          "operation": "ConverseStream",
+          "request_id": "1625ee85-27a7-4695-b370-e7fd2aa8240d",
+          "http_status": 200,
+          "error_code": null
+        },
+        {
+          "received_at_utc": "2026-10-22T11:40:26.663224+00:00",
+          "operation": "ConverseStream",
+          "request_id": "ad54d028-d5cd-464a-a03f-b028e21ebf8b",
+          "http_status": 200,
+          "error_code": null
+        }
+      ],
+      "latency_ms": 5733.16
+    }
+  }
+]

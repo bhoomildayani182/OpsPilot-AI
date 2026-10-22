@@ -9,7 +9,7 @@
 2. Choose an incident and describe what is going wrong.
 3. Check the data counts and open **View the supplied data** to see readable
    measurements, application messages and release events. Included examples are
-   synthetic; the app does not fetch live infrastructure telemetry.
+   synthetic. To read actual CPU measurements, select Live AWS EC2 metrics, connect an account, select an instance and UTC window, then fetch data. See aws-usage-and-cleanup.md.
 4. Select **Investigate incident**. Findings appear below the inputs. Changing
    the incident, description, data, checks or mode clears the old findings.
 

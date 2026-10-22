@@ -26,7 +26,7 @@ MODE_LABELS = {
     "Decider 2B + evidence only": "AI tool selection only",
 }
 MODE_HELP = {
-    "Local evidence preview": "You choose the checks. See facts from the supplied data without an AI report or AWS calls.",
+    "Local evidence preview": "You choose the checks. See facts from the supplied data without an AI report or AWS model calls.",
     "Decider 2B + Bedrock": "Decider 2B chooses the checks. Amazon Bedrock writes a report with possible causes and next steps. Uses AWS model access.",
     "Decider 2B + evidence only": "Decider 2B chooses the checks and you see their findings. No Bedrock report is requested.",
 }

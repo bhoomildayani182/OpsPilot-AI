@@ -1,0 +1,7 @@
+{
+  "region": "us-east-1",
+  "logging_config_present": false,
+  "text_logging_enabled": false,
+  "cloudwatch_destination_configured": false,
+  "s3_destination_configured": false
+}

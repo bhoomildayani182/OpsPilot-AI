@@ -102,6 +102,13 @@ class BedrockAnalyzer:
                 },
                 "selected_tools": selected_tools,
                 "observed_tool_results": [result.model_dump(mode="json") for result in results],
+                "report_contract": {
+                    "allowed_evidence_ids": [e.id for r in results for e in r.evidence],
+                    "causal_confidence": "low required"
+                    if len({r.tool for r in results if r.evidence}) < 2
+                    else "assess conservatively",
+                    "output": "Call EvidenceBoundReport directly with the complete report. Do not write a preliminary prose answer. Every finding needs an allowed evidence ID.",
+                },
             }
         )
         # Do not silently truncate evidence or send unbounded telemetry to a paid model.
@@ -114,6 +121,8 @@ class BedrockAnalyzer:
             # A failed check is returned to the model for correction, not patched
             # into a seemingly valid report by the application.
             class EvidenceBoundReport(Report):
+                """Submit the final incident report with evidence IDs; use this tool directly."""
+
                 @model_validator(mode="after")
                 def grounding(self):
                     try:
@@ -154,8 +163,13 @@ class BedrockAnalyzer:
                     retry_strategy=None,
                 )
             started = time.perf_counter()
-            result = agent(prompt, structured_output_model=EvidenceBoundReport, limits={"turns": 4})
+            result = agent(prompt, structured_output_model=EvidenceBoundReport, limits={"turns": 6})
             report = result.structured_output
+            if report is None:
+                self.last_metadata["failure_type"] = "MissingStructuredReport"
+                raise ReportError(
+                    "Bedrock did not produce a valid evidence-cited report within the six-turn limit. No AI report was accepted. Diagnostic evidence remains available."
+                )
             validated = validate_report(Report.model_validate(report), results)
             self.last_metadata.update(
                 {

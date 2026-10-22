@@ -27,6 +27,7 @@ class Investigation:
     report: Report | None = None
     report_error: str | None = None
     report_metadata: dict | None = None
+    ingestion_metadata: dict | None = None
 
     def to_dict(self):
         return {

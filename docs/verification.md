@@ -13,7 +13,7 @@
 
 ## Automated checks
 
-**61 passed, 1 skipped.** See the current source coverage in `artifacts/coverage.json`.
+**71 passed, 1 skipped.** See the current source coverage in `artifacts/coverage.json`.
 Actual output: `artifacts/test-output.txt`; JUnit: `artifacts/test-results.xml`;
 coverage data: `artifacts/coverage.json`.
 
@@ -93,8 +93,9 @@ Screenshots in `artifacts/` record the actual UI, rather than a design mockup.
 - Record and upload the public demo video; target script is 2:45, under 3 minutes.
 - Review/publish the Builder Center article, fill final links, register and submit.
 - Entrant confirms eligibility and terms. No registration or submission is claimed.
-- Optional live CloudWatch ingestion is deferred. All shipped scenarios use
-  synthetic/supplied telemetry; no production resources were inspected.
+- Live mode now reads actual EC2 inventory and CPU measurements. The four original
+  fixtures remain synthetic. A separately authorized disposable EC2 was used; no
+  production workload was inspected.
 
 ## Dashboard clarity and CSS review
 
@@ -132,3 +133,30 @@ A subsequent real dashboard run received four AWS HTTP 200 responses but failed
 Pydantic output validation. It was rejected without showing a report. This confirms
 why receipts alone are insufficient; report generation is not guaranteed on every
 attempt. Validation failures now have a specific user-facing message.
+
+## Real EC2 data and cleanup verification
+
+The user subsequently authorized live ingestion and a disposable EC2 demonstration
+in the bhoomil profile. Real CloudWatch CPU data was fetched from that instance;
+Decider selected metrics and Bedrock (hardik profile) returned a validated report.
+The browser independently exercised profile, instance and UTC window selection,
+actual collection, correct Live AWS labeling and full reporting.
+`artifacts/live-aws-investigation.json`, `live-aws-selection.jpg`, and
+`live-aws-proof.jpg` preserve the real run and UI.
+
+The first sample was low CPU (approximately 0.0626%), not a production outage.
+It cannot establish a trend. No memory, logs or deployment events were collected.
+The bounded temporary shell workload did not imply an application incident.
+
+The temporary instance was then terminated. Independent reads verified its exact
+state as terminated and returned NotFound for its recorded root disk and dedicated
+security group. `artifacts/ec2-demo-resource.json` records complete cleanup.
+Existing network resources were retained.
+
+The earlier missing report was reproduced as `structured_output=None` after four
+model turns, rather than evidence of broken AWS credentials. The revised prompt
+requests the structured tool directly with allowed evidence IDs and causal
+confidence constraints, permits at most six turns, and explicitly rejects missing
+output. Three fresh real CPU report tests all passed in one/two Bedrock calls;
+this is observed improvement, not a guarantee that every model response will pass.
+Results: `artifacts/report-diagnosis.json` and `artifacts/report-fix-verification.json`.

@@ -27,4 +27,4 @@ until its model ARN placeholder is replaced. Choose resources for the exact mode
 region and inference-profile setup; follow the AWS documentation for that model.
 
 No IAM roles, policies, billing settings or infrastructure are created by this
-repository. Optional production data ingestion has been deferred.
+repository. Live mode explicitly reads EC2 inventory and CloudWatch CPU averages; no application logs or memory are collected. See aws-usage-and-cleanup.md.

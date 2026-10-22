@@ -13,7 +13,7 @@ selected tools, literal evidence, causal hypotheses and missing information.
 
 ## Verified locally
 
-58 tests passed (1 optional runtime check skipped); 95% source coverage. Genuine
+71 tests passed (1 optional runtime check skipped); see current coverage in the saved test artifacts. Genuine
 Decider inference passed all four fixtures; Decider + Strands + Bedrock reporting
 passed CPU saturation and failed deployment. See [execution evidence](docs/verification.md).
 
@@ -166,3 +166,12 @@ accuracy improvement over an LLM is claimed.
 For an honest synthetic-input demonstration and recorded AWS integration evidence,
 see [Hackathon proof and demo steps](docs/hackathon-proof.md). The dashboard now
 includes an **Integration proof** tab with service receipts for newly generated runs.
+
+## Live AWS data and cleanup
+
+Select **Live AWS EC2 metrics**, choose a profile/region, connect, select an
+instance and UTC time window, and fetch real CPU averages. **Full AI investigation**
+uses that snapshot with Decider and Bedrock. No memory, application logs or release
+events are collected in live mode. The dashboard does not provision infrastructure.
+See [AWS usage and cleanup](docs/aws-usage-and-cleanup.md), including the separately
+authorized disposable EC2 test and its recorded cleanup status.

@@ -66,3 +66,20 @@ def test_report_validation_failure_is_not_misreported_as_authentication(settings
         )
     assert analyzer.last_metadata["structured_output_validated"] is False
     assert analyzer.last_metadata["failure_type"] == "ValidationError"
+
+
+def test_missing_structured_output_is_rejected_explicitly(settings):
+    from src.agent import preview
+    from src.bedrock_analyzer import BedrockAnalyzer
+
+    agent = Mock()
+    agent.return_value.structured_output = None
+    analyzer = BedrockAnalyzer(settings, agent_factory=lambda: agent)
+    with pytest.raises(ReportError, match="six-turn limit"):
+        analyzer.generate(
+            get_sample("CPU saturation"),
+            ["metrics"],
+            preview(get_sample("CPU saturation"), ["metrics"]).results,
+        )
+    assert analyzer.last_metadata["failure_type"] == "MissingStructuredReport"
+    assert analyzer.last_metadata["structured_output_validated"] is False

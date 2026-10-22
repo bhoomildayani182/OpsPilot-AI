@@ -7,8 +7,9 @@ CPU readings are 88%, 94%, 97%, and 96%; memory readings are 54%, 55%, 56%, and 
 They simulate an incident without accessing a real server. Their timestamps are the
 simulated incident time, not the time of the AI request.
 
-No EC2 application discovery, instance selection, live CloudWatch collection, or
-server remediation is implemented. Do not describe these examples as real outages
+The original fixtures are synthetic. Live mode separately supports EC2 instance
+and UTC time-window selection with actual CloudWatch CPU collection. No application
+discovery, log ingestion or server remediation is implemented. Do not describe these examples as real outages
 or claim that OpsPilot identified a confirmed production root cause.
 
 ## What runs for real?
@@ -37,8 +38,7 @@ It is useful for learning the interface, but it is not proof of either AI integr
 
 Suggested spoken description: “These incidents are synthetic test inputs. The
 local Decider model and Amazon Bedrock calls are real. OpsPilot chooses checks,
-extracts evidence and suggests possible explanations and next steps. Live AWS
-telemetry collection is future work.”
+extracts evidence and suggests possible explanations and next steps. Live mode separately reads actual CPU measurements for a selected EC2 instance.”
 
 ## Evidence files
 
@@ -76,3 +76,7 @@ minutes. Evidence files support a demonstration; they do not replace those
 submission requirements or establish eligibility.
 
 Official event: https://builder.aws.com/build/hackathons/4f50957c-1d08-37ab-b11c-97516b9adeb4/agent-experience-hackathon?tab=about
+
+For the subsequent real EC2 verification and cleanup record, see
+[ AWS usage and cleanup](aws-usage-and-cleanup.md). The original two-run proof
+file remains a synthetic-input verification; live evidence is saved separately.

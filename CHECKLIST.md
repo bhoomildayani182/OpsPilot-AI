@@ -13,7 +13,7 @@ Verified October 22, 2026. Details and measured results: [verification](docs/ver
 - [x] Execute real Strands + Amazon Bedrock reporting for two incidents using an approved profile.
 - [x] Review/fix citation feedback, overstatements and causal uncertainty; regenerate valid reports.
 - [x] Run Streamlit; exercise CPU and failed-deployment decisions in browser.
-- [x] Pass 61 automated tests; 1 optional app-environment check skipped and separately verified.
+- [x] Pass 71 automated tests; 1 optional app-environment check skipped and separately verified.
 - [x] Pass lint, formatting, compilation and dependency consistency checks.
 - [x] Write setup, architecture diagram, reusable pattern, security and compliance documentation.
 - [x] Prepare Builder Center article draft with actual findings and a 2:45 demo script.
@@ -34,4 +34,14 @@ Apache-2.0. The reusable pattern is #tool-selection; include #strands-decider-2b
 Accepted video hosts: YouTube, Vimeo, Facebook Video, Youku. Deadline displayed:
 October 23, 2026 11:59 PM PDT = October 24, 2026 12:29 PM IST.
 
-Optional CloudWatch ingestion is deferred; no production telemetry was accessed.
+Live EC2/CloudWatch CPU ingestion is implemented. Only a separately authorized
+disposable test instance was used; no production workload was inspected.
+
+## Live AWS work
+
+- [x] Add explicit profile, region, EC2 and UTC time-window selection.
+- [x] Block stale or missing fetches; preserve CloudWatch provenance.
+- [x] Verify actual EC2 discovery and CloudWatch CPU collection.
+- [x] Process real CPU evidence through Decider and Bedrock; preserve report and receipts.
+- [x] Diagnose missing structured output; three fresh CPU report tests pass after correction.
+- [x] Verify browser live-data flow and cleanup of disposable demo resources.

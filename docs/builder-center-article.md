@@ -113,8 +113,10 @@ labeled reusable tool-selection guide. The code uses Apache-2.0.
 - Reusable pattern: `src/decider.py` and `docs/decision-pattern.md` in that repository.
 
 The next step is a broader labeled evaluation of tool selection, including vague
-incidents and irrelevant telemetry. Live CloudWatch ingestion can follow; the MVP
-prioritizes an inspectable end-to-end decision using synthetic data.
+incidents and irrelevant telemetry. The dashboard now supports explicit read-only EC2 inventory and CloudWatch CPU
+ingestion for a selected instance and time window. A separately authorized
+disposable instance supplied real test telemetry; the original fixtures remain
+clearly labeled synthetic. Application-log ingestion remains future work.
 
 ## References
 

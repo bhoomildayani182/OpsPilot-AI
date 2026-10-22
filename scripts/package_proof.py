@@ -32,7 +32,19 @@ def main():
         ):
             raise SystemExit("Incomplete integration evidence; no archive generated.")
     # Reading every file first ensures missing evidence cannot yield a partial archive.
-    contents = {name: (ROOT / name).read_bytes() for name in FILES}
+    optional = [
+        "docs/aws-usage-and-cleanup.md",
+        "artifacts/live-aws-investigation.json",
+        "artifacts/ec2-demo-resource.json",
+        "artifacts/live-aws-selection.jpg",
+        "artifacts/live-aws-proof.jpg",
+        "artifacts/report-fix-verification.json",
+        "artifacts/aws-logging-check.json",
+    ]
+    contents = {
+        name: (ROOT / name).read_bytes()
+        for name in [*FILES, *[n for n in optional if (ROOT / n).exists()]]
+    }
     manifest = {
         "description": "Locally generated integrity hashes; not independent attestation.",
         "sha256": {name: hashlib.sha256(data).hexdigest() for name, data in contents.items()},
@@ -43,7 +55,7 @@ def main():
         for name, data in contents.items():
             archive.writestr(name, data)
         archive.write(manifest_path, "artifacts/hackathon-proof-manifest.json")
-    print("Packaged two recorded real integrations, traces, tests, screenshot and hashes.")
+    print("Packaged recorded integration evidence, tests, screenshots and integrity hashes.")
 
 
 if __name__ == "__main__":

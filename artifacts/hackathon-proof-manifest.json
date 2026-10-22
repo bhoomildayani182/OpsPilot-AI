@@ -1,11 +1,18 @@
 {
   "description": "Locally generated integrity hashes; not independent attestation.",
   "sha256": {
-    "docs/hackathon-proof.md": "bbd11546d20c0a38e9e2c132592d97037762f505f49e4a44da962401057be90e",
+    "docs/hackathon-proof.md": "e2ccf836987838cba8b25d3852b0675a006e72e9acf60fe1063fc9fbaa309be9",
     "artifacts/hackathon-proof-runs.json": "c6d4210438fe0a30d5474b843dc07e84d9c5ca666d12c7d27afec401f83b4324",
     "artifacts/decider-results.json": "78f594c64ffd6d75e16af3615151c8ce94e8d08a38f10c078fa6ba9db0ebd979",
-    "artifacts/test-output.txt": "108787cfe31d51b17d07aad79dbf11f99ab5d898ce5bbf8f353b08fae41cdcdc",
-    "artifacts/test-results.xml": "8e27627b25604a31f26f05eb4697f13f42efe9f1d9054c27d6f0f467e832d065",
-    "artifacts/hackathon-proof.jpg": "595eb6a65f11a00f294f593d53d0eff4c971103f43eed17ea6b8f3cae7c795bf"
+    "artifacts/test-output.txt": "1db3d4b00e9501a67fda8007bac82c79c71dc7fc21adef493846f66074ad071c",
+    "artifacts/test-results.xml": "2f565cb8ab1e38745046afe75b11dc0ac9c4a2476c8722c2cdd9ab14922520d7",
+    "artifacts/hackathon-proof.jpg": "595eb6a65f11a00f294f593d53d0eff4c971103f43eed17ea6b8f3cae7c795bf",
+    "docs/aws-usage-and-cleanup.md": "9c31c29db01823590d979003168013382fb17ae1a89edf7af67b716ff526eb92",
+    "artifacts/live-aws-investigation.json": "ae9b61538092641dcac6ed305d6867acdb5c9dc61c06329f4fa869e2be98ae02",
+    "artifacts/ec2-demo-resource.json": "987352bdf8f287eab0d08c2e8d93b956e75e966ee4e4b50b0e7eb76e391f9ff4",
+    "artifacts/live-aws-selection.jpg": "5622c5930e09c3d86ced00b71d0f77b0a5247a73f9655618966c96869efa1c1e",
+    "artifacts/live-aws-proof.jpg": "5b376442d02be1113af8c69d541faa094600a8539b46e6b3058d6f06e0045795",
+    "artifacts/report-fix-verification.json": "b4152510e448ab1569ba17093556e41e26ab6c154635bbbd994f1944287674ea",
+    "artifacts/aws-logging-check.json": "bb93822f0a6b5c6ec9078286242a7e43cec38402ffdbb88deb4899a23e236b48"
   }
 }

@@ -73,7 +73,7 @@ Verified source: [official inference guide](https://github.com/strands-labs/stra
    then validate the structured report and its evidence references inside the SDK
    correction loop. Limit hypotheses to three and require low causal confidence
    when fewer than two diagnostic families supply evidence. Agent calls are
-   capped at four turns; quota retries are disabled.
+   capped at six turns; quota retries are disabled.
 
 The numeric thresholds and tool allowlist interpret model output; they do not
 choose a tool from incident keywords. Swapping a primary answer changes actual
