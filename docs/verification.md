@@ -13,7 +13,7 @@
 
 ## Automated checks
 
-**58 passed, 1 skipped; source statement coverage 95%** (383 statements, 20 missed).
+**61 passed, 1 skipped.** See the current source coverage in `artifacts/coverage.json`.
 Actual output: `artifacts/test-output.txt`; JUnit: `artifacts/test-results.xml`;
 coverage data: `artifacts/coverage.json`.
 
@@ -114,3 +114,21 @@ confidence. `artifacts/dashboard-report.jpg` shows the actual result. The JSON
 was downloaded through the UI and retained as `artifacts/dashboard-ai-run.json`.
 The report-view test also uses explicitly recorded integration data to check
 rendering without additional AWS calls. Those offline tests do not claim new inference.
+
+## Fresh hackathon evidence
+
+Two additional end-to-end runs succeeded using synthetic CPU and failed-deployment
+inputs. `artifacts/hackathon-proof-runs.json` contains real Decider traces and
+validated Bedrock reports, with four and two AWS ConverseStream response receipts
+respectively. Receipts include UTC times, request IDs and HTTP status, excluding
+headers and raw errors. Request receipts are corroborating metadata, not independent
+attestation or proof of production telemetry. See [demo guide](hackathon-proof.md).
+
+An earlier dashboard error cannot be diagnosed retrospectively from its generic
+message. Fresh authorized-profile calls succeeded; new failures retain safe receipt
+metadata and exception type where available.
+
+A subsequent real dashboard run received four AWS HTTP 200 responses but failed
+Pydantic output validation. It was rejected without showing a report. This confirms
+why receipts alone are insufficient; report generation is not guaranteed on every
+attempt. Validation failures now have a specific user-facing message.

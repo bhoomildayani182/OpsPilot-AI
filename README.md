@@ -162,3 +162,7 @@ This repository prepares a submission; publication, eligibility verification,
 video recording/upload, article publication and final submission remain explicit
 review actions. See the checklist for current evidence. No latency savings or
 accuracy improvement over an LLM is claimed.
+
+For an honest synthetic-input demonstration and recorded AWS integration evidence,
+see [Hackathon proof and demo steps](docs/hackathon-proof.md). The dashboard now
+includes an **Integration proof** tab with service receipts for newly generated runs.

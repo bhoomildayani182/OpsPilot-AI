@@ -2,10 +2,11 @@
 
 import json
 import time
+from datetime import UTC, datetime
 
 import boto3
 from botocore.config import Config
-from pydantic import model_validator
+from pydantic import ValidationError, model_validator
 
 from src.config import Settings
 from src.models import Incident, Report, ToolResult
@@ -30,6 +31,20 @@ Return the required structured report. No external tools are available to you.""
 
 class ReportError(RuntimeError):
     pass
+
+
+def capture_receipt(receipts, *, parsed, model, **kwargs):
+    """Retain only service receipt fields, never signed headers or raw errors."""
+    metadata = parsed.get("ResponseMetadata", {})
+    receipts.append(
+        {
+            "received_at_utc": datetime.now(UTC).isoformat(),
+            "operation": model.name,
+            "request_id": metadata.get("RequestId"),
+            "http_status": metadata.get("HTTPStatusCode"),
+            "error_code": parsed.get("Error", {}).get("Code"),
+        }
+    )
 
 
 def validate_report(report: Report, results: list[ToolResult]) -> Report:
@@ -64,6 +79,16 @@ class BedrockAnalyzer:
     def generate(
         self, incident: Incident, selected_tools: list[str], results: list[ToolResult]
     ) -> Report:
+        receipts = []
+        self.last_metadata = {
+            "provider": "Amazon Bedrock" if not self.agent_factory else "test double",
+            "model_id": self.settings.bedrock_model,
+            "region": self.settings.region,
+            "started_at_utc": datetime.now(UTC).isoformat(),
+            "sdk": "strands-agents",
+            "structured_output_validated": False,
+            "aws_responses": receipts,
+        }
         if not self.settings.bedrock_model:
             raise ReportError(
                 "Set BEDROCK_MODEL_ID to a Bedrock model or inference profile available in your region."
@@ -107,6 +132,11 @@ class BedrockAnalyzer:
                 session = boto3.Session(
                     profile_name=self.settings.aws_profile, region_name=self.settings.region
                 )
+                for operation in ("Converse", "ConverseStream"):
+                    session.events.register(
+                        f"after-call.bedrock-runtime.{operation}",
+                        lambda **event: capture_receipt(receipts, **event),
+                    )
                 model = BedrockModel(
                     model_id=self.settings.bedrock_model,
                     boto_session=session,
@@ -127,18 +157,23 @@ class BedrockAnalyzer:
             result = agent(prompt, structured_output_model=EvidenceBoundReport, limits={"turns": 4})
             report = result.structured_output
             validated = validate_report(Report.model_validate(report), results)
-            self.last_metadata = {
-                "provider": "Amazon Bedrock" if not self.agent_factory else "test double",
-                "model_id": self.settings.bedrock_model,
-                "region": self.settings.region,
-                "latency_ms": round((time.perf_counter() - started) * 1000, 2),
-                "sdk": "strands-agents",
-                "structured_output_validated": True,
-            }
+            self.last_metadata.update(
+                {
+                    "latency_ms": round((time.perf_counter() - started) * 1000, 2),
+                    "sdk": "strands-agents",
+                    "structured_output_validated": True,
+                }
+            )
             return validated
         except ReportError:
             raise
         except Exception as exc:
+            self.last_metadata["failure_type"] = type(exc).__name__
+            if isinstance(exc, ValidationError):
+                raise ReportError(
+                    "Bedrock responded, but its report failed the required format or evidence checks. "
+                    "No AI report was accepted. Retry the investigation; diagnostic evidence remains available."
+                ) from exc
             # Report safe actionable categories without exposing raw account/endpoint details.
             message = str(exc).lower()
             if "too many tokens per day" in message:

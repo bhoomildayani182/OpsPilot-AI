@@ -347,7 +347,19 @@ if run:
             or "None — more information needed"
         )
     )
-    tabs = st.tabs(["Findings & next steps", "Evidence explained", "Why these checks?", "Download"])
+    st.caption(
+        "Example incidents use invented measurements, logs and releases. They are not collected from EC2. "
+        "Full AI mode uses the real local Decider model and calls Amazon Bedrock with the supplied evidence."
+    )
+    tabs = st.tabs(
+        [
+            "Findings & next steps",
+            "Evidence explained",
+            "Why these checks?",
+            "Download",
+            "Integration proof",
+        ]
+    )
     labels = evidence_labels(run.results)
     with tabs[0]:
         if run.report_error:
@@ -462,6 +474,36 @@ if run:
             mime="application/json",
         )
         st.caption("The file contains your supplied data. Review it before sharing.")
+    with tabs[4]:
+        st.markdown("### What is real in this run?")
+        st.write(f"**Input source:** {source_label(run.incident['data_source'])}")
+        if run.decision:
+            st.write(f"**Decider inference recorded:** {run.decision.model}")
+            st.caption(
+                "The exact model request, response and selection scores are saved in the download."
+            )
+        else:
+            st.info("Manual preview: Decider and Bedrock were not called.")
+        metadata = run.report_metadata or {}
+        receipts = metadata.get("aws_responses", [])
+        successful = [r for r in receipts if r.get("request_id") and r.get("http_status") == 200]
+        if metadata.get("provider") == "Amazon Bedrock" and successful and run.report:
+            st.success(
+                "Amazon Bedrock responded and the report passed the application's evidence checks."
+            )
+        elif metadata:
+            st.warning(
+                "A successful Bedrock report with an AWS receipt is not verified for this run."
+            )
+        else:
+            st.info("No Bedrock response receipt was recorded for this run.")
+        if metadata:
+            st.json(metadata)
+        st.caption(
+            "AWS request IDs help identify service calls; they are not independent certification. "
+            "HTTP 200 alone does not prove a finished report. No EC2 discovery or live CloudWatch collection is implemented. "
+            "Download the investigation JSON to preserve this run's inputs, decision, evidence, report and receipts."
+        )
 else:
     st.markdown(
         '<div class="op-empty"><strong>Your findings will appear here.</strong><p>Choose an incident above, check its data, then select <b>Investigate incident</b>. Changing the inputs clears previous findings so you always know which incident you are viewing.</p></div>',

@@ -73,4 +73,6 @@ def investigate(
         run.report_metadata = metadata if isinstance(metadata, dict) else None
     except ReportError as exc:
         run.report_error = str(exc)
+        metadata = getattr(reporter, "last_metadata", None)
+        run.report_metadata = metadata if isinstance(metadata, dict) else None
     return run

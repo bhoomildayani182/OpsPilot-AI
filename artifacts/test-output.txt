@@ -1,23 +1,6 @@
-..........................s................................              [100%]
+..........................s...................................           [100%]
 ================================ tests coverage ================================
 ______________ coverage: platform darwin, python 3.13.12-final-0 _______________
 
-Name                               Stmts   Miss  Cover   Missing
-----------------------------------------------------------------
-src/__init__.py                        0      0   100%
-src/agent.py                          44      3    93%   56, 68-69
-src/bedrock_analyzer.py               66     11    83%   84, 99, 104-119, 140, 148-153
-src/config.py                         29      2    93%   36, 38
-src/data/__init__.py                   0      0   100%
-src/data/sample_incidents.py          12      0   100%
-src/decider.py                       102      4    96%   57, 126-127, 145
-src/models.py                         62      0   100%
-src/presentation.py                   22      0   100%
-src/tools/__init__.py                  0      0   100%
-src/tools/deployment_analyzer.py      12      0   100%
-src/tools/log_analyzer.py             15      0   100%
-src/tools/metrics_analyzer.py         19      0   100%
-----------------------------------------------------------------
-TOTAL                                383     20    95%
 Coverage JSON written to file artifacts/coverage.json
-58 passed, 1 skipped in 6.35s
+61 passed, 1 skipped in 2.67s

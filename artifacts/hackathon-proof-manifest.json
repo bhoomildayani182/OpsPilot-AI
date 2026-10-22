@@ -1,0 +1,11 @@
+{
+  "description": "Locally generated integrity hashes; not independent attestation.",
+  "sha256": {
+    "docs/hackathon-proof.md": "bbd11546d20c0a38e9e2c132592d97037762f505f49e4a44da962401057be90e",
+    "artifacts/hackathon-proof-runs.json": "c6d4210438fe0a30d5474b843dc07e84d9c5ca666d12c7d27afec401f83b4324",
+    "artifacts/decider-results.json": "78f594c64ffd6d75e16af3615151c8ce94e8d08a38f10c078fa6ba9db0ebd979",
+    "artifacts/test-output.txt": "108787cfe31d51b17d07aad79dbf11f99ab5d898ce5bbf8f353b08fae41cdcdc",
+    "artifacts/test-results.xml": "8e27627b25604a31f26f05eb4697f13f42efe9f1d9054c27d6f0f467e832d065",
+    "artifacts/hackathon-proof.jpg": "595eb6a65f11a00f294f593d53d0eff4c971103f43eed17ea6b8f3cae7c795bf"
+  }
+}

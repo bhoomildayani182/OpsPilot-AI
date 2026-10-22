@@ -13,7 +13,7 @@ Verified October 22, 2026. Details and measured results: [verification](docs/ver
 - [x] Execute real Strands + Amazon Bedrock reporting for two incidents using an approved profile.
 - [x] Review/fix citation feedback, overstatements and causal uncertainty; regenerate valid reports.
 - [x] Run Streamlit; exercise CPU and failed-deployment decisions in browser.
-- [x] Pass 58 automated tests; 1 optional app-environment check skipped and separately verified.
+- [x] Pass 61 automated tests; 1 optional app-environment check skipped and separately verified.
 - [x] Pass lint, formatting, compilation and dependency consistency checks.
 - [x] Write setup, architecture diagram, reusable pattern, security and compliance documentation.
 - [x] Prepare Builder Center article draft with actual findings and a 2:45 demo script.
@@ -21,6 +21,8 @@ Verified October 22, 2026. Details and measured results: [verification](docs/ver
 - [x] Explain dashboard fields, confidence scores and evidence IDs in plain language.
 - [x] Fix header spacing, button contrast, responsive cards and clipped mobile controls.
 - [x] Clear stale findings when inputs change; verify desktop/mobile layouts and a new real AI run.
+- [x] Capture fresh end-to-end runs with safe AWS request receipts; add an honest Integration proof view.
+- [x] Verify proof tab in browser and package the real runs, tests, screenshot and integrity manifest.
 - [ ] Publish public GitHub repository (authentication works; publication pending review).
 - [ ] Record and publish public video under three minutes.
 - [ ] Publish Builder Center article, add final links/tags, register and submit.
