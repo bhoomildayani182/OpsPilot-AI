@@ -1,0 +1,86 @@
+{
+  "chapters": [
+    {
+      "chapter": "01-introduction",
+      "actual_frames": 65,
+      "captured_at_utc": "2026-10-22T15:27:07.666Z",
+      "video_seconds": 16.944,
+      "narration_seconds": 16.444
+    },
+    {
+      "chapter": "02-account-instance-window",
+      "actual_frames": 132,
+      "captured_at_utc": "2026-10-22T15:28:09.243Z",
+      "video_seconds": 23.019,
+      "narration_seconds": 14.439
+    },
+    {
+      "chapter": "03-fetch-live-data",
+      "actual_frames": 105,
+      "captured_at_utc": "2026-10-22T15:28:44.550Z",
+      "video_seconds": 18.062,
+      "narration_seconds": 16.056
+    },
+    {
+      "chapter": "04-investigation",
+      "actual_frames": 76,
+      "captured_at_utc": "2026-10-22T15:29:43.184Z",
+      "video_seconds": 13.0,
+      "narration_seconds": 10.281
+    },
+    {
+      "chapter": "04b-reporting-status",
+      "actual_frames": 72,
+      "captured_at_utc": "2026-10-22T15:59:05.148Z",
+      "video_seconds": 12.125,
+      "narration_seconds": 11.443
+    },
+    {
+      "chapter": "05-decision-evidence",
+      "actual_frames": 130,
+      "captured_at_utc": "2026-10-22T15:31:50.051Z",
+      "video_seconds": 25.547,
+      "narration_seconds": 16.073
+    },
+    {
+      "chapter": "06-integration-proof",
+      "actual_frames": 119,
+      "captured_at_utc": "2026-10-22T15:32:22.387Z",
+      "video_seconds": 20.104,
+      "narration_seconds": 17.505
+    },
+    {
+      "chapter": "07-deployment-routing",
+      "actual_frames": 51,
+      "captured_at_utc": "2026-10-22T15:59:44.865Z",
+      "video_seconds": 8.0,
+      "narration_seconds": 5.462
+    },
+    {
+      "chapter": "07b-deployment-result",
+      "actual_frames": 101,
+      "captured_at_utc": "2026-10-22T16:01:38.654Z",
+      "video_seconds": 17.156,
+      "narration_seconds": 13.775
+    },
+    {
+      "chapter": "08-cleanup",
+      "actual_frames": 74,
+      "captured_at_utc": "2026-10-22T16:02:32.878Z",
+      "video_seconds": 15.546,
+      "narration_seconds": 10.934
+    }
+  ],
+  "rendered_duration_seconds": 169.562333,
+  "narration": "Local synthesized English voice: Samantha",
+  "capture": "Actual dashboard browser frames sampled continuously; edited chapters, no mock UI.",
+  "sha256": "8d8a699f57a7772788c80c4e0ba0cc630aabb37cc8f69bc4fe7027aecc3c0eac",
+  "bytes": 8667756,
+  "full_ai_reporting_success_in_this_recording": false,
+  "reporting_blocker": "AWS ThrottlingException: Too many tokens per day",
+  "aws_profile_used_for_new_work": "bhoomil",
+  "cleanup_record": "artifacts/ec2-demo-resource.json",
+  "decode_check": "Full ffmpeg video/audio decode completed with exit code 0",
+  "audio_check": "AAC mono 48 kHz, non-silent narration, peak -1.3 dB",
+  "visual_check": "Eight representative frames inspected; captions outside captured UI"
+}

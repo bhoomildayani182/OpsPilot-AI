@@ -1,0 +1,17 @@
+{
+  "profile": "bhoomil",
+  "region": "us-west-2",
+  "account_suffix": "4677",
+  "run_id": "ad292235-a1f3-4621-b3b3-3552e924f842",
+  "security_group_id": "sg-08a0cdc1d5fc37f03",
+  "instance_id": "i-0cbeba2a7d1c17f9a",
+  "created_at_utc": "2026-10-22T11:56:53.443427+00:00",
+  "instance_type": "t3.micro",
+  "public_ip_requested": false,
+  "auto_shutdown_after_minutes": 15,
+  "cleanup_status": "complete",
+  "purpose": "Controlled test CPU workload; not a real incident",
+  "launch_request_id": "7e14ffed-84b4-4982-8e21-89c7c5b57fb5",
+  "remaining_volume_ids": [],
+  "cleanup_checked_at_utc": "2026-10-22T15:05:23.986136+00:00"
+}

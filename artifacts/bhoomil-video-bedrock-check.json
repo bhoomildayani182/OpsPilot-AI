@@ -1,0 +1,15 @@
+[
+  {
+    "region": "us-east-1",
+    "model": "amazon.nova-lite-v1:0",
+    "success": false,
+    "error_code": "ThrottlingException",
+    "daily_quota_exhausted": true
+  },
+  {
+    "region": "us-west-2",
+    "model": "amazon.nova-lite-v1:0",
+    "success": true,
+    "request_id": "c925ec0a-ff8a-4dd3-9c7c-69dc8c07495f"
+  }
+]

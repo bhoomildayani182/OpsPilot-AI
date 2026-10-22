@@ -1,0 +1,33 @@
+{
+  "profile": "bhoomil",
+  "region": "us-east-1",
+  "account_suffix": "4677",
+  "run_id": "f5d9b89e-d748-4ed1-b33d-b006314bface",
+  "security_group_id": "sg-092877891cd173605",
+  "instance_id": "i-0ea40e9455bfbb6f9",
+  "created_at_utc": "2026-10-22T11:42:49.233012+00:00",
+  "instance_type": "t3.micro",
+  "public_ip_requested": false,
+  "auto_shutdown_after_minutes": 15,
+  "cleanup_status": "complete",
+  "purpose": "Controlled test CPU workload; not a real incident",
+  "launch_request_id": "347c47c0-230e-42ce-99a4-6c3f69ec5e04",
+  "verified_configuration": {
+    "state": "running",
+    "public_ip_present": false,
+    "inbound_rule_count": 0,
+    "root_delete_on_termination": true,
+    "iam_profile_present": false
+  },
+  "volume_ids": [
+    "vol-05283efe16644cbab"
+  ],
+  "remaining_volume_ids": [],
+  "cleanup_checked_at_utc": "2026-10-22T11:47:45.970204+00:00",
+  "cleanup_verification": {
+    "instance_state": "terminated",
+    "checked_at_utc": "2026-10-22T11:48:14.962745+00:00",
+    "security_group_deleted": true,
+    "root_volumes_deleted": true
+  }
+}

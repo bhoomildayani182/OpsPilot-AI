@@ -1,0 +1,139 @@
+1
+00:00:00,000 --> 00:00:04,836
+OpsPilot AI is a read-only incident investigator. Strands Decider two
+
+2
+00:00:04,836 --> 00:00:09,673
+B chooses diagnostic checks. Amazon Bedrock can explain their evidence.
+
+3
+00:00:09,673 --> 00:00:14,509
+This recording shows real cloud data, real tool selection, and
+
+4
+00:00:14,509 --> 00:00:16,444
+an account quota limitation.
+
+5
+00:00:16,944 --> 00:00:20,646
+This demonstration uses only my bhoomil AWS account. I connect
+
+6
+00:00:20,646 --> 00:00:24,348
+to the account, select the temporary E C two instance,
+
+7
+00:00:24,348 --> 00:00:28,050
+and choose the time window in U T C. The
+
+8
+00:00:28,050 --> 00:00:31,382
+server is isolated and will be deleted after recording.
+
+9
+00:00:39,963 --> 00:00:44,685
+Fetch real CPU data reads CloudWatch measurements for this instance
+
+10
+00:00:44,685 --> 00:00:49,407
+and time window. The application identifies the data as real
+
+11
+00:00:49,407 --> 00:00:54,130
+AWS measurements. These are CPU averages, not application logs, memory
+
+12
+00:00:54,130 --> 00:00:56,019
+readings, or release history.
+
+13
+00:00:58,025 --> 00:01:02,309
+I describe the controlled test and start the investigation. Decider
+
+14
+00:01:02,309 --> 00:01:06,593
+runs locally and chooses the metrics diagnostic. Only selected evidence
+
+15
+00:01:06,593 --> 00:01:08,306
+is sent for reporting.
+
+16
+00:01:11,025 --> 00:01:15,602
+AWS rejects this reporting request because the daily token quota
+
+17
+00:01:15,602 --> 00:01:20,179
+is exhausted. No AI report is presented as successful. The
+
+18
+00:01:20,179 --> 00:01:22,468
+real diagnostic evidence remains available.
+
+19
+00:01:23,150 --> 00:01:27,271
+Here is Decider’s actual choice: the metrics analyzer. The application
+
+20
+00:01:27,271 --> 00:01:31,392
+shows which checks ran and the selection rules. Tool choice
+
+21
+00:01:31,392 --> 00:01:35,514
+certainty describes routing, not root cause confidence. We can inspect
+
+22
+00:01:35,514 --> 00:01:39,223
+the decision rather than guessing why a check ran.
+
+23
+00:01:48,697 --> 00:01:53,185
+The proof tab records the instance, collection window and CloudWatch
+
+24
+00:01:53,185 --> 00:01:57,674
+request identifier. It also records the real Decider model and
+
+25
+00:01:57,674 --> 00:02:02,162
+the failed Bedrock response. This makes the current limitation inspectable.
+
+26
+00:02:02,162 --> 00:02:06,202
+Request identifiers alone do not prove a successful report.
+
+27
+00:02:08,801 --> 00:02:13,002
+Next, I use a clearly labeled deployment example with AI
+
+28
+00:02:13,002 --> 00:02:14,263
+tool selection only.
+
+29
+00:02:16,801 --> 00:02:20,627
+The input is synthetic, but Decider makes a real new
+
+30
+00:02:20,627 --> 00:02:24,454
+selection. It chooses the deployment analyzer. The evidence shows a
+
+31
+00:02:24,454 --> 00:02:28,280
+failed release and rollback. Nearby events are clues to investigate,
+
+32
+00:02:28,280 --> 00:02:30,576
+not proof of a root cause.
+
+33
+00:02:33,957 --> 00:02:38,513
+The temporary instance, disk and security group were deleted and
+
+34
+00:02:38,513 --> 00:02:43,068
+checked. Evidence stays local. A successful-report recording still needs the
+
+35
+00:02:43,068 --> 00:02:44,891
+Bedrock daily quota resolved.

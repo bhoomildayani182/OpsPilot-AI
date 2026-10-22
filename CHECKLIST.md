@@ -45,3 +45,14 @@ disposable test instance was used; no production workload was inspected.
 - [x] Process real CPU evidence through Decider and Bedrock; preserve report and receipts.
 - [x] Diagnose missing structured output; three fresh CPU report tests pass after correction.
 - [x] Verify browser live-data flow and cleanup of disposable demo resources.
+
+## Screen-video request — bhoomil only
+
+- [x] Audit hardik: no project EC2, disks or security groups; invocation logging not configured.
+- [x] Switch all new reporting and demo provisioning to bhoomil/us-west-2; verify tiny Bedrock call.
+- [x] Create isolated temporary recording-demo EC2 in bhoomil.
+- [x] Record actual dashboard interactions: live AWS data, real Decider selection and the truthful AWS reporting quota error.
+- [x] Produce a narrated, captioned 1080p MP4: 169.56 seconds; full decode and visual/audio checks passed.
+- [x] Delete the recording-demo EC2, disk and security group; independently verify deletion.
+
+- [ ] Record successful new Bedrock report in bhoomil: still blocked by AWS daily token quota, including after user access recheck. Do not claim this review video demonstrates successful reporting.

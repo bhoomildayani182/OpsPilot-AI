@@ -15,8 +15,10 @@ RECORD = Path("artifacts/ec2-demo-resource.json")
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("operation", choices=["create", "cleanup"])
+    parser.add_argument("--region", default="us-west-2")
     args = parser.parse_args()
-    session = boto3.Session(profile_name="bhoomil", region_name="us-east-1")
+    region = args.region if args.operation == "create" else json.loads(RECORD.read_text())["region"]
+    session = boto3.Session(profile_name="bhoomil", region_name=region)
     config = Config(connect_timeout=5, read_timeout=20, retries={"total_max_attempts": 2})
     ec2 = session.client("ec2", config=config)
     suffix = session.client("sts", config=config).get_caller_identity()["Account"][-4:]
@@ -51,7 +53,7 @@ def main():
         )["GroupId"]
         record = {
             "profile": "bhoomil",
-            "region": "us-east-1",
+            "region": region,
             "account_suffix": suffix,
             "run_id": token,
             "security_group_id": sg,

@@ -1,0 +1,62 @@
+[
+  {
+    "capture": "01-introduction",
+    "title": "01 | What OpsPilot does",
+    "narration": "OpsPilot AI is a read-only incident investigator. Strands Decider two B chooses diagnostic checks. Amazon Bedrock can explain their evidence. This recording shows real cloud data, real tool selection, and an account quota limitation.",
+    "trim_seconds": null
+  },
+  {
+    "capture": "02-account-instance-window",
+    "title": "02 | Select account, server and time",
+    "narration": "This demonstration uses only my bhoomil AWS account. I connect to the account, select the temporary E C two instance, and choose the time window in U T C. The server is isolated and will be deleted after recording.",
+    "trim_seconds": null
+  },
+  {
+    "capture": "03-fetch-live-data",
+    "title": "03 | Fetch real CloudWatch CPU data",
+    "narration": "Fetch real CPU data reads CloudWatch measurements for this instance and time window. The application identifies the data as real AWS measurements. These are CPU averages, not application logs, memory readings, or release history.",
+    "trim_seconds": null
+  },
+  {
+    "capture": "04-investigation",
+    "title": "04 | Run the real investigation",
+    "narration": "I describe the controlled test and start the investigation. Decider runs locally and chooses the metrics diagnostic. Only selected evidence is sent for reporting.",
+    "trim_seconds": 13
+  },
+  {
+    "capture": "04b-reporting-status",
+    "title": "04 | Current AWS reporting limitation",
+    "narration": "AWS rejects this reporting request because the daily token quota is exhausted. No AI report is presented as successful. The real diagnostic evidence remains available.",
+    "trim_seconds": null
+  },
+  {
+    "capture": "05-decision-evidence",
+    "title": "05 | Inspect the tool-selection decision",
+    "narration": "Here is Decider\u2019s actual choice: the metrics analyzer. The application shows which checks ran and the selection rules. Tool choice certainty describes routing, not root cause confidence. We can inspect the decision rather than guessing why a check ran.",
+    "trim_seconds": null
+  },
+  {
+    "capture": "06-integration-proof",
+    "title": "06 | Inspect provenance and service responses",
+    "narration": "The proof tab records the instance, collection window and CloudWatch request identifier. It also records the real Decider model and the failed Bedrock response. This makes the current limitation inspectable. Request identifiers alone do not prove a successful report.",
+    "trim_seconds": null
+  },
+  {
+    "capture": "07-deployment-routing",
+    "title": "07 | A different incident selects another check",
+    "narration": "Next, I use a clearly labeled deployment example with AI tool selection only.",
+    "trim_seconds": 8
+  },
+  {
+    "capture": "07b-deployment-result",
+    "title": "07 | Real routing on a synthetic deployment example",
+    "narration": "The input is synthetic, but Decider makes a real new selection. It chooses the deployment analyzer. The evidence shows a failed release and rollback. Nearby events are clues to investigate, not proof of a root cause.",
+    "trim_seconds": null
+  },
+  {
+    "capture": "08-cleanup",
+    "title": "08 | Cleanup verified",
+    "narration": "The temporary instance, disk and security group were deleted and checked. Evidence stays local. A successful-report recording still needs the Bedrock daily quota resolved.",
+    "trim_seconds": null
+  }
+]

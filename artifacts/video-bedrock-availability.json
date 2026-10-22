@@ -1,0 +1,22 @@
+[
+  {
+    "region": "us-west-2",
+    "model": "amazon.nova-micro-v1:0",
+    "success": false,
+    "code": "ValidationException",
+    "daily_quota": false
+  },
+  {
+    "region": "us-west-2",
+    "model": "amazon.nova-pro-v1:0",
+    "success": false,
+    "code": "ValidationException",
+    "daily_quota": false
+  },
+  {
+    "region": "us-east-2",
+    "model": "amazon.nova-lite-v1:0",
+    "success": true,
+    "request_id": "91b01638-1e82-4839-ad38-b9e32f2d41ef"
+  }
+]

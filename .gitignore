@@ -16,3 +16,9 @@ vendor/
 *.log
 .DS_Store
 artifacts/private/
+
+# Reproducible video intermediates; retain final MP4, captions and provenance.
+artifacts/video/*/
+artifacts/video/qa-*.jpg
+artifacts/video/visual-review.jpg
+artifacts/video/chapters.ffconcat
