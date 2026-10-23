@@ -1,5 +1,5 @@
 {
-  "files_scanned": 99,
+  "files_scanned": 152,
   "findings": [],
   "scope": "Focused AWS/GitHub/private-key patterns in Git-visible files; not an exhaustive secret detector."
 }

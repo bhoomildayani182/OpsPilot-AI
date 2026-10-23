@@ -1,0 +1,57 @@
+{
+  "chapters": [
+    {
+      "chapter": "01-introduction",
+      "actual_frames": 27,
+      "captured_at_utc": "2026-10-23T09:39:59.448Z",
+      "duration_seconds": 18.808
+    },
+    {
+      "chapter": "02-input-data",
+      "actual_frames": 35,
+      "captured_at_utc": "2026-10-23T09:42:32.987Z",
+      "duration_seconds": 19.648
+    },
+    {
+      "chapter": "03-investigation",
+      "actual_frames": 45,
+      "captured_at_utc": "2026-10-23T09:42:45.000Z",
+      "duration_seconds": 19.7
+    },
+    {
+      "chapter": "04-live-report",
+      "actual_frames": 44,
+      "captured_at_utc": "2026-10-23T09:43:32.185Z",
+      "duration_seconds": 22.912
+    },
+    {
+      "chapter": "05-evidence-and-selection",
+      "actual_frames": 49,
+      "captured_at_utc": "2026-10-23T09:43:44.831Z",
+      "duration_seconds": 15.433333
+    },
+    {
+      "chapter": "06-integration-proof",
+      "actual_frames": 39,
+      "captured_at_utc": "2026-10-23T09:43:58.951Z",
+      "duration_seconds": 18.433333
+    },
+    {
+      "chapter": "07-cpu-investigation",
+      "actual_frames": 52,
+      "captured_at_utc": "2026-10-23T09:49:38.858Z",
+      "duration_seconds": 21.4
+    },
+    {
+      "chapter": "08-boundaries",
+      "actual_frames": 38,
+      "captured_at_utc": "2026-10-23T09:49:55.306Z",
+      "duration_seconds": 21.8
+    }
+  ],
+  "duration_seconds": 158.155989,
+  "subtitles": false,
+  "overlays": false,
+  "capture": "Actual timestamped browser frames; edited for time; final frame held for narration as needed.",
+  "narration": "Male synthetic voice; provider and request receipts in narration-manifest.json"
+}

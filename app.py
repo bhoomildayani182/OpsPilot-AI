@@ -6,6 +6,7 @@ from datetime import UTC, datetime, timedelta
 from html import escape
 from pathlib import Path
 
+import altair as alt
 import boto3
 import streamlit as st
 from pydantic import ValidationError
@@ -16,6 +17,8 @@ from src.bedrock_analyzer import BedrockAnalyzer
 from src.config import Settings
 from src.data.sample_incidents import SAMPLES, get_sample
 from src.decider import DeciderClient, DeciderError
+from src.demo_report import SampleReportGenerator, is_sample_report
+from src.loading import cpu_overview, load_cloudwatch_snapshot
 from src.models import Incident
 from src.presentation import (
     METRIC_LABELS,
@@ -24,6 +27,7 @@ from src.presentation import (
     SCENARIO_HELP,
     TOOL_LABELS,
     TOOL_PURPOSES,
+    collection_label,
     evidence_labels,
     metric_sentence,
     source_label,
@@ -129,7 +133,7 @@ st.markdown(
 
 source_mode = st.radio(
     "Where should incident data come from?",
-    ["Examples or pasted data", "Live AWS EC2 metrics"],
+    ["Examples or pasted data", "Live AWS EC2 metrics", "Saved AWS snapshot"],
     horizontal=True,
     key="data_origin",
 )
@@ -167,69 +171,134 @@ if source_mode == "Live AWS EC2 metrics":
         st.success(f"Connected to AWS account ending {inventory['account_suffix']} · {aws_region}")
         instances = inventory["instances"]
         st.caption(
-            "Inventory is a snapshot from your last connection. Use Connect account to refresh it. Lists up to 200 non-terminated instances in this region. EC2 names do not identify installed applications."
+            "Inventory is a snapshot. Connect again to refresh it. Past instances can still have historical CloudWatch measurements after deletion."
         )
-        if instances:
-            instance_id = st.selectbox(
-                "EC2 instance to investigate",
-                [i["id"] for i in instances],
-                format_func=lambda value: next(
+        manual_id = "Enter a past instance ID"
+        ids = [i["id"] for i in instances]
+        instance_choice = st.selectbox(
+            "EC2 instance to investigate",
+            ids + [manual_id],
+            format_func=lambda value: (
+                value
+                if value == manual_id
+                else next(
                     f"{i['name']} · {value} · {i['state']}" for i in instances if i["id"] == value
-                ),
+                )
+            ),
+        )
+        if not instances:
+            st.info(
+                "No active EC2 instances were found. You can query a past instance below, or select Saved AWS snapshot to inspect the recorded demo. No new server is required."
             )
-            if "aws_window_end" not in st.session_state:
-                st.session_state["aws_window_end"] = datetime.now(UTC).replace(
-                    second=0, microsecond=0
-                )
-            default_end = st.session_state["aws_window_end"]
-            start_column, end_column = st.columns(2)
-            with start_column:
-                start_date = st.date_input(
-                    "Start date (UTC)", value=(default_end - timedelta(hours=1)).date()
-                )
-                start_time = st.time_input(
-                    "Start time (UTC)", value=(default_end - timedelta(hours=1)).time()
-                )
-            with end_column:
-                end_date = st.date_input("End date (UTC)", value=default_end.date())
-                end_time = st.time_input("End time (UTC)", value=default_end.time())
-            start = datetime.combine(start_date, start_time, tzinfo=UTC)
-            end = datetime.combine(end_date, end_time, tzinfo=UTC)
-            selection = [*connection_key, instance_id, start.isoformat(), end.isoformat()]
-            st.caption(
-                "Choose up to 24 hours. CloudWatch samples are 5-minute averages, not instantaneous CPU values. Memory, application logs and release history are not fetched."
+        if instance_choice == manual_id:
+            demo_path = Path(__file__).with_name("artifacts") / "video" / "live-investigation.json"
+            if demo_path.exists():
+                demo = json.loads(demo_path.read_text())
+                demo_receipt = demo.get("ingestion_metadata") or {}
+                if aws_profile == "bhoomil" and aws_region == demo_receipt.get("region"):
+                    if st.button("Use the recorded demo instance and time window"):
+                        demo_start = datetime.fromisoformat(
+                            demo_receipt["window_start_utc"]
+                        ).astimezone(UTC)
+                        demo_end = datetime.fromisoformat(
+                            demo_receipt["window_end_utc"]
+                        ).astimezone(UTC)
+                        st.session_state.update(
+                            {
+                                "past_instance_id": demo_receipt["instance_id"],
+                                "aws_start_date": demo_start.date(),
+                                "aws_start_time": demo_start.time(),
+                                "aws_end_date": demo_end.date(),
+                                "aws_end_time": demo_end.time(),
+                            }
+                        )
+            instance_id = st.text_input(
+                "Past EC2 instance ID", key="past_instance_id", placeholder="i-0123456789abcdef0"
             )
-            if st.button("Fetch real CPU data"):
-                st.session_state.pop("aws_snapshot", None)
-                try:
-                    with st.spinner("Reading CloudWatch CPU measurements…"):
-                        fetched_incident, provenance = AwsTelemetry(
-                            aws_profile, aws_region
-                        ).fetch_cpu(instance_id, start, end)
-                    st.session_state["aws_snapshot"] = {
-                        "selection": selection,
-                        "incident": fetched_incident,
-                        "provenance": provenance,
-                    }
-                except Exception as exc:
-                    st.error(safe_aws_error(exc))
-            snapshot = st.session_state.get("aws_snapshot")
-            if snapshot and snapshot["selection"] == selection:
-                live_incident = snapshot["incident"]
-                live_provenance = snapshot["provenance"]
-                st.success(
-                    f"Fetched {len(live_incident.metrics)} real CPU samples. Now describe the symptom and select Investigate incident."
-                )
-                with st.expander("CloudWatch collection receipt"):
-                    st.json(live_provenance)
         else:
-            st.warning(
-                "No eligible EC2 instances were returned in this account and region. No instance was created."
+            instance_id = instance_choice
+        if st.button("Set window to the last hour") or "aws_end_date" not in st.session_state:
+            now = datetime.now(UTC).replace(second=0, microsecond=0)
+            before = now - timedelta(hours=1)
+            st.session_state.update(
+                {
+                    "aws_start_date": before.date(),
+                    "aws_start_time": before.time(),
+                    "aws_end_date": now.date(),
+                    "aws_end_time": now.time(),
+                }
             )
+        start_column, end_column = st.columns(2)
+        with start_column:
+            start_date = st.date_input("Start date (UTC)", key="aws_start_date")
+            start_time = st.time_input("Start time (UTC)", key="aws_start_time")
+        with end_column:
+            end_date = st.date_input("End date (UTC)", key="aws_end_date")
+            end_time = st.time_input("End time (UTC)", key="aws_end_time")
+        start = datetime.combine(start_date, start_time, tzinfo=UTC)
+        end = datetime.combine(end_date, end_time, tzinfo=UTC)
+        selection = [*connection_key, instance_id, start.isoformat(), end.isoformat()]
+        st.caption(
+            "Choose up to 24 hours within the last 14 days. Samples are five-minute CPU averages. Recent samples can arrive late. Memory, application logs and release events are not fetched."
+        )
+        if st.button("Fetch real CPU data"):
+            try:
+                with st.status(
+                    "Reading CloudWatch CPU measurements…", expanded=True
+                ) as fetch_status:
+                    st.write(f"Instance {instance_id} · {aws_region}")
+                    fetched_incident, provenance = AwsTelemetry(aws_profile, aws_region).fetch_cpu(
+                        instance_id, start, end
+                    )
+                    fetch_status.update(
+                        label=f"Loaded {len(fetched_incident.metrics)} real CPU samples",
+                        state="complete",
+                        expanded=False,
+                    )
+                st.session_state["aws_snapshot"] = {
+                    "selection": selection,
+                    "incident": fetched_incident,
+                    "provenance": provenance,
+                }
+            except Exception as exc:
+                st.error(safe_aws_error(exc))
+                st.caption(
+                    "A previous successful fetch is retained only if it matches the current instance and time window."
+                )
+        snapshot = st.session_state.get("aws_snapshot")
+        if snapshot and snapshot["selection"] == selection:
+            live_incident = snapshot["incident"]
+            live_provenance = snapshot["provenance"]
+            st.success(
+                f"Loaded {len(live_incident.metrics)} real CPU samples. Measurements and a chart are shown below, before AI analysis."
+            )
+            with st.expander("CloudWatch collection receipt"):
+                st.json(live_provenance)
     if live_incident is None:
         st.info(
             "Connect an account, select an instance and time window, then fetch data before investigating."
         )
+
+if source_mode == "Saved AWS snapshot":
+    snapshot_files = {
+        "Recorded AWS video measurements": Path(__file__).with_name("artifacts")
+        / "video"
+        / "live-investigation.json",
+        "Latest verified historical CloudWatch fetch": Path(__file__).with_name("artifacts")
+        / "cloudwatch-reload-check.json",
+    }
+    available = {name: path for name, path in snapshot_files.items() if path.exists()}
+    if available:
+        saved_name = st.selectbox("Recorded AWS data to inspect", list(available))
+        try:
+            live_incident, live_provenance = load_cloudwatch_snapshot(available[saved_name])
+            st.info(
+                f"Recorded CloudWatch measurements for {live_provenance['instance_id']}, originally fetched {live_provenance['fetched_at_utc']}. This loads saved evidence without an AWS request. The demo server has been deleted."
+            )
+        except (ValueError, KeyError, OSError) as exc:
+            st.error(f"Saved AWS data could not be loaded: {exc}")
+    else:
+        st.warning("No recorded AWS snapshot is available in this checkout.")
 
 with st.expander(
     "What happens in my AWS account? What needs cleanup?",
@@ -262,8 +331,8 @@ with st.expander(
 left, right = st.columns([1.45, 1], gap="large")
 with left:
     st.markdown("### 1. Describe the incident")
-    if source_mode == "Live AWS EC2 metrics":
-        scenario = "Live AWS EC2 metrics"
+    if source_mode in {"Live AWS EC2 metrics", "Saved AWS snapshot"}:
+        scenario = source_mode
         base = live_incident or Incident(
             title="Describe the symptom on the selected EC2 instance",
             started_at=datetime.now(UTC),
@@ -344,7 +413,7 @@ with right:
         st.markdown("### 2. Check the data")
         if input_incident:
             st.markdown(
-                f'<span class="op-badge neutral">{escape("Live AWS data · fetched from CloudWatch" if live_provenance else "No AWS data fetched yet" if source_mode == "Live AWS EC2 metrics" else source_label(input_incident.data_source))}</span>',
+                f'<span class="op-badge neutral">{escape(collection_label(input_incident.data_source, live_provenance) if live_provenance else "No AWS data fetched yet" if source_mode in {"Live AWS EC2 metrics", "Saved AWS snapshot"} else source_label(input_incident.data_source))}</span>',
                 unsafe_allow_html=True,
             )
             inventory = [
@@ -362,7 +431,9 @@ with right:
                 unsafe_allow_html=True,
             )
             st.caption(
-                "Real CPU measurements fetched for your selected instance and time window."
+                "Recorded AWS measurements; original timestamps retained."
+                if source_mode == "Saved AWS snapshot"
+                else "Real CPU measurements fetched for your selected instance and time window."
                 if live_provenance
                 else "No measurements fetched for the current AWS selection."
                 if source_mode == "Live AWS EC2 metrics"
@@ -420,6 +491,38 @@ with right:
                 except DeciderError as exc:
                     st.error(str(exc))
 
+if input_incident and input_incident.metrics:
+    overview = cpu_overview(input_incident)
+    if overview:
+        st.markdown("### Loaded CPU data — available before AI analysis")
+        value_columns = st.columns(3)
+        value_columns[0].metric("CPU samples loaded", overview["samples"])
+        value_columns[1].metric("Average CPU", f"{overview['average']:.2f}%")
+        value_columns[2].metric("Peak CPU", f"{overview['peak']:.2f}%")
+        st.caption(
+            f"Measured {overview['first_at'].isoformat()} to {overview['last_at'].isoformat()}. {overview['above_demo_limit']} samples exceeded the 90% example limit. This does not establish a root cause or service health."
+        )
+        if live_provenance:
+            st.caption(
+                f"Requested window: {live_provenance.get('window_start_utc', 'unknown')} to {live_provenance.get('window_end_utc', 'unknown')}. Collection time: {live_provenance.get('fetched_at_utc', 'unknown')}."
+            )
+            if live_provenance.get("expected_intervals", overview["samples"]) > overview["samples"]:
+                st.info(
+                    f"CloudWatch returned {overview['samples']} samples for up to {live_provenance['expected_intervals']} five-minute intervals. An instance that ran for only part of the window has fewer samples. Missing intervals are not filled with invented zero values."
+                )
+        chart = (
+            alt.Chart(alt.Data(values=overview["rows"]))
+            .mark_line(point=True)
+            .encode(
+                x=alt.X("Time (UTC):O", axis=alt.Axis(labelAngle=-15)),
+                y=alt.Y("CPU (%):Q", scale=alt.Scale(domain=[0, 100])),
+                tooltip=["Time (UTC):O", "CPU (%):Q"],
+            )
+            .properties(height=240)
+        )
+        st.altair_chart(chart, width="stretch")
+        st.dataframe(overview["rows"], hide_index=True, width="stretch")
+
 run_clicked = st.button("Investigate incident", type="primary", width="content", key="investigate")
 st.caption(MODE_HELP[mode])
 
@@ -436,7 +539,7 @@ if previous != fingerprint:
 if run_clicked:
     st.session_state.pop("investigation", None)
     try:
-        if source_mode == "Live AWS EC2 metrics" and live_incident is None:
+        if source_mode in {"Live AWS EC2 metrics", "Saved AWS snapshot"} and live_incident is None:
             raise ValueError("Fetch real CloudWatch measurements for the current selection first.")
         if input_incident is None:
             raise ValueError(input_error)
@@ -444,12 +547,28 @@ if run_clicked:
             raise ValueError(
                 "Label your custom data as user supplied or live CloudWatch, rather than synthetic sample."
             )
-        with st.spinner("Checking the supplied data and preparing your findings…"):
+        with st.status("Investigation in progress", expanded=True) as investigation_status:
+            st.write("Input data validated. The loaded measurements remain visible above.")
             if mode == "Local evidence preview":
                 run = preview(input_incident, manual)
             else:
-                reporter = BedrockAnalyzer(settings) if mode == "Decider 2B + Bedrock" else None
-                run = investigate(input_incident, DeciderClient(settings), reporter)
+                reporter = (
+                    BedrockAnalyzer(settings)
+                    if mode == "Decider 2B + Bedrock"
+                    else SampleReportGenerator()
+                    if mode == "Decider 2B + sample report"
+                    else None
+                )
+                run = investigate(
+                    input_incident, DeciderClient(settings), reporter, on_progress=st.write
+                )
+            investigation_status.update(
+                label="Checks complete; AI report unavailable"
+                if run.report_error
+                else "Investigation complete — findings below",
+                state="error" if run.report_error else "complete",
+                expanded=False,
+            )
         run.ingestion_metadata = live_provenance
         st.session_state["investigation"] = run
     except (ValueError, DeciderError) as exc:
@@ -457,14 +576,16 @@ if run_clicked:
 
 run = st.session_state.get("investigation")
 if run:
+    st.markdown("[View investigation output ↓](#3-understand-the-findings)")
     st.divider()
     st.markdown("## 3. Understand the findings")
     st.write(run.incident["title"])
-    st.caption(
-        "Live AWS data · fetched from CloudWatch"
-        if run.ingestion_metadata
-        else source_label(run.incident["data_source"])
-    )
+    st.caption(collection_label(run.incident["data_source"], run.ingestion_metadata))
+    sample_report = is_sample_report(run.report_metadata)
+    if sample_report:
+        st.warning(
+            "DEMO / SAMPLE REPORT · Real Decider 2B tool selection and diagnostic evidence. The report is formatted locally; Amazon Bedrock was not called. This is not a successful live AI report."
+        )
     if run.decision is None:
         st.warning(
             "Evidence preview · You selected the checks. No AI tool decision or Bedrock report was generated."
@@ -481,7 +602,7 @@ if run:
     summaries = [
         (
             "Suggested urgency",
-            run.report.severity.title() if run.report else "Not assessed",
+            run.report.severity.title() if run.report and not sample_report else "Not assessed",
             "AI estimate of seriousness; actual service impact may be unknown.",
             run.report.severity if run.report else "",
         ),
@@ -499,7 +620,7 @@ if run:
         ),
         (
             "Cause confidence",
-            run.report.confidence.title() if run.report else "Not assessed",
+            run.report.confidence.title() if run.report and not sample_report else "Not assessed",
             "How strongly the evidence supports a possible explanation.",
             "",
         ),
@@ -521,7 +642,9 @@ if run:
         )
     )
     st.caption(
-        "This run uses real CPU averages fetched from CloudWatch for the selected instance and time window. No application logs or memory measurements were collected."
+        "This run analyzes a recorded CloudWatch snapshot with its original timestamps. No fresh AWS collection occurred for this saved view."
+        if run.ingestion_metadata and run.ingestion_metadata.get("read_mode") == "recorded_snapshot"
+        else "This run uses real CPU averages fetched from CloudWatch for the selected instance and time window. No application logs or memory measurements were collected."
         if run.ingestion_metadata
         else "Example incidents use invented measurements, logs and releases. They are not collected from EC2. Full AI mode uses the real local Decider model and calls Amazon Bedrock with the supplied evidence."
     )
@@ -536,10 +659,29 @@ if run:
     )
     labels = evidence_labels(run.results)
     with tabs[0]:
+        if run.report:
+            if sample_report:
+                st.info(
+                    "Sample incident report ready. Evidence references checked; no live Bedrock inference."
+                )
+            else:
+                st.success(
+                    "AI report generated and validated. Evidence and recommendations are below."
+                )
+        elif run.report_error:
+            st.warning(
+                "Diagnostic output is available below. The AI explanation is unavailable; no AI report was accepted."
+            )
+        else:
+            st.info(
+                "Diagnostic output is available. AI reporting was not requested or more information is needed."
+            )
         if run.report_error:
             st.error(run.report_error)
         report = run.report
         if report:
+            if sample_report:
+                st.markdown("### Demo / sample incident report")
             st.markdown("### What happened?")
             st.write(report.incident_summary)
             st.markdown("**Why this urgency was suggested**")
@@ -651,7 +793,7 @@ if run:
     with tabs[4]:
         st.markdown("### What is real in this run?")
         st.write(
-            f"**Input source:** {'Live AWS data · fetched from CloudWatch' if run.ingestion_metadata else source_label(run.incident['data_source'])}"
+            f"**Input source:** {collection_label(run.incident['data_source'], run.ingestion_metadata)}"
         )
         if run.ingestion_metadata:
             st.json(run.ingestion_metadata)
@@ -668,6 +810,10 @@ if run:
         if metadata.get("provider") == "Amazon Bedrock" and successful and run.report:
             st.success(
                 "Amazon Bedrock responded and the report passed the application's evidence checks."
+            )
+        elif sample_report:
+            st.info(
+                "Local sample report: no Bedrock request or AWS reporting receipt. Real Decider inference and selected diagnostic evidence are recorded separately."
             )
         elif metadata:
             st.warning(

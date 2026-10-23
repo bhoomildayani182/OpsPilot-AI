@@ -1,0 +1,31 @@
+{
+  "checked_at_utc": "2026-10-23T08:44:53.614051+00:00",
+  "profile": "bhoomil",
+  "region": "us-west-2",
+  "inventory": {
+    "account_suffix": "4677",
+    "inventory_fetched_at_utc": "2026-10-23T08:44:55.750117+00:00",
+    "region": "us-west-2",
+    "instances": [],
+    "limit": 200
+  },
+  "report_error": "Bedrock daily token quota is exhausted for this model/account. Use an authorized model with available quota or wait for reset. Diagnostic evidence remains available.",
+  "report_metadata": {
+    "provider": "Amazon Bedrock",
+    "model_id": "amazon.nova-lite-v1:0",
+    "region": "us-west-2",
+    "started_at_utc": "2026-10-23T08:44:55.751902+00:00",
+    "sdk": "strands-agents",
+    "structured_output_validated": false,
+    "aws_responses": [
+      {
+        "received_at_utc": "2026-10-23T08:44:56.993068+00:00",
+        "operation": "ConverseStream",
+        "request_id": "b1cfaa38-cbde-4090-8355-7b526bc9cb96",
+        "http_status": 429,
+        "error_code": "ThrottlingException"
+      }
+    ],
+    "failure_type": "ModelThrottledException"
+  }
+}

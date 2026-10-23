@@ -5,17 +5,35 @@ Amazon Bedrock explains their observed evidence through the Strands Agents SDK.*
 
 Pattern: **#strands-decider-2b #tool-selection** · License: Apache-2.0
 
-![Real Decider and Bedrock report using synthetic data](artifacts/dashboard-report.jpg)
+![Verified labelled sample report with real Decider selection](artifacts/sample-report-dashboard.png)
 
 The dashboard includes four synthetic incidents: CPU saturation, HTTP 500s, failed
 deployment, and database timeouts. It shows the typed model decision, probabilities,
 selected tools, literal evidence, causal hypotheses and missing information.
 
-## Verified locally
+## Current verified status — October 23, 2026
 
-71 tests passed (1 optional runtime check skipped); see current coverage in the saved test artifacts. Genuine
-Decider inference passed all four fixtures; Decider + Strands + Bedrock reporting
-passed CPU saturation and failed deployment. See [execution evidence](docs/verification.md).
+**[Watch the final live Bedrock demo — 2:38, male narration, no subtitles](artifacts/video-hardik-final/OpsPilot-AI-Demo-Male-No-Subtitles.mp4).** [Local review player](artifacts/video-hardik-final/review.html). This recording shows accepted live reports for both HTTP errors and CPU measurements.
+
+**Latest live verification:** with the user’s temporary authorization, **hardik / us-east-1** successfully generated fresh CPU and HTTP-error reports through genuine Decider 2B, Strands Agents SDK and `amazon.nova-lite-v1:0`. The dashboard also accepted a new HTTP-error report with L1/L2/D1 citations and AWS HTTP 200 receipts. After two later Nova Lite CPU format failures, a separate Nova Pro CPU check passed; [its exact report and receipts](artifacts/video-hardik-final/nova-pro-check.json) are preserved. Inputs are explicitly synthetic; this is live AI generation, not live EC2 telemetry. Proof is in [the live verification folder](artifacts/video-hardik-final/verified-live-reports.json). The saved default configuration remains bhoomil.
+
+**84 tests passed; 1 optional runtime check skipped.** The real Decider 2B model
+selected tools and produced labelled local sample reports for all four incidents.
+The Streamlit workflow was also exercised in a real browser. See
+[verification](docs/verification.md) and [actual sample runs](artifacts/sample-workflow-verified.json).
+
+Live Bedrock reporting in **bhoomil / us-west-2** is currently blocked. The actual
+Strands SDK call to `amazon.nova-lite-v1:0` on `bedrock-runtime` returns HTTP 429,
+`ThrottlingException`: “Too many tokens per day, please wait before trying again.”
+The model's daily allowance is 0; the separate cross-model daily allowance is
+150 million. [Diagnosis and precise request steps](docs/bedrock-diagnosis.md).
+No quota increase has been submitted or assumed approved.
+
+Choose **Demo report · real Decider 2B** for a complete, clearly labelled report
+without a Bedrock call. It uses real tool selection and current diagnostic evidence,
+then a local template; it is not a successful live AI response. **Full AI
+investigation** continues to use the genuine Strands Agents SDK / Bedrock provider
+and preserves evidence on failure. There is no automatic report substitution.
 
 ## Run locally
 
@@ -26,11 +44,11 @@ repository root (the folder containing this README):
 python3.13 -m venv .venv
 source .venv/bin/activate
 python -m pip install -r requirements-dev.txt
-cp .env.example .env
-streamlit run app.py --server.address 127.0.0.1 --server.port 8501
+cp -n .env.example .env
+OPSPILOT_AWS_PROFILE=bhoomil AWS_REGION=us-west-2 streamlit run app.py --server.address 127.0.0.1 --server.port 8501
 ```
 
-Open http://127.0.0.1:8501. **Explore sample data · no AI** works without AWS or model
+Open http://127.0.0.1:8501. **View diagnostic findings · no AI** works without AWS or model
 weights. You manually choose tools; this mode does not claim an AI decision or
 Bedrock-generated report. Select an incident and press **Investigate incident**.
 
@@ -62,8 +80,8 @@ Use an AWS profile you control with access to a Bedrock text model. Do not paste
 access keys into the app or repository. Set these non-secret options in `.env`:
 
 ```dotenv
-OPSPILOT_AWS_PROFILE=your-profile
-AWS_REGION=us-east-1
+OPSPILOT_AWS_PROFILE=bhoomil
+AWS_REGION=us-west-2
 BEDROCK_MODEL_ID=amazon.nova-lite-v1:0
 ```
 
@@ -175,3 +193,38 @@ uses that snapshot with Decider and Bedrock. No memory, application logs or rele
 events are collected in live mode. The dashboard does not provision infrastructure.
 See [AWS usage and cleanup](docs/aws-usage-and-cleanup.md), including the separately
 authorized disposable EC2 test and its recorded cleanup status.
+
+CPU counts, average, peak, chart and exact UTC rows appear immediately after
+collection, before AI analysis. With no active instance, enter a past instance ID
+and a window when it ran (within 14 days), or choose **Saved AWS snapshot** to
+inspect the recorded demo without a new AWS request. Saved snapshots retain their
+original collection time. The investigation shows its stages and preserves
+diagnostic output if Bedrock reporting fails. A Bedrock quota error still requires
+the AWS account allowance to be restored; it is not a successful AI report.
+
+## Complete demo with no live reporting quota
+
+1. Start the local Decider server using the command above, and start Streamlit.
+2. Choose **Demo report · real Decider 2B** and **Examples or pasted data**.
+3. Select **HTTP 500 errors**, inspect its synthetic metrics/logs/release event,
+   and press **Investigate incident**. Use **View investigation output**.
+4. Review the labelled sample report, citations and next steps. Inspect
+   **Evidence explained**, **Why these checks?**, and **Integration proof**.
+5. Repeat with **CPU saturation** to see a different genuine tool selection and
+   the exact CPU measurements. No AWS request is made in this combination.
+
+Reproduce all four real model decisions and sample reports:
+
+```bash
+OPSPILOT_AWS_PROFILE=bhoomil AWS_REGION=us-west-2 .venv/bin/python -m scripts.run_demo --mode sample --output artifacts/sample-workflow-verified.json
+```
+
+Explicit live-report verification (makes paid inference calls when allowed):
+
+```bash
+OPSPILOT_AWS_PROFILE=bhoomil AWS_REGION=us-west-2 .venv/bin/python -m scripts.run_demo --mode bedrock --scenario 'CPU saturation' --output artifacts/current-bedrock-verification.json
+```
+
+The [architecture](docs/architecture.md) explains the genuine SDK path and the
+separate sample formatter. [Submission checklist](docs/submission-checklist.md)
+tracks the public repository, review recording and still-unpublished submission links.

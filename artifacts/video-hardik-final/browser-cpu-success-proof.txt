@@ -1,0 +1,260 @@
+Browser tab: 15, Title: "OpsPilot AI · Incident investigation", URL: "http://127.0.0.1:8502/#3-understand-the-findings".
+1 AXWebArea OpsPilot AI · Incident investigation, URL: 127.0.0.1:8502/#3-understand-the-findings
+	2 container
+		3 container
+			4 link Description: Skip to main content, Value: 127.0.0.1:8502/#stMain
+			5 container Description: Sidebar, ID: stSidebar
+				6 container
+					8 heading 🧭 OpsPilot AI, Value: 2
+						9 text 🧭 OpsPilot AI
+					10 text Your incident investigation workspace
+					11 Description: Choose how to investigate, ID: react-aria3641293819-:r2:
+						12 container
+							13 radio button (settable, integer) Description: View diagnostic findings · no AI, Value: 0
+							14 text View diagnostic findings · no AI
+						15 container
+							16 radio button (settable, integer) Description: Full AI investigation, Value: 1
+							17 text Full AI investigation
+						18 container
+							19 radio button (settable, integer) Description: AI tool selection only, Value: 0
+							20 text AI tool selection only
+						21 container
+							22 radio button (settable, integer) Description: Demo report · real Decider 2B, Value: 0
+							23 text Demo report · real Decider 2B
+					24 text Decider 2B chooses the checks. Amazon Bedrock writes a report with possible causes and next steps. Uses AWS model access.
+					25 text Start here
+					26 content list
+						27 container
+							28 AXListMarker 1. 
+							29 text Choose an example or describe your incident.
+						30 container
+							31 AXListMarker 2. 
+							32 text Check the supplied data.
+						33 container
+							34 AXListMarker 3. 
+							35 text Run the investigation and review the findings.
+					36 button (collapsed) What do these terms mean?, Secondary Actions: Expand
+						37 text What do these terms mean?
+					38 text Read-only: OpsPilot analyzes data. It cannot restart servers or change your infrastructure.
+			39 container stMain
+				40 text OPSPILOT AI / INCIDENT WORKSPACE
+				41 heading Investigate an incident, Value: 1, ID: investigate-an-incident
+					42 text Investigate an incident
+					43 link Description: Link to heading, Value: 127.0.0.1:8502/#investigate-an-incident
+				44 text Understand what the data shows, what might be causing the problem, and what to check next.
+				45 container
+					46 Description: Where should incident data come from?, ID: react-aria3641293819-:rc:
+						47 container
+							48 radio button (settable, integer) Description: Examples or pasted data, Value: 1
+							49 text Examples or pasted data
+						50 container
+							51 radio button (settable, integer) Description: Live AWS EC2 metrics, Value: 0
+							52 text Live AWS EC2 metrics
+						53 container
+							54 radio button (settable, integer) Description: Saved AWS snapshot, Value: 0
+							55 text Saved AWS snapshot
+				56 button (collapsed) What happens in my AWS account? What needs cleanup?, Secondary Actions: Expand
+					57 text What happens in my AWS account? What needs cleanup?
+				58 heading 1. Describe the incident, Value: 3, ID: 1-describe-the-incident
+					59 text 1. Describe the incident
+					60 link Description: Link to heading, Value: 127.0.0.1:8502/#1-describe-the-incident
+				61 container
+					62 combo box (collapsed, settable) Description: Choose an example or use your own incident, Value: CPU saturation, ID: react-aria3641293819-:rs:, Secondary Actions: Expand
+					63 pop up button (collapsed) Description: Open, ID: react-aria3641293819-:ro:, Secondary Actions: Expand
+				64 text The server's processor is busy. Check how many CPU measurements exceed the demo limit.
+				65 container
+					66 button Help for What is going wrong?
+					67 text entry area (settable) Description: What is going wrong?, Value: EC2 CPU utilization is above 90%; investigate resource saturation., ID: :r15:
+				68 button (collapsed) Edit input data · advanced, Secondary Actions: Expand
+					69 text Edit input data · advanced
+				70 heading 2. Check the data, Value: 3, ID: 2-check-the-data
+					71 text 2. Check the data
+					72 link Description: Link to heading, Value: 127.0.0.1:8502/#2-check-the-data
+				73 text Sample data · not live AWS data
+				74 container
+					75 text 8 measurements 1 log message 0 release events
+				76 text Example or pasted records. Select Live AWS EC2 metrics above to fetch real CPU measurements.
+				77 button (collapsed) View the supplied data, Secondary Actions: Expand
+					78 text View the supplied data
+				79 button (collapsed) How to read the results, Secondary Actions: Expand
+					80 text How to read the results
+				81 button (collapsed) AI connection details, Secondary Actions: Expand
+					82 text AI connection details
+				83 heading Loaded CPU data — available before AI analysis, Value: 3, ID: loaded-cpu-data-available-before-ai-analysis
+					84 text Loaded CPU data — available before AI analysis
+					85 link Description: Link to heading, Value: 127.0.0.1:8502/#loaded-cpu-data-available-before-ai-analysis
+				86 container
+					87 text CPU samples loaded
+					88 text 4
+				89 container
+					90 text Average CPU
+					91 text 93.75%
+				92 container
+					93 text Peak CPU
+					94 text 97.00%
+				95 container
+					96 text Measured 2026-10-22T09:00 :00 +00 :00  to 2026-10-22T09:06 :00 +00 :00 . 3 samples exceeded the 90% example limit. This does not establish a root cause or service health.
+				97 container
+					98 button Show data
+					99 button Download as PNG
+					100 button Copy Vega-Lite spec
+					101 button Fullscreen
+					102 container Vega visualization
+						103 image
+							104 container X-axis titled 'Time (UTC)' for a discrete scale with 4 values: 2026-10-22 09:00:00 UTC, 2026-10-22 09:02:00 UTC, 2026-10-22 09:04:00 UTC, 2026-10-22 09:06:00 UTC Y-axis titled 'CPU (%)' for a linear scale with values from 0 to 100 Time (UTC): 2026-10-22 09:00:00 UTC; CPU (%): 88Time (UTC): 2026-10-22 09:00:00 UTC; CPU (%): 88 Time (UTC): 2026-10-22 09:02:00 UTC; CPU (%): 94 Time (UTC): 2026-10-22 09:04:00 UTC; CPU (%): 97 Time (UTC): 2026-10-22 09:06:00 UTC; CPU (%): 96
+								105 axis X-axis titled 'Time (UTC)' for a discrete scale with 4 values: 2026-10-22 09:00:00 UTC, 2026-10-22 09:02:00 UTC, 2026-10-22 09:04:00 UTC, 2026-10-22 09:06:00 UTC
+								106 axis Y-axis titled 'CPU (%)' for a linear scale with values from 0 to 100
+								107 container Time (UTC): 2026-10-22 09:00:00 UTC; CPU (%): 88
+									108 line mark Time (UTC): 2026-10-22 09:00:00 UTC; CPU (%): 88
+								109 container Time (UTC): 2026-10-22 09:00:00 UTC; CPU (%): 88 Time (UTC): 2026-10-22 09:02:00 UTC; CPU (%): 94 Time (UTC): 2026-10-22 09:04:00 UTC; CPU (%): 97 Time (UTC): 2026-10-22 09:06:00 UTC; CPU (%): 96
+									110 point Time (UTC): 2026-10-22 09:00:00 UTC; CPU (%): 88
+									111 point Time (UTC): 2026-10-22 09:02:00 UTC; CPU (%): 94
+									112 point Time (UTC): 2026-10-22 09:04:00 UTC; CPU (%): 97
+									113 point Time (UTC): 2026-10-22 09:06:00 UTC; CPU (%): 96
+				114 container
+					115 button Show/hide columns
+					116 button Download as CSV
+					117 button Search
+					118 button Fullscreen
+					119 container
+						120 image
+							121 table
+								122 row Time (UTC) CPU (%)
+									123 cell (selectable) Time (UTC)
+									124 cell (selectable) CPU (%)
+								125 container
+									126 row (selectable) 2026-10-22 09:00:00 UTC 88
+										127 cell (selectable) Value: 2026-10-22 09:00:00 UTC, ID: glide-cell-0-0
+										128 cell (selectable) Value: 88, ID: glide-cell-1-0
+									129 row (selectable) 2026-10-22 09:02:00 UTC 94
+										130 cell (selectable) Value: 2026-10-22 09:02:00 UTC, ID: glide-cell-0-1
+										131 cell (selectable) Value: 94, ID: glide-cell-1-1
+									132 row (selectable) 2026-10-22 09:04:00 UTC 97
+										133 cell (selectable) Value: 2026-10-22 09:04:00 UTC, ID: glide-cell-0-2
+										134 cell (selectable) Value: 97, ID: glide-cell-1-2
+									135 row (selectable) 2026-10-22 09:06:00 UTC 96
+										136 cell (selectable) Value: 2026-10-22 09:06:00 UTC, ID: glide-cell-0-3
+										137 cell (selectable) Value: 96, ID: glide-cell-1-3
+						138 image
+				139 button Investigate incident
+					140 text Investigate incident
+				141 text Decider 2B chooses the checks. Amazon Bedrock writes a report with possible causes and next steps. Uses AWS model access.
+				416 button (collapsed) Investigation complete — findings below, Secondary Actions: Expand
+					417 text Investigation complete — findings below
+				144 link Description: View investigation output ↓, Value: 127.0.0.1:8502/#3-understand-the-findings
+				145 heading 3. Understand the findings, Value: 2, ID: 3-understand-the-findings
+					146 text 3. Understand the findings
+					147 link Description: Link to heading, Value: 127.0.0.1:8502/#3-understand-the-findings
+				148 text EC2 CPU utilization is above 90%; investigate resource saturation.
+				149 text Sample data · not live AWS data
+				150 text Review the tool choice: Decider's certainty is below 90%. The checks are read-only. This score is about choosing a check, not proving a cause.
+				151 container
+					152 text Suggested urgency Unknown AI estimate of seriousness; actual service impact may be unknown. Tool choice certainty 89% Confidence in the first check, not in a root cause. Evidence items 2 Observed summaries, error messages or release events. Cause confidence Low How strongly the evidence supports a possible explanation.
+				153 container
+					154 text Checks that ran:  Metrics Analyzer
+				155 text Example incidents use invented measurements, logs and releases. They are not collected from EC2. Full AI mode uses the real local Decider model and calls Amazon Bedrock with the supplied evidence.
+				156 tab group react-aria3641293819-:r2l:
+					157 tab (selectable, settable, boolean) Findings & next steps, ID: react-aria3641293819-:r2l:-tab-0, Value: 0
+Findings & next steps
+					158 tab (selectable, settable, boolean) Evidence explained, ID: react-aria3641293819-:r2l:-tab-1, Value: 0
+Evidence explained
+					159 tab (selectable, settable, boolean) Why these checks?, ID: react-aria3641293819-:r2l:-tab-2, Value: 0
+Why these checks?
+					160 tab (selectable, settable, boolean) Download, ID: react-aria3641293819-:r2l:-tab-3, Value: 0
+Download
+					161 tab (selected, settable, boolean) Integration proof, Value: 1, ID: react-aria3641293819-:r2l:-tab-4
+						418 text Integration proof
+				419 container Description: Integration proof, ID: react-aria3641293819-:r2l:-tabpanel-4
+					420 heading What is real in this run?, Value: 3, ID: what-is-real-in-this-run
+						421 text What is real in this run?
+						422 link Description: Link to heading, Value: 127.0.0.1:8502/#what-is-real-in-this-run
+					423 container
+						424 text Input source:  Sample data · not live AWS data
+					425 container
+						426 text Decider inference recorded:  strands-decider-2B-qwen3.5-v1-2610
+					427 text The exact model request, response and selection scores are saved in the download.
+					428 text Amazon Bedrock responded and the report passed the application's evidence checks.
+					429 container
+						430 text {
+						431 container
+							432 text " provider "
+						433 text :
+						434 container
+							435 text " Amazon Bedrock "
+						436 container
+							437 text " model_id "
+						438 text :
+						439 container
+							440 text " amazon.nova-pro-v1:0 "
+						441 container
+							442 text " region "
+						443 text :
+						444 container
+							445 text " us-east-1 "
+						446 container
+							447 text " aws_profile "
+						448 text :
+						449 container
+							450 text " hardik "
+						451 container
+							452 text " started_at_utc "
+						453 text :
+						454 container
+							455 text " 2026-10-23T09:49:21.437830+00:00 "
+						456 container
+							457 text " sdk "
+						458 text :
+						459 container
+							460 text " strands-agents "
+						461 container
+							462 text " structured_output_validated "
+						463 text :
+						464 text true
+						465 container
+							466 text " aws_responses " :
+						467 text [
+						468 container
+							469 text 0 :
+						470 text {
+						471 container
+							472 text " received_at_utc "
+						473 text :
+						474 container
+							475 text " 2026-10-23T09:49:22.460959+00:00 "
+						476 container
+							477 text " operation "
+						478 text :
+						479 container
+							480 text " ConverseStream "
+						481 container
+							482 text " request_id "
+						483 text :
+						484 container
+							485 text " 5b44786d-f8bf-443f-a432-1001bfd1f2e9 "
+						486 container
+							487 text " http_status "
+						488 text :
+						489 text 200
+						490 container
+							491 text " error_code "
+						492 text :
+						493 text NULL
+						494 text } ]
+						495 container
+							496 text " endpoint "
+						497 text :
+						498 container
+							499 text " https://bedrock-runtime.us-east-1.amazonaws.com "
+						500 container
+							501 text " endpoint_service "
+						502 text :
+						503 container
+							504 text " bedrock-runtime "
+						505 container
+							506 text " latency_ms "
+						507 text :
+						508 text 4404.13
+						509 text }
+					510 text AWS request IDs help identify service calls; they are not independent certification. HTTP 200 alone does not prove a finished report. Live mode reads EC2 inventory and CPU metrics only. Download the investigation JSON to preserve this run's inputs, decision, evidence, report and receipts.
+
+The focused UI element is 161 tab (selected, settable, boolean) Integration proof, Value: 1, ID: react-aria3641293819-:r2l:-tab-4

@@ -1,3 +1,5 @@
+> Current review note — October 23: new bhoomil reporting calls return HTTP 429 with a daily-token limit error. The new video uses explicitly labelled local sample reports and genuine Decider selection; it does not prove a successful current Bedrock report. Reconcile this draft with `docs/verification.md` and final public links before publication.
+
 # OpsPilot AI: giving incident diagnostic decisions to Strands Decider 2B
 
 **Draft for review — real integration verified; add final public repository and video links before publication.**

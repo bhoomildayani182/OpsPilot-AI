@@ -1,4 +1,65 @@
-# Verified execution — October 22, 2026
+# Current verification — October 23, 2026
+
+## Latest temporarily authorized hardik verification
+
+- Region **us-east-1**, account suffix **5146**, authenticated with hardik; no credential material is stored in these artifacts. Saved defaults remain bhoomil.
+- Real Decider → diagnostics → Strands SDK → Nova Lite generated valid CPU and HTTP-error reports in `artifacts/video-hardik-final/verified-live-reports.json`.
+- The browser HTTP-error workflow also generated a newly accepted report with L1/L2/D1 citations, three HTTP 200 ConverseStream receipts and actual runtime endpoint metadata.
+- Two subsequent browser CPU attempts using Nova Lite exhausted the six-turn structured-report limit. These are rejected attempts, not successes; diagnostic evidence was retained. The rejected proof is preserved alongside the recording.
+- One fresh Nova Pro CPU CLI check then passed with validated citations, low causal confidence, unknown severity and AWS HTTP 200 receipts in `nova-pro-check.json`.
+- Read-only resource audit found zero non-terminated demo instances, project volumes or project security groups in hardik/us-east-1 and us-west-2. No new EC2, volume, security group or persistent Bedrock Agent was created. On-demand Bedrock and Polly use can be billed; AWS service/audit records are separate from created infrastructure.
+
+- After the citation-feedback fix, the browser accepted a fresh Nova Pro CPU report. The final report gives exact counts/minimum/maximum/mean/window, cites M1/M2, leaves severity unknown and causal confidence low, and makes no claim that memory is healthy. `browser-cpu-success-report.txt` and `browser-cpu-success-proof.txt` preserve this run.
+- Final tests: **84 passed, 1 optional check skipped**. Lint, formatting, compilation, dependency consistency and focused secret scan passed. The new regression check confirms that unknown-severity citation failures identify the exact field for model correction.
+- Temporary hardik app on port 8502 was stopped and its port closure verified. `.env` still selects bhoomil. See `session-cleanup.json`.
+
+## Final live video verification
+
+The latest review file is `artifacts/video-hardik-final/OpsPilot-AI-Demo-Male-No-Subtitles.mp4`: **158.16 seconds**, 1920×1080, 30fps H.264, 48kHz mono AAC. All eight scenes contain actual timestamped browser captures; footage is edited for time and frames are held where narration outlasts the action. There are zero subtitle streams and no added text overlays. Amazon Polly Stephen provides male generative synthetic narration. Full decode and eight representative scene frames passed inspection; audio measured **-16.4 LUFS**, **-1.4 dBFS true peak**. Capture, narration, checksum and stream manifests accompany the file. Browser playback advanced with sound enabled, no media error and zero text tracks; native seeking reached the accepted HTTP report at 63.28 seconds. See `browser-playback-check.json`.
+
+This video shows successful live Bedrock reports on labelled synthetic data, unlike the earlier sample-mode recording. HTTP uses Nova Lite; CPU uses Nova Pro after the exact citation feedback and output instructions were improved. Rejected attempts are preserved and are not substituted for accepted reports. No quota increase was submitted.
+
+## Earlier bhoomil diagnosis and sample-mode verification
+
+- **83 passed, 1 skipped** in the current automated run; see JUnit, coverage and test output under `artifacts/`.
+- Dashboard health at `http://127.0.0.1:8501/_stcore/health` returned `ok`.
+- Decider health on port 8099 identified the genuine required checkpoint and MLX backend.
+- Four new real Decider runs completed with labelled local sample reports in `artifacts/sample-workflow-verified.json`:
+  CPU → metrics; HTTP 500 → logs + deployments; failed deployment → deployments;
+  database timeouts → logs + metrics. These selections were model outputs, not fixed application routing.
+- Browser verification of HTTP 500 showed the complete report, L1/L2/D1 citations,
+  next steps, explicit no-Bedrock labels and real decision metadata.
+- Missing evidence produces unknown severity and no fabricated root cause. Invalid
+  inputs, Decider abstention/unavailability, changed inputs, and report quota failure
+  are covered by tests. A failed live report retains evidence and does not silently
+  turn into a sample report.
+- Current SDK reporting check in **bhoomil/us-west-2** failed with HTTP 429,
+  `ThrottlingException`, exact daily-token message saved in
+  `artifacts/bedrock-diagnosis.json`. No successful fresh Bedrock report is claimed for bhoomil.
+- Nova Lite is ACTIVE. Its model-specific daily allowance is 0; cross-model daily
+  allowance is 150 million. See [exact diagnosis and request steps](bedrock-diagnosis.md).
+- Previous demo resources are absent in both used regions; no EC2 was created for
+  this sample-mode recording. Read-only historical CloudWatch collection is separate
+  from synthetic incident data and from a saved snapshot.
+
+Reproduce the complete demo using the explicit commands in [README](../README.md).
+The sample formatter is local and deterministic; all four Decider calls above are
+real, while unit/UI tests use test doubles where appropriate.
+
+## Earlier sample-mode video verification
+
+The new review MP4 is `artifacts/video-final-review/OpsPilot-AI-Demo-Male-No-Subtitles.mp4`: **149.50 seconds**, 1920×1080, 30fps H.264 with 48kHz AAC narration. There are **zero subtitle streams**, no burned captions and no added text overlays. The voice is Amazon Polly Stephen, male, generative synthetic narration, with receipts in the narration manifest. All eight scenes use real browser captures, edited for time, with the final frame held where narration outlasts the captured action.
+
+Full decoding completed without errors. Representative frames from every scene were inspected. Audio measured -16.4 LUFS integrated loudness and -1.3 dBFS true peak. Browser playback progressed with sound enabled, no media error, and native seeking reached the report at 63.78 seconds. Capture timestamps, per-scene actual-frame counts, checksum, stream metadata and browser checks are saved alongside the MP4. The recording shows local sample reports and a real historical CloudWatch fetch; its final scene preserves the genuine failed Bedrock response. It does not claim a successful new live AI report.
+
+---
+
+## Historical verification — October 22, 2026
+
+The following earlier results remain historical evidence. They do not override the
+current bhoomil quota failure or establish that the new sample report came from Bedrock.
+
+
 
 ## Environment
 

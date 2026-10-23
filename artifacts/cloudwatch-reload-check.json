@@ -1,0 +1,39 @@
+{
+  "incident": {
+    "title": "Investigate CPU measurements for EC2 instance i-09dcc93acbe302730.",
+    "started_at": "2026-10-22T14:27:00Z",
+    "data_source": "live CloudWatch",
+    "metrics": [
+      {
+        "name": "cpu_percent",
+        "timestamp": "2026-10-22T20:47:00+05:30",
+        "value": 8.24408071761492
+      },
+      {
+        "name": "cpu_percent",
+        "timestamp": "2026-10-22T20:52:00+05:30",
+        "value": 6.733254119696165
+      }
+    ],
+    "logs": [],
+    "deployments": []
+  },
+  "ingestion_metadata": {
+    "source": "Amazon CloudWatch",
+    "region": "us-west-2",
+    "instance_id": "i-09dcc93acbe302730",
+    "namespace": "AWS/EC2",
+    "metric": "CPUUtilization",
+    "statistic": "Average",
+    "period_seconds": 300,
+    "window_start_utc": "2026-10-22T14:27:00+00:00",
+    "window_end_utc": "2026-10-22T15:27:00+00:00",
+    "fetched_at_utc": "2026-10-23T07:25:09.284630+00:00",
+    "samples": 2,
+    "request_id": "071c6776-48a8-443f-8395-4ca50a7d9e4c",
+    "limitations": [
+      "CPU averages only; no memory, application logs or deployment events collected.",
+      "EC2 inventory does not identify which application is installed or running."
+    ]
+  }
+}

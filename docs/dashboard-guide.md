@@ -3,7 +3,7 @@
 ## Start an investigation
 
 1. Choose **Full AI investigation** in the sidebar for a report generated with
-   real Decider 2B and Amazon Bedrock. **Explore sample data · no AI** only shows
+   real Decider 2B and Amazon Bedrock. **View diagnostic findings · no AI** only shows
    observations from checks you select. **AI tool selection only** lets Decider
    choose checks but does not request a Bedrock report.
 2. Choose an incident and describe what is going wrong.

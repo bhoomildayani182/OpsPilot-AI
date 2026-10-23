@@ -1,0 +1,350 @@
+{
+  "checked_at_utc": "2026-10-23T08:57:41.108645+00:00",
+  "configuration": {
+    "profile": "bhoomil",
+    "region": "us-west-2",
+    "model_id": "amazon.nova-lite-v1:0",
+    "service": "bedrock-runtime",
+    "endpoint": "https://bedrock-runtime.us-west-2.amazonaws.com",
+    "operation": "ConverseStream (Strands SDK)",
+    "account_suffix": "4677",
+    "max_output_tokens": 2400
+  },
+  "ui_error": "Bedrock daily token quota is exhausted for this model/account. Use an authorized model with available quota or wait for reset. Diagnostic evidence remains available.",
+  "sdk_service_responses": [
+    {
+      "operation": "ConverseStream",
+      "error": {
+        "Message": "Too many tokens per day, please wait before trying again.",
+        "Code": "ThrottlingException"
+      },
+      "http_status": 429,
+      "request_id": "3b19031d-c812-426f-b7d4-940ea528cbc6"
+    }
+  ],
+  "report_metadata": {
+    "provider": "Amazon Bedrock",
+    "model_id": "amazon.nova-lite-v1:0",
+    "region": "us-west-2",
+    "started_at_utc": "2026-10-23T08:57:41.109765+00:00",
+    "sdk": "strands-agents",
+    "structured_output_validated": false,
+    "aws_responses": [
+      {
+        "received_at_utc": "2026-10-23T08:57:42.276923+00:00",
+        "operation": "ConverseStream",
+        "request_id": "3b19031d-c812-426f-b7d4-940ea528cbc6",
+        "http_status": 429,
+        "error_code": "ThrottlingException"
+      }
+    ],
+    "failure_type": "ModelThrottledException"
+  },
+  "matching_applied_quotas": [
+    {
+      "ServiceCode": "bedrock",
+      "ServiceName": "Amazon Bedrock",
+      "QuotaCode": "L-89F8391A",
+      "QuotaName": "Cross-region model inference requests per minute for Amazon Nova Lite",
+      "Value": 0.0,
+      "Unit": "None",
+      "Adjustable": false,
+      "GlobalQuota": false,
+      "QuotaAppliedAtLevel": "ACCOUNT",
+      "Description": "The maximum number of cross-region requests that you can submit for model inference in one minute for Amazon Nova Lite. This quota represents the total number of requests to the Converse, ConverseStream, InvokeModel and InvokeModelWithResponseStream actions."
+    },
+    {
+      "ServiceCode": "bedrock",
+      "ServiceName": "Amazon Bedrock",
+      "QuotaCode": "L-916C9264",
+      "QuotaName": "Records per batch inference job for Nova Lite V1",
+      "Value": 100000.0,
+      "Unit": "None",
+      "Adjustable": true,
+      "GlobalQuota": false,
+      "QuotaAppliedAtLevel": "ACCOUNT",
+      "Description": "The maximum number of records across all input files in a batch inference job for Nova Lite V1."
+    },
+    {
+      "ServiceCode": "bedrock",
+      "ServiceName": "Amazon Bedrock",
+      "QuotaCode": "L-E3F10727",
+      "QuotaName": "Cross-Model Max Tokens Per Day",
+      "Value": 150000000.0,
+      "Unit": "None",
+      "Adjustable": false,
+      "GlobalQuota": false,
+      "QuotaAppliedAtLevel": "ACCOUNT",
+      "Description": "The maximum number of tokens per day across all supported Bedrock models for this account. The token count is estimated based on on-demand pricing; actual token consumption varies by model, input/output ratio, and cache usage."
+    },
+    {
+      "ServiceCode": "bedrock",
+      "ServiceName": "Amazon Bedrock",
+      "QuotaCode": "L-E2ED42E6",
+      "QuotaName": "Sum of in-progress and submitted batch inference jobs using a base model for Nova Lite V1",
+      "Value": 100.0,
+      "Unit": "None",
+      "Adjustable": true,
+      "GlobalQuota": false,
+      "QuotaAppliedAtLevel": "ACCOUNT",
+      "Description": "The maximum number of in-progress and submitted batch inference jobs using a base model for Nova Lite V1."
+    },
+    {
+      "ServiceCode": "bedrock",
+      "ServiceName": "Amazon Bedrock",
+      "QuotaCode": "L-459E44E5",
+      "QuotaName": "(Data Automation) InvokeBlueprintOptimizationAsync - Max number of blueprint optimization jobs per day",
+      "Value": 30.0,
+      "Unit": "None",
+      "Adjustable": false,
+      "GlobalQuota": false,
+      "QuotaAppliedAtLevel": "ACCOUNT",
+      "Description": "The maximum number of Invoke Blueprint Optimization Async jobs per day"
+    },
+    {
+      "ServiceCode": "bedrock",
+      "ServiceName": "Amazon Bedrock",
+      "QuotaCode": "L-39FA8DCA",
+      "QuotaName": "Minimum number of records per batch inference job for Nova Lite V1",
+      "Value": 100.0,
+      "Unit": "None",
+      "Adjustable": false,
+      "GlobalQuota": false,
+      "QuotaAppliedAtLevel": "ACCOUNT",
+      "Description": "The minimum number of records across all input files in a batch inference job for Nova Lite V1."
+    },
+    {
+      "ServiceCode": "bedrock",
+      "ServiceName": "Amazon Bedrock",
+      "QuotaCode": "L-B8626674",
+      "QuotaName": "Records per input file per batch inference job for Nova Lite V1",
+      "Value": 100000.0,
+      "Unit": "None",
+      "Adjustable": true,
+      "GlobalQuota": false,
+      "QuotaAppliedAtLevel": "ACCOUNT",
+      "Description": "The maximum number of records in an input file in a batch inference job for Nova Lite V1."
+    },
+    {
+      "ServiceCode": "bedrock",
+      "ServiceName": "Amazon Bedrock",
+      "QuotaCode": "L-19E52681",
+      "QuotaName": "Batch inference job size (in GB) for Nova Lite V1",
+      "Value": 100.0,
+      "Unit": "None",
+      "Adjustable": false,
+      "GlobalQuota": false,
+      "QuotaAppliedAtLevel": "ACCOUNT",
+      "Description": "The maximum cumulative size of all input files (in GB) included in the batch inference job for Nova Lite V1."
+    },
+    {
+      "ServiceCode": "bedrock",
+      "ServiceName": "Amazon Bedrock",
+      "QuotaCode": "L-45E0AD92",
+      "QuotaName": "Model invocation max tokens per day for Amazon Nova Lite (doubled for cross-region calls)",
+      "Value": 0.0,
+      "Unit": "None",
+      "Adjustable": false,
+      "GlobalQuota": false,
+      "QuotaAppliedAtLevel": "ACCOUNT",
+      "Description": "Daily maximum tokens for model inference for Amazon Nova Lite. Combines sum of input and output tokens across all requests to Converse, ConverseStream, InvokeModel and InvokeModelWithResponseStream. Doubled for cross-region calls; not applicable in case of approved TPM increase."
+    },
+    {
+      "ServiceCode": "bedrock",
+      "ServiceName": "Amazon Bedrock",
+      "QuotaCode": "L-7C42E72A",
+      "QuotaName": "Cross-region model inference tokens per minute for Amazon Nova Lite",
+      "Value": 0.0,
+      "Unit": "None",
+      "Adjustable": true,
+      "GlobalQuota": false,
+      "QuotaAppliedAtLevel": "ACCOUNT",
+      "Description": "The maximum number of cross-region tokens that you can submit for model inference in one minute for Amazon Nova Lite. The quota considers the combined sum of input and output tokens across all requests to Converse, ConverseStream, InvokeModel and InvokeModelWithResponseStream."
+    },
+    {
+      "ServiceCode": "bedrock",
+      "ServiceName": "Amazon Bedrock",
+      "QuotaCode": "L-F60B56CC",
+      "QuotaName": "Batch inference input file size (in GB) for Nova Lite V1",
+      "Value": 1.0,
+      "Unit": "None",
+      "Adjustable": false,
+      "GlobalQuota": false,
+      "QuotaAppliedAtLevel": "ACCOUNT",
+      "Description": "The maximum size of a single file (in GB) submitted for batch inference for Nova Lite V1."
+    }
+  ],
+  "cloudwatch": {
+    "namespace": "AWS/Bedrock",
+    "start_utc": "2026-10-21T08:57:41.108645+00:00",
+    "end_utc": "2026-10-23T08:57:41.108645+00:00",
+    "period_seconds": 3600,
+    "statistic": "Sum",
+    "metrics": [
+      {
+        "name": "Invocations",
+        "dimensions": [
+          {
+            "Name": "ModelId",
+            "Value": "amazon.nova-lite-v1:0"
+          }
+        ],
+        "points": [
+          {
+            "Timestamp": "2026-10-22 16:27:00+05:30",
+            "Sum": 1.0,
+            "Unit": "Count"
+          }
+        ]
+      },
+      {
+        "name": "InputTokenCount",
+        "dimensions": [
+          {
+            "Name": "ModelId",
+            "Value": "amazon.nova-lite-v1:0"
+          }
+        ],
+        "points": [
+          {
+            "Timestamp": "2026-10-22 16:27:00+05:30",
+            "Sum": 8.0,
+            "Unit": "Count"
+          }
+        ]
+      },
+      {
+        "name": "OutputTokenCount",
+        "dimensions": [
+          {
+            "Name": "ModelId",
+            "Value": "amazon.nova-lite-v1:0"
+          }
+        ],
+        "points": [
+          {
+            "Timestamp": "2026-10-22 16:27:00+05:30",
+            "Sum": 16.0,
+            "Unit": "Count"
+          }
+        ]
+      },
+      {
+        "name": "InvocationThrottles",
+        "dimensions": [
+          {
+            "Name": "ModelId",
+            "Value": "amazon.nova-lite-v1:0"
+          }
+        ],
+        "points": [
+          {
+            "Timestamp": "2026-10-22 20:27:00+05:30",
+            "Sum": 3.0,
+            "Unit": "Count"
+          },
+          {
+            "Timestamp": "2026-10-22 21:27:00+05:30",
+            "Sum": 1.0,
+            "Unit": "Count"
+          },
+          {
+            "Timestamp": "2026-10-23 12:27:00+05:30",
+            "Sum": 1.0,
+            "Unit": "Count"
+          },
+          {
+            "Timestamp": "2026-10-23 13:27:00+05:30",
+            "Sum": 1.0,
+            "Unit": "Count"
+          }
+        ]
+      }
+    ],
+    "interpretation": "Missing CloudWatch series are unavailable observations, not zero usage. These regional/model metrics cannot establish the account's exact remaining cross-model daily allowance.",
+    "aggregate_without_dimensions": [
+      {
+        "name": "InputTokenCount",
+        "dimensions": [],
+        "points": [
+          {
+            "Timestamp": "2026-10-22 16:30:00+05:30",
+            "Sum": 8.0,
+            "Unit": "Count"
+          }
+        ]
+      },
+      {
+        "name": "OutputTokenCount",
+        "dimensions": [],
+        "points": [
+          {
+            "Timestamp": "2026-10-22 16:30:00+05:30",
+            "Sum": 16.0,
+            "Unit": "Count"
+          }
+        ]
+      },
+      {
+        "name": "CacheWriteInputTokenCount",
+        "dimensions": [],
+        "points": []
+      },
+      {
+        "name": "InvocationThrottles",
+        "dimensions": [],
+        "points": [
+          {
+            "Timestamp": "2026-10-22 20:30:00+05:30",
+            "Sum": 8.0,
+            "Unit": "Count"
+          },
+          {
+            "Timestamp": "2026-10-23 12:30:00+05:30",
+            "Sum": 1.0,
+            "Unit": "Count"
+          },
+          {
+            "Timestamp": "2026-10-23 13:30:00+05:30",
+            "Sum": 2.0,
+            "Unit": "Count"
+          }
+        ]
+      },
+      {
+        "name": "InvocationClientErrors",
+        "dimensions": [],
+        "points": [
+          {
+            "Timestamp": "2026-10-22 20:30:00+05:30",
+            "Sum": 2.0,
+            "Unit": "Count"
+          }
+        ]
+      },
+      {
+        "name": "EstimatedTPMQuotaUsage",
+        "dimensions": [],
+        "points": [
+          {
+            "Timestamp": "2026-10-22 16:30:00+05:30",
+            "Sum": 24.0,
+            "Unit": "Count"
+          }
+        ]
+      }
+    ]
+  },
+  "model_catalog": {
+    "modelId": "amazon.nova-lite-v1:0",
+    "modelLifecycle": {
+      "status": "ACTIVE",
+      "startOfLifeTime": "2024-12-03 08:00:00+00:00"
+    },
+    "inferenceTypesSupported": [
+      "ON_DEMAND",
+      "INFERENCE_PROFILE"
+    ],
+    "responseStreamingSupported": true
+  }
+}

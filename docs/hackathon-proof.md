@@ -20,7 +20,7 @@ records, then uses the Strands Agents SDK to call Amazon Bedrock. Bedrock writes
 an evidence-cited report. Citation validation and conservative confidence rules
 reject unsupported references; they do not independently verify causal claims.
 
-The **Explore sample data · no AI** mode only runs manually selected local checks.
+The **View diagnostic findings · no AI** mode only runs manually selected local checks.
 It is useful for learning the interface, but it is not proof of either AI integration.
 
 ## Show this in the demo

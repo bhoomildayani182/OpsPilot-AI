@@ -1,0 +1,153 @@
+Browser tab: 15, Title: "OpsPilot AI · Incident investigation", URL: "http://127.0.0.1:8502/#3-understand-the-findings".
+The following is a diff from the previous accessibility tree with ~ and + representing changed and added elements, respectively. Removed elements are summarized by ID range.
+Removed element IDs: 109, 117, 120-152
+~					106 tab (selectable, settable, boolean) Why these checks?, ID: react-aria3724757804-:r3e:-tab-2, Value: 0
+Why these checks?
+~					108 tab (selected, settable, boolean) Integration proof, Value: 1, ID: react-aria3724757804-:r3e:-tab-4
++						109 text Integration proof
+~				110 container Description: Integration proof, ID: react-aria3724757804-:r3e:-tabpanel-4
+~					111 heading What is real in this run?, Value: 3, ID: what-is-real-in-this-run
+~						112 text What is real in this run?
+~						113 link Description: Link to heading, Value: 127.0.0.1:8502/#what-is-real-in-this-run
+~						115 text Input source:  Sample data · not live AWS data
+~					116 container
++						117 text Decider inference recorded:  strands-decider-2B-qwen3.5-v1-2610
+~					118 text The exact model request, response and selection scores are saved in the download.
+~					119 text Amazon Bedrock responded and the report passed the application's evidence checks.
++					120 container
++						121 text {
++						122 container
++							123 text " provider "
++						124 text :
++						125 container
++							126 text " Amazon Bedrock "
++						127 container
++							128 text " model_id "
++						129 text :
++						130 container
++							131 text " amazon.nova-lite-v1:0 "
++						132 container
++							133 text " region "
++						134 text :
++						135 container
++							136 text " us-east-1 "
++						137 container
++							138 text " aws_profile "
++						139 text :
++						140 container
++							141 text " hardik "
++						142 container
++							143 text " started_at_utc "
++						144 text :
++						145 container
++							146 text " 2026-10-23T09:43:09.580367+00:00 "
++						147 container
++							148 text " sdk "
++						149 text :
++						150 container
++							151 text " strands-agents "
++						152 container
++							153 text " structured_output_validated "
++						154 text :
++						155 text true
++						156 container
++							157 text " aws_responses " :
++						158 text [
++						159 container
++							160 text 0 :
++						161 text {
++						162 container
++							163 text " received_at_utc "
++						164 text :
++						165 container
++							166 text " 2026-10-23T09:43:13.424438+00:00 "
++						167 container
++							168 text " operation "
++						169 text :
++						170 container
++							171 text " ConverseStream "
++						172 container
++							173 text " request_id "
++						174 text :
++						175 container
++							176 text " 643dac6e-3d4c-4e2e-8a2f-3b86c464f2bb "
++						177 container
++							178 text " http_status "
++						179 text :
++						180 text 200
++						181 container
++							182 text " error_code "
++						183 text :
++						184 text NULL
++						185 text }
++						186 container
++							187 text 1 :
++						188 text {
++						189 container
++							190 text " received_at_utc "
++						191 text :
++						192 container
++							193 text " 2026-10-23T09:43:17.722325+00:00 "
++						194 container
++							195 text " operation "
++						196 text :
++						197 container
++							198 text " ConverseStream "
++						199 container
++							200 text " request_id "
++						201 text :
++						202 container
++							203 text " 2bbd4bb9-b184-43fe-9ce7-723d17aa0c0d "
++						204 container
++							205 text " http_status "
++						206 text :
++						207 text 200
++						208 container
++							209 text " error_code "
++						210 text :
++						211 text NULL
++						212 text }
++						213 container
++							214 text 2 :
++						215 text {
++						216 container
++							217 text " received_at_utc "
++						218 text :
++						219 container
++							220 text " 2026-10-23T09:43:20.745176+00:00 "
++						221 container
++							222 text " operation "
++						223 text :
++						224 container
++							225 text " ConverseStream "
++						226 container
++							227 text " request_id "
++						228 text :
++						229 container
++							230 text " 00e01818-8e66-48f0-a321-5561da0b556c "
++						231 container
++							232 text " http_status "
++						233 text :
++						234 text 200
++						235 container
++							236 text " error_code "
++						237 text :
++						238 text NULL
++						239 text } ]
++						240 container
++							241 text " endpoint "
++						242 text :
++						243 container
++							244 text " https://bedrock-runtime.us-east-1.amazonaws.com "
++						245 container
++							246 text " endpoint_service "
++						247 text :
++						248 container
++							249 text " bedrock-runtime "
++						250 container
++							251 text " latency_ms "
++						252 text :
++						253 text 13911.11
++						254 text }
++					255 text AWS request IDs help identify service calls; they are not independent certification. HTTP 200 alone does not prove a finished report. Live mode reads EC2 inventory and CPU metrics only. Download the investigation JSON to preserve this run's inputs, decision, evidence, report and receipts.
+The focused UI element is 108 tab (selected, settable, boolean) Integration proof, Value: 1, ID: react-aria3724757804-:r3e:-tab-4

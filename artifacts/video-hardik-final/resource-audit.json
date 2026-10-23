@@ -1,0 +1,18 @@
+{
+  "profile": "hardik",
+  "checked_at_utc": "2026-10-23T09:38:33.328786+00:00",
+  "regions": {
+    "us-east-1": {
+      "project_nonterminated_instances": 0,
+      "project_volumes": 0,
+      "project_security_groups": 0,
+      "bedrock_invocation_logging_configured": false
+    },
+    "us-west-2": {
+      "project_nonterminated_instances": 0,
+      "project_volumes": 0,
+      "project_security_groups": 0,
+      "bedrock_invocation_logging_configured": false
+    }
+  }
+}

@@ -1,64 +1,35 @@
-# OpsPilot AI demo recording script — target 2:45
+# Final live demo narration — October 23, 2026
 
-Do not record in preview mode. Before recording, start Decider and Streamlit,
-configure a verified Bedrock model, and run both demo scenarios. Use only synthetic
-data. Hide terminal/profile details and notifications. No music is needed.
+Male voice: Amazon Polly Stephen (generative synthetic narration). No subtitles or added text overlays. Actual browser footage edited for time. Synthetic incident inputs; genuine local Decider and live Bedrock reporting in temporarily authorized hardik/us-east-1.
 
-## 0:00–0:20 · Problem and scope
+## 01-introduction
 
-**Screen:** Dashboard hero and synthetic incident selector.
+OpsPilot helps engineers investigate incidents using evidence, rather than guessing from an alert. This demonstration uses the authorized hardik AWS account in US East one. Both the local Decider two B model and Amazon Bedrock are real. The example incident data is synthetic and clearly labelled.
 
-**Say:** “OpsPilot AI investigates DevOps incidents. An engineer provides a symptom
-and telemetry. A small Strands Decider 2B model chooses diagnostics, and Amazon
-Bedrock turns the observed evidence into a report. Everything is read-only.”
+## 02-input-data
 
-## 0:20–1:10 · CPU investigation
+Here is a checkout application returning HTTP five hundred errors after a release. We provide example measurements, two application log messages, and a release event. OpsPilot shows what data is available before the investigation. These records were supplied for the demonstration; they were not discovered on a production server.
 
-**Screen:** Select Full AI investigation, CPU saturation, click Investigate. Include
-real waiting time or clearly label any cut. Open Why these checks? and its technical trace.
+## 03-investigation
 
-**Say:** “This is synthetic CPU telemetry. The tool decision comes from the real
-local Decider model, not a keyword router. Here are its typed question, option
-probabilities, loaded checkpoint and measured round-trip time. These numbers are
-from this run; they are not a speed comparison against another model.”
+I start a full AI investigation. Strands Decider two B chooses the diagnostic tools locally. For this incident, it selects the log and deployment analyzers. Those read-only checks extract observed evidence. The Strands Agents SDK then sends the selected evidence to Amazon Bedrock to generate a report.
 
-**Screen:** Evidence explained, then Findings & next steps.
+## 04-live-report
 
-**Say:** “The metrics tool calculates the sample statistics. Evidence has stable
-IDs. Bedrock receives only the selected diagnostics and cites those IDs. Potential
-causes are hypotheses, with uncertainty and further information to collect.”
+The completed output is now visible. This is a newly generated Bedrock report, not a local sample report. It explains the observed exception and release event, cites their evidence identifiers, and recommends next checks. Possible explanations remain hypotheses. The report also states uncertainty and the information still needed to establish service impact and a cause.
 
-## 1:10–1:55 · Failed deployment
+## 05-evidence-and-selection
 
-**Screen:** Select Failed deployment, Investigate, show decision and deployment evidence.
+The evidence view lets us inspect the exact observations behind the report. The decision view shows which checks Decider selected and their relevance scores. Tool choice certainty describes that routing decision. It does not measure whether a possible root cause is correct.
 
-**Say:** “A failed release presents a different diagnostic need. The model makes a
-new selection from the same options. The deployment analyzer compares the supplied
-event times with incident onset. A nearby release is a correlation, not proof that
-it caused an outage. Missing telemetry stays visible.”
+## 06-integration-proof
 
-## 1:55–2:25 · Guardrails and reuse
+The integration proof identifies the actual Decider model, the hardik reporting profile, and the regional Bedrock endpoint. AWS response receipts and successful report validation are recorded separately. Together with the exported investigation, these let a reviewer inspect the real calls and the evidence used by the agent.
 
-**Screen:** Why these checks? and reusable pattern documentation.
+## 07-cpu-investigation
 
-**Say:** “Low-confidence decisions are flagged; very uncertain routing abstains.
-A missing model never becomes a fake AI result. The reporting agent has no tools
-that can change infrastructure. The repository includes the typed question, option
-set, client, enforced routing seam and a guide another builder can adapt.”
+A CPU example leads to a different tool choice: the metrics analyzer. The dashboard displays the actual supplied values, average, peak, and timestamps. Three of four CPU samples exceed the example threshold. Bedrock explains the selected evidence while keeping causal confidence low; measurements alone cannot identify the process responsible.
 
-## 2:25–2:45 · Close
+## 08-boundaries
 
-**Screen:** Findings & next steps, Download tab, then final repository/article links.
-
-**Say:** “OpsPilot makes incident investigation inspectable: why a tool ran, what
-it actually observed, and what remains uncertain. The project includes four sample
-incidents and automated checks. The code and reusable tool-selection pattern are
-open source under Apache 2.0.”
-
-## Recording acceptance checks
-
-- Run the final script aloud and keep the video below 180 seconds; aim for 165.
-- Show genuine Decider identity/decision and a real Bedrock report for two incidents.
-- If routing abstains or Bedrock fails, fix/re-run before claiming a successful demo.
-- Publish to an accepted public host and open the link signed out to verify access.
-- Add #strands-decider-2b and #tool-selection to the submission/article.
+OpsPilot is an investigation assistant. It does not restart servers or apply infrastructure changes. The inputs can be supplied by a user, collected through the read-only CloudWatch CPU connector, or replayed from a labelled snapshot. This recording created no EC2 instance or persistent Bedrock agent. The temporary hardik session is stopped after verification.

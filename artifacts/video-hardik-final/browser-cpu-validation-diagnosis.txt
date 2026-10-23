@@ -1,0 +1,477 @@
+- link "Skip to main content":
+  - /url: "#stMain"
+- region "Sidebar":
+  - heading "🧭 OpsPilot AI" [level=2]
+  - paragraph: Your incident investigation workspace
+  - separator
+  - paragraph: Choose how to investigate
+  - radiogroup "Choose how to investigate":
+    - radio "View diagnostic findings · no AI"
+    - paragraph: View diagnostic findings · no AI
+    - radio "Full AI investigation" [checked]
+    - paragraph: Full AI investigation
+    - radio "AI tool selection only"
+    - paragraph: AI tool selection only
+    - radio "Demo report · real Decider 2B"
+    - paragraph: Demo report · real Decider 2B
+  - paragraph: Decider 2B chooses the checks. Amazon Bedrock writes a report with possible causes and next steps. Uses AWS model access.
+  - separator
+  - paragraph:
+    - strong: Start here
+  - list:
+    - listitem: Choose an example or describe your incident.
+    - listitem: Check the supplied data.
+    - listitem: Run the investigation and review the findings.
+  - generic "What do these terms mean?":
+    - generic: keyboard_arrow_right
+    - paragraph: What do these terms mean?
+  - paragraph: "Read-only: OpsPilot analyzes data. It cannot restart servers or change your infrastructure."
+- banner
+- main:
+  - generic: OPSPILOT AI / INCIDENT WORKSPACE
+  - heading "Investigate an incident" [level=1]:
+    - text: Investigate an incident
+    - link "Link to heading":
+      - /url: "#investigate-an-incident"
+  - paragraph: Understand what the data shows, what might be causing the problem, and what to check next.
+  - paragraph: Where should incident data come from?
+  - radiogroup "Where should incident data come from?":
+    - radio "Examples or pasted data" [checked]
+    - paragraph: Examples or pasted data
+    - radio "Live AWS EC2 metrics"
+    - paragraph: Live AWS EC2 metrics
+    - radio "Saved AWS snapshot"
+    - paragraph: Saved AWS snapshot
+  - generic "What happens in my AWS account? What needs cleanup?":
+    - generic: keyboard_arrow_right
+    - paragraph: What happens in my AWS account? What needs cleanup?
+  - heading "1. Describe the incident" [level=3]:
+    - text: 1. Describe the incident
+    - link "Link to heading":
+      - /url: "#1-describe-the-incident"
+  - paragraph: Choose an example or use your own incident
+  - combobox "Choose an example or use your own incident": CPU saturation
+  - button "Open":
+  - paragraph: The server's processor is busy. Check how many CPU measurements exceed the demo limit.
+  - paragraph: What is going wrong?
+  - button "Help for What is going wrong?":
+  - textbox "What is going wrong?":
+    - /placeholder: ""
+    - text: EC2 CPU utilization is above 90%; investigate resource saturation.
+  - generic "Edit input data · advanced":
+    - generic: keyboard_arrow_right
+    - paragraph: Edit input data · advanced
+  - heading "2. Check the data" [level=3]:
+    - text: 2. Check the data
+    - link "Link to heading":
+      - /url: "#2-check-the-data"
+  - paragraph:
+    - generic: Sample data · not live AWS data
+  - strong: "8"
+  - generic: measurements
+  - strong: "1"
+  - generic: log message
+  - strong: "0"
+  - generic: release events
+  - paragraph: Example or pasted records. Select Live AWS EC2 metrics above to fetch real CPU measurements.
+  - generic "View the supplied data":
+    - generic: keyboard_arrow_right
+    - paragraph: View the supplied data
+  - generic "How to read the results":
+    - generic: keyboard_arrow_right
+    - paragraph: How to read the results
+  - generic "AI connection details":
+    - generic: keyboard_arrow_right
+    - paragraph: AI connection details
+  - heading "Loaded CPU data — available before AI analysis" [level=3]:
+    - text: Loaded CPU data — available before AI analysis
+    - link "Link to heading":
+      - /url: "#loaded-cpu-data-available-before-ai-analysis"
+  - paragraph: CPU samples loaded
+  - paragraph: "4"
+  - paragraph: Average CPU
+  - paragraph: 93.75%
+  - paragraph: Peak CPU
+  - paragraph: 97.00%
+  - paragraph: Measured 2026-10-22T09:00:00+00:00 to 2026-10-22T09:06:00+00:00. 3 samples exceeded the 90% example limit. This does not establish a root cause or service health.
+  - button "Show data":
+  - button "Download as PNG":
+  - button "Copy Vega-Lite spec":
+  - button "Fullscreen":
+  - generic "Vega visualization":
+  - button "Show/hide columns":
+  - button "Download as CSV":
+  - button "Search":
+  - button "Fullscreen":
+  - button "Investigate incident" [active]:
+    - paragraph: Investigate incident
+  - paragraph: Decider 2B chooses the checks. Amazon Bedrock writes a report with possible causes and next steps. Uses AWS model access.
+  - generic "Checks complete; AI report unavailable":
+    - generic: error
+    - paragraph: Checks complete; AI report unavailable
+  - paragraph:
+    - link "View investigation output ↓":
+      - /url: "#3-understand-the-findings"
+  - separator
+  - heading "3. Understand the findings" [level=2]:
+    - text: 3. Understand the findings
+    - link "Link to heading":
+      - /url: "#3-understand-the-findings"
+  - paragraph: EC2 CPU utilization is above 90%; investigate resource saturation.
+  - paragraph: Sample data · not live AWS data
+  - status:
+    - paragraph: "Review the tool choice: Decider's certainty is below 90%. The checks are read-only. This score is about choosing a check, not proving a cause."
+  - generic: Suggested urgency
+  - generic: Not assessed
+  - generic: AI estimate of seriousness; actual service impact may be unknown.
+  - generic: Tool choice certainty
+  - generic: 89%
+  - generic: Confidence in the first check, not in a root cause.
+  - generic: Evidence items
+  - generic: "2"
+  - generic: Observed summaries, error messages or release events.
+  - generic: Cause confidence
+  - generic: Not assessed
+  - generic: How strongly the evidence supports a possible explanation.
+  - paragraph:
+    - strong: "Checks that ran:"
+    - text: Metrics Analyzer
+  - paragraph: Example incidents use invented measurements, logs and releases. They are not collected from EC2. Full AI mode uses the real local Decider model and calls Amazon Bedrock with the supplied evidence.
+  - tablist:
+    - tab "Findings & next steps":
+      - paragraph: Findings & next steps
+    - tab "Evidence explained":
+      - paragraph: Evidence explained
+    - tab "Why these checks?":
+      - paragraph: Why these checks?
+    - tab "Download":
+      - paragraph: Download
+    - tab "Integration proof" [selected]:
+      - paragraph: Integration proof
+  - tabpanel "Integration proof":
+    - heading "What is real in this run?" [level=3]:
+      - text: What is real in this run?
+      - link "Link to heading":
+        - /url: "#what-is-real-in-this-run"
+    - paragraph:
+      - strong: "Input source:"
+      - text: Sample data · not live AWS data
+    - paragraph:
+      - strong: "Decider inference recorded:"
+      - text: strands-decider-2B-qwen3.5-v1-2610
+    - paragraph: The exact model request, response and selection scores are saved in the download.
+    - alert:
+      - paragraph: A successful Bedrock report with an AWS receipt is not verified for this run.
+    - generic: "{"
+    - text: "\""
+    - generic: provider
+    - text: "\""
+    - generic: ":"
+    - generic: "\"Amazon Bedrock\""
+    - text: "\""
+    - generic: model_id
+    - text: "\""
+    - generic: ":"
+    - generic: "\"amazon.nova-pro-v1:0\""
+    - text: "\""
+    - generic: region
+    - text: "\""
+    - generic: ":"
+    - generic: "\"us-east-1\""
+    - text: "\""
+    - generic: aws_profile
+    - text: "\""
+    - generic: ":"
+    - generic: "\"hardik\""
+    - text: "\""
+    - generic: started_at_utc
+    - text: "\""
+    - generic: ":"
+    - generic: "\"2026-10-23T09:47:35.633310+00:00\""
+    - text: "\""
+    - generic: sdk
+    - text: "\""
+    - generic: ":"
+    - generic: "\"strands-agents\""
+    - text: "\""
+    - generic: structured_output_validated
+    - text: "\""
+    - generic: ":"
+    - generic: "false"
+    - generic: "\"aws_responses\""
+    - generic: ":"
+    - generic: "["
+    - text: "0"
+    - generic: ":"
+    - generic: "{"
+    - text: "\""
+    - generic: received_at_utc
+    - text: "\""
+    - generic: ":"
+    - generic: "\"2026-10-23T09:47:36.616640+00:00\""
+    - text: "\""
+    - generic: operation
+    - text: "\""
+    - generic: ":"
+    - generic: "\"ConverseStream\""
+    - text: "\""
+    - generic: request_id
+    - text: "\""
+    - generic: ":"
+    - generic: "\"6fb59762-e928-4a32-a829-9b6e73720d28\""
+    - text: "\""
+    - generic: http_status
+    - text: "\""
+    - generic: ":"
+    - generic: "200"
+    - text: "\""
+    - generic: error_code
+    - text: "\""
+    - generic: ":"
+    - generic: "NULL"
+    - generic: "}"
+    - text: "1"
+    - generic: ":"
+    - generic: "{"
+    - text: "\""
+    - generic: received_at_utc
+    - text: "\""
+    - generic: ":"
+    - generic: "\"2026-10-23T09:47:40.264890+00:00\""
+    - text: "\""
+    - generic: operation
+    - text: "\""
+    - generic: ":"
+    - generic: "\"ConverseStream\""
+    - text: "\""
+    - generic: request_id
+    - text: "\""
+    - generic: ":"
+    - generic: "\"c8957d48-1de5-4fcf-8d35-8bb42a7ead37\""
+    - text: "\""
+    - generic: http_status
+    - text: "\""
+    - generic: ":"
+    - generic: "200"
+    - text: "\""
+    - generic: error_code
+    - text: "\""
+    - generic: ":"
+    - generic: "NULL"
+    - generic: "}"
+    - text: "2"
+    - generic: ":"
+    - generic: "{"
+    - text: "\""
+    - generic: received_at_utc
+    - text: "\""
+    - generic: ":"
+    - generic: "\"2026-10-23T09:47:43.526263+00:00\""
+    - text: "\""
+    - generic: operation
+    - text: "\""
+    - generic: ":"
+    - generic: "\"ConverseStream\""
+    - text: "\""
+    - generic: request_id
+    - text: "\""
+    - generic: ":"
+    - generic: "\"390ef67d-9fdd-4af8-b84c-ad52fcd52793\""
+    - text: "\""
+    - generic: http_status
+    - text: "\""
+    - generic: ":"
+    - generic: "200"
+    - text: "\""
+    - generic: error_code
+    - text: "\""
+    - generic: ":"
+    - generic: "NULL"
+    - generic: "}"
+    - text: "3"
+    - generic: ":"
+    - generic: "{"
+    - text: "\""
+    - generic: received_at_utc
+    - text: "\""
+    - generic: ":"
+    - generic: "\"2026-10-23T09:47:46.780203+00:00\""
+    - text: "\""
+    - generic: operation
+    - text: "\""
+    - generic: ":"
+    - generic: "\"ConverseStream\""
+    - text: "\""
+    - generic: request_id
+    - text: "\""
+    - generic: ":"
+    - generic: "\"92514d48-c675-4a2c-a5fa-4aeef1c215ac\""
+    - text: "\""
+    - generic: http_status
+    - text: "\""
+    - generic: ":"
+    - generic: "200"
+    - text: "\""
+    - generic: error_code
+    - text: "\""
+    - generic: ":"
+    - generic: "NULL"
+    - generic: "}"
+    - text: "4"
+    - generic: ":"
+    - generic: "{"
+    - text: "\""
+    - generic: received_at_utc
+    - text: "\""
+    - generic: ":"
+    - generic: "\"2026-10-23T09:47:50.057817+00:00\""
+    - text: "\""
+    - generic: operation
+    - text: "\""
+    - generic: ":"
+    - generic: "\"ConverseStream\""
+    - text: "\""
+    - generic: request_id
+    - text: "\""
+    - generic: ":"
+    - generic: "\"2f2279b7-83af-4429-9775-2a29fd0f5769\""
+    - text: "\""
+    - generic: http_status
+    - text: "\""
+    - generic: ":"
+    - generic: "200"
+    - text: "\""
+    - generic: error_code
+    - text: "\""
+    - generic: ":"
+    - generic: "NULL"
+    - generic: "}"
+    - text: "5"
+    - generic: ":"
+    - generic: "{"
+    - text: "\""
+    - generic: received_at_utc
+    - text: "\""
+    - generic: ":"
+    - generic: "\"2026-10-23T09:47:53.743092+00:00\""
+    - text: "\""
+    - generic: operation
+    - text: "\""
+    - generic: ":"
+    - generic: "\"ConverseStream\""
+    - text: "\""
+    - generic: request_id
+    - text: "\""
+    - generic: ":"
+    - generic: "\"17baa383-4bf8-4cc1-9075-87bb77a400a0\""
+    - text: "\""
+    - generic: http_status
+    - text: "\""
+    - generic: ":"
+    - generic: "200"
+    - text: "\""
+    - generic: error_code
+    - text: "\""
+    - generic: ":"
+    - generic: "NULL"
+    - generic: "}"
+    - generic: "]"
+    - text: "\""
+    - generic: endpoint
+    - text: "\""
+    - generic: ":"
+    - generic: "\"https://bedrock-runtime.us-east-1.amazonaws.com\""
+    - text: "\""
+    - generic: endpoint_service
+    - text: "\""
+    - generic: ":"
+    - generic: "\"bedrock-runtime\""
+    - text: "\""
+    - generic: failure_type
+    - text: "\""
+    - generic: ":"
+    - generic: "\"MissingStructuredReport\""
+    - generic: "\"validation_feedback\""
+    - generic: ":"
+    - generic: "["
+    - text: "0"
+    - generic: ":"
+    - generic: "["
+    - text: "0"
+    - generic: ":"
+    - generic: "{"
+    - text: "\""
+    - generic: text
+    - text: "\""
+    - generic: ":"
+    - generic: "\"Validation failed for EvidenceBoundReport. Please fix the following errors:\\n- Field 'additional_information_required': List should have at least 1 item after validation, not 0\""
+    - generic: "}"
+    - generic: "]"
+    - text: "1"
+    - generic: ":"
+    - generic: "["
+    - text: "0"
+    - generic: ":"
+    - generic: "{"
+    - text: "\""
+    - generic: text
+    - text: "\""
+    - generic: ":"
+    - generic: "\"Validation failed for EvidenceBoundReport. Please fix the following errors:\\n- Field 'root': Value error, Bedrock returned an unsupported finding without evidence citations. Report rejected. Available evidence IDs: M1, M2\""
+    - generic: "}"
+    - generic: "]"
+    - text: "2"
+    - generic: ":"
+    - generic: "["
+    - text: "0"
+    - generic: ":"
+    - generic: "{"
+    - text: "\""
+    - generic: text
+    - text: "\""
+    - generic: ":"
+    - generic: "\"Validation failed for EvidenceBoundReport. Please fix the following errors:\\n- Field 'root': Value error, Bedrock returned an unsupported finding without evidence citations. Report rejected. Available evidence IDs: M1, M2\""
+    - generic: "}"
+    - generic: "]"
+    - text: "3"
+    - generic: ":"
+    - generic: "["
+    - text: "0"
+    - generic: ":"
+    - generic: "{"
+    - text: "\""
+    - generic: text
+    - text: "\""
+    - generic: ":"
+    - generic: "\"Validation failed for EvidenceBoundReport. Please fix the following errors:\\n- Field 'root': Value error, Bedrock returned an unsupported finding without evidence citations. Report rejected. Available evidence IDs: M1, M2\""
+    - generic: "}"
+    - generic: "]"
+    - text: "4"
+    - generic: ":"
+    - generic: "["
+    - text: "0"
+    - generic: ":"
+    - generic: "{"
+    - text: "\""
+    - generic: text
+    - text: "\""
+    - generic: ":"
+    - generic: "\"Validation failed for EvidenceBoundReport. Please fix the following errors:\\n- Field 'root': Value error, Bedrock returned an unsupported finding without evidence citations. Report rejected. Available evidence IDs: M1, M2\""
+    - generic: "}"
+    - generic: "]"
+    - text: "5"
+    - generic: ":"
+    - generic: "["
+    - text: "0"
+    - generic: ":"
+    - generic: "{"
+    - text: "\""
+    - generic: text
+    - text: "\""
+    - generic: ":"
+    - generic: "\"Validation failed for EvidenceBoundReport. Please fix the following errors:\\n- Field 'root': Value error, Bedrock returned an unsupported finding without evidence citations. Report rejected. Available evidence IDs: M1, M2\""
+    - generic: "}"
+    - generic: "]"
+    - generic: "]"
+    - generic: "}"
+    - paragraph: AWS request IDs help identify service calls; they are not independent certification. HTTP 200 alone does not prove a finished report. Live mode reads EC2 inventory and CPU metrics only. Download the investigation JSON to preserve this run's inputs, decision, evidence, report and receipts.

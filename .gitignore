@@ -22,3 +22,10 @@ artifacts/video/*/
 artifacts/video/qa-*.jpg
 artifacts/video/visual-review.jpg
 artifacts/video/chapters.ffconcat
+
+# Keep final review media/provenance; exclude regenerable chapter intermediates.
+artifacts/video-final-review/*/
+artifacts/video-final-review/chapters.ffconcat
+artifacts/video-new/
+artifacts/video-hardik-final/*/
+artifacts/video-hardik-final/chapters.ffconcat

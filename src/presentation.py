@@ -21,14 +21,16 @@ METRIC_LABELS = {
     "db_connections_percent": ("Database connections used", "%"),
 }
 MODE_LABELS = {
-    "Local evidence preview": "Explore sample data · no AI",
+    "Local evidence preview": "View diagnostic findings · no AI",
     "Decider 2B + Bedrock": "Full AI investigation",
     "Decider 2B + evidence only": "AI tool selection only",
+    "Decider 2B + sample report": "Demo report · real Decider 2B",
 }
 MODE_HELP = {
     "Local evidence preview": "You choose the checks. See facts from the supplied data without an AI report or AWS model calls.",
     "Decider 2B + Bedrock": "Decider 2B chooses the checks. Amazon Bedrock writes a report with possible causes and next steps. Uses AWS model access.",
     "Decider 2B + evidence only": "Decider 2B chooses the checks and you see their findings. No Bedrock report is requested.",
+    "Decider 2B + sample report": "Real Decider 2B chooses the checks. A local template formats their actual evidence into a labelled sample report. Amazon Bedrock is not called in this mode.",
 }
 SCENARIO_HELP = {
     "CPU saturation": "The server's processor is busy. Check how many CPU measurements exceed the demo limit.",
@@ -67,3 +69,11 @@ def source_label(source: str) -> str:
         "user supplied": "Data supplied by you · no live AWS collection",
         "live CloudWatch": "Labeled CloudWatch data · supplied by you",
     }[source]
+
+
+def collection_label(source: str, receipt: dict | None) -> str:
+    if receipt and receipt.get("read_mode") == "recorded_snapshot":
+        return "Recorded AWS snapshot · original collection time"
+    if receipt:
+        return "AWS data · fetched from CloudWatch"
+    return source_label(source)

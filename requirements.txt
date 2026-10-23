@@ -1,4 +1,5 @@
 streamlit==1.66.1
+altair==6.3.0
 strands-agents==1.62.0
 boto3==1.43.117
 httpx==0.28.1

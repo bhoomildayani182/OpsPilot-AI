@@ -12,7 +12,10 @@ flowchart LR
     E -->|AI mode only| S[Strands Agent / BedrockModel]
     S --> B[Amazon Bedrock structured report]
     B --> V[Schema + evidence reference validation]
-    E --> R[Dashboard + JSON export]
+    E -->|Explicit sample-report mode| P[Local evidence formatter: no Bedrock call]
+    P --> PV[Sample schema + evidence ID validation]
+    PV --> R[Dashboard + JSON export]
+    E --> R
     V --> R
 ```
 
@@ -25,7 +28,7 @@ Bedrock does not select diagnostic tools and has no operational tools available.
 
 The three diagnostics analyze supplied data in memory; none executes shell commands
 or alters AWS resources. Their outputs are deterministic. Sample telemetry is
-synthetic and fixed. An optional CloudWatch importer is not required for this MVP.
+synthetic and fixed. The CloudWatch collector reads EC2 inventory and CPU averages for an explicit account, instance and UTC window. It does not discover deployed applications, read memory, or collect application logs. Saved AWS snapshots retain the original collection time and are not live refreshes.
 
 ## Data contracts
 
@@ -58,3 +61,22 @@ has no authentication. Incident/log text is treated as untrusted input in prompt
 this does not eliminate prompt injection. The fixed tool allowlist and lack of
 operational capabilities bound its impact. No production reliability or routing
 accuracy claim is made from four examples.
+
+## Explicit sample-report path
+
+`SampleReportGenerator` is selected only when the user chooses **Demo report · real
+Decider 2B**. `investigate()` still calls the same real `DeciderClient.select()` and
+runs only the returned allowlisted diagnostics. A local deterministic formatter
+then turns those observed results into a Pydantic report with citations and next
+checks. It does not guess severity or root cause: severity is unknown, confidence
+is low, and causal hypotheses are empty. Its metadata says `report_kind=sample`,
+`bedrock_called=false`, and contains no AWS reporting receipt. The dashboard,
+report body and JSON export label that provenance. There is no silent fallback
+from a failed Bedrock call to this mode.
+
+The genuine Bedrock path remains `strands.Agent` + `strands.models.BedrockModel`,
+ConverseStream on the regional `bedrock-runtime` endpoint. It submits only selected
+evidence and uses a structured report schema whose validator checks evidence IDs
+and conservative causal confidence. Six SDK turns are permitted; automatic retries
+are disabled. A denied or invalid report is not accepted as success. The current
+bhoomil account restriction and exact service response are in `docs/bedrock-diagnosis.md`. Temporary authorized hardik/us-east-1 runs succeeded with the same SDK, model and validation path; profile, actual endpoint and AWS receipts are recorded separately from the input-data source.

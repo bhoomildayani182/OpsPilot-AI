@@ -1,0 +1,13 @@
+{
+  "status": "PREPARED ONLY — not submitted; requires account-owner approval",
+  "profile": "bhoomil",
+  "region": "us-west-2",
+  "ServiceCode": "bedrock",
+  "QuotaCode": "L-7C42E72A",
+  "QuotaName": "Cross-region model inference tokens per minute for Amazon Nova Lite",
+  "CurrentValue": 0,
+  "DesiredValue": 10000,
+  "Adjustable": true,
+  "support_context": "The configured app uses amazon.nova-lite-v1:0 via bedrock-runtime.us-west-2.amazonaws.com / ConverseStream. AWS returns ThrottlingException: Too many tokens per day, please wait before trying again. The model-specific daily quota L-45E0AD92 is 0 and not directly adjustable. Please review the direct on-demand daily allowance as part of the documented cross-region TPM support route; a cross-region-only increase may not resolve direct invocations. Cross-Model Max Tokens Per Day L-E3F10727 is 150000000 and no increase to that quota is requested. Synthetic hackathon demo: approximately 2–4 small reports, each reserving input plus at most 2400 output tokens. Requested TPM is a proposed small demo allowance, not an AWS minimum or guaranteed approval.",
+  "official_instructions": "https://docs.aws.amazon.com/bedrock/latest/userguide/quotas-runtime.html#quotas-runtime-increase"
+}

@@ -1,0 +1,42 @@
+{
+  "checked_at_utc": "2026-10-23T09:34:41.285397+00:00",
+  "profile": "hardik",
+  "account_suffix": "5146",
+  "model_id": "amazon.nova-lite-v1:0",
+  "regions": {
+    "us-east-1": {
+      "endpoint": "https://bedrock-runtime.us-east-1.amazonaws.com",
+      "quotas": [
+        {
+          "QuotaCode": "L-45E0AD92",
+          "QuotaName": "Model invocation max tokens per day for Amazon Nova Lite (doubled for cross-region calls)",
+          "Value": 5760000000.0,
+          "Adjustable": false
+        },
+        {
+          "QuotaCode": "L-7C42E72A",
+          "QuotaName": "Cross-region model inference tokens per minute for Amazon Nova Lite",
+          "Value": 8000000.0,
+          "Adjustable": true
+        }
+      ]
+    },
+    "us-west-2": {
+      "endpoint": "https://bedrock-runtime.us-west-2.amazonaws.com",
+      "quotas": [
+        {
+          "QuotaCode": "L-45E0AD92",
+          "QuotaName": "Model invocation max tokens per day for Amazon Nova Lite (doubled for cross-region calls)",
+          "Value": 5760000000.0,
+          "Adjustable": false
+        },
+        {
+          "QuotaCode": "L-7C42E72A",
+          "QuotaName": "Cross-region model inference tokens per minute for Amazon Nova Lite",
+          "Value": 8000000.0,
+          "Adjustable": true
+        }
+      ]
+    }
+  }
+}

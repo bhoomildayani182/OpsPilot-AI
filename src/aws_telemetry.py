@@ -1,7 +1,8 @@
 """Explicit, bounded, read-only EC2 discovery and CloudWatch CPU ingestion."""
 
 import math
-from datetime import UTC, datetime
+import re
+from datetime import UTC, datetime, timedelta
 
 import boto3
 from botocore.config import Config
@@ -54,6 +55,8 @@ class AwsTelemetry:
         }
 
     def fetch_cpu(self, instance_id, start, end):
+        if not re.fullmatch(r"i-(?:[0-9a-f]{8}|[0-9a-f]{17})", instance_id):
+            raise TelemetryError("Enter a valid EC2 instance ID, such as i-0123456789abcdef0.")
         if start.tzinfo is None or end.tzinfo is None:
             raise TelemetryError("Choose start and end times with a timezone.")
         seconds = (end - start).total_seconds()
@@ -63,6 +66,10 @@ class AwsTelemetry:
             )
         if end > datetime.now(UTC):
             raise TelemetryError("The end time must not be in the future.")
+        if start < datetime.now(UTC) - timedelta(days=14):
+            raise TelemetryError(
+                "Choose a window within the last 14 days for five-minute CPU measurements."
+            )
         period = max(300, math.ceil(seconds / 500 / 60) * 60)
         response = self.client("cloudwatch").get_metric_statistics(
             Namespace="AWS/EC2",
@@ -77,7 +84,7 @@ class AwsTelemetry:
         points = sorted(response.get("Datapoints", []), key=lambda p: p["Timestamp"])
         if not points:
             raise TelemetryError(
-                "CloudWatch returned no CPU samples for this instance and time window. Try a recent window when the instance was running."
+                "CloudWatch returned no CPU samples for this instance and time window. New EC2 metrics can take several minutes to arrive. Choose a window when the instance was running; deleted demo instances need their original historical window."
             )
         incident = Incident(
             title=f"Investigate CPU measurements for EC2 instance {instance_id}.",
@@ -90,6 +97,7 @@ class AwsTelemetry:
         )
         return incident, {
             "source": "Amazon CloudWatch",
+            "read_mode": "cloudwatch_fetch",
             "region": self.region,
             "instance_id": instance_id,
             "namespace": "AWS/EC2",
@@ -100,6 +108,7 @@ class AwsTelemetry:
             "window_end_utc": end.isoformat(),
             "fetched_at_utc": datetime.now(UTC).isoformat(),
             "samples": len(points),
+            "expected_intervals": math.ceil(seconds / period),
             "request_id": response.get("ResponseMetadata", {}).get("RequestId"),
             "limitations": [
                 "CPU averages only; no memory, application logs or deployment events collected.",

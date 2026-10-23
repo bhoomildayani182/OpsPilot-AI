@@ -1,0 +1,190 @@
+- link "Skip to main content":
+  - /url: "#stMain"
+- region "Sidebar":
+  - heading "🧭 OpsPilot AI" [level=2]
+  - paragraph: Your incident investigation workspace
+  - separator
+  - paragraph: Choose how to investigate
+  - radiogroup "Choose how to investigate":
+    - radio "View diagnostic findings · no AI"
+    - paragraph: View diagnostic findings · no AI
+    - radio "Full AI investigation" [checked]
+    - paragraph: Full AI investigation
+    - radio "AI tool selection only"
+    - paragraph: AI tool selection only
+    - radio "Demo report · real Decider 2B"
+    - paragraph: Demo report · real Decider 2B
+  - paragraph: Decider 2B chooses the checks. Amazon Bedrock writes a report with possible causes and next steps. Uses AWS model access.
+  - separator
+  - paragraph:
+    - strong: Start here
+  - list:
+    - listitem: Choose an example or describe your incident.
+    - listitem: Check the supplied data.
+    - listitem: Run the investigation and review the findings.
+  - generic "What do these terms mean?":
+    - generic: keyboard_arrow_right
+    - paragraph: What do these terms mean?
+  - paragraph: "Read-only: OpsPilot analyzes data. It cannot restart servers or change your infrastructure."
+- banner
+- main:
+  - generic: OPSPILOT AI / INCIDENT WORKSPACE
+  - heading "Investigate an incident" [level=1]:
+    - text: Investigate an incident
+    - link "Link to heading":
+      - /url: "#investigate-an-incident"
+  - paragraph: Understand what the data shows, what might be causing the problem, and what to check next.
+  - paragraph: Where should incident data come from?
+  - radiogroup "Where should incident data come from?":
+    - radio "Examples or pasted data" [checked]
+    - paragraph: Examples or pasted data
+    - radio "Live AWS EC2 metrics"
+    - paragraph: Live AWS EC2 metrics
+    - radio "Saved AWS snapshot"
+    - paragraph: Saved AWS snapshot
+  - generic "What happens in my AWS account? What needs cleanup?":
+    - generic: keyboard_arrow_right
+    - paragraph: What happens in my AWS account? What needs cleanup?
+  - heading "1. Describe the incident" [level=3]:
+    - text: 1. Describe the incident
+    - link "Link to heading":
+      - /url: "#1-describe-the-incident"
+  - paragraph: Choose an example or use your own incident
+  - combobox "Choose an example or use your own incident": CPU saturation
+  - button "Open":
+  - paragraph: The server's processor is busy. Check how many CPU measurements exceed the demo limit.
+  - paragraph: What is going wrong?
+  - button "Help for What is going wrong?":
+  - textbox "What is going wrong?":
+    - /placeholder: ""
+    - text: EC2 CPU utilization is above 90%; investigate resource saturation.
+  - generic "Edit input data · advanced":
+    - generic: keyboard_arrow_right
+    - paragraph: Edit input data · advanced
+  - heading "2. Check the data" [level=3]:
+    - text: 2. Check the data
+    - link "Link to heading":
+      - /url: "#2-check-the-data"
+  - paragraph:
+    - generic: Sample data · not live AWS data
+  - strong: "8"
+  - generic: measurements
+  - strong: "1"
+  - generic: log message
+  - strong: "0"
+  - generic: release events
+  - paragraph: Example or pasted records. Select Live AWS EC2 metrics above to fetch real CPU measurements.
+  - generic "View the supplied data":
+    - generic: keyboard_arrow_right
+    - paragraph: View the supplied data
+  - generic "How to read the results":
+    - generic: keyboard_arrow_right
+    - paragraph: How to read the results
+  - generic "AI connection details":
+    - generic: keyboard_arrow_right
+    - paragraph: AI connection details
+  - heading "Loaded CPU data — available before AI analysis" [level=3]:
+    - text: Loaded CPU data — available before AI analysis
+    - link "Link to heading":
+      - /url: "#loaded-cpu-data-available-before-ai-analysis"
+  - paragraph: CPU samples loaded
+  - paragraph: "4"
+  - paragraph: Average CPU
+  - paragraph: 93.75%
+  - paragraph: Peak CPU
+  - paragraph: 97.00%
+  - paragraph: Measured 2026-10-22T09:00:00+00:00 to 2026-10-22T09:06:00+00:00. 3 samples exceeded the 90% example limit. This does not establish a root cause or service health.
+  - button "Show data":
+  - button "Download as PNG":
+  - button "Copy Vega-Lite spec":
+  - button "Fullscreen":
+  - generic "Vega visualization":
+  - button "Show/hide columns":
+  - button "Download as CSV":
+  - button "Search":
+  - button "Fullscreen":
+  - button "Investigate incident" [active]:
+    - paragraph: Investigate incident
+  - paragraph: Decider 2B chooses the checks. Amazon Bedrock writes a report with possible causes and next steps. Uses AWS model access.
+  - generic "Investigation complete — findings below":
+    - generic: check
+    - paragraph: Investigation complete — findings below
+  - paragraph:
+    - link "View investigation output ↓":
+      - /url: "#3-understand-the-findings"
+  - separator
+  - heading "3. Understand the findings" [level=2]:
+    - text: 3. Understand the findings
+    - link "Link to heading":
+      - /url: "#3-understand-the-findings"
+  - paragraph: EC2 CPU utilization is above 90%; investigate resource saturation.
+  - paragraph: Sample data · not live AWS data
+  - status:
+    - paragraph: "Review the tool choice: Decider's certainty is below 90%. The checks are read-only. This score is about choosing a check, not proving a cause."
+  - generic: Suggested urgency
+  - generic: Unknown
+  - generic: AI estimate of seriousness; actual service impact may be unknown.
+  - generic: Tool choice certainty
+  - generic: 89%
+  - generic: Confidence in the first check, not in a root cause.
+  - generic: Evidence items
+  - generic: "2"
+  - generic: Observed summaries, error messages or release events.
+  - generic: Cause confidence
+  - generic: Low
+  - generic: How strongly the evidence supports a possible explanation.
+  - paragraph:
+    - strong: "Checks that ran:"
+    - text: Metrics Analyzer
+  - paragraph: Example incidents use invented measurements, logs and releases. They are not collected from EC2. Full AI mode uses the real local Decider model and calls Amazon Bedrock with the supplied evidence.
+  - tablist:
+    - tab "Findings & next steps" [selected]:
+      - paragraph: Findings & next steps
+    - tab "Evidence explained":
+      - paragraph: Evidence explained
+    - tab "Why these checks?":
+      - paragraph: Why these checks?
+    - tab "Download":
+      - paragraph: Download
+    - tab "Integration proof":
+      - paragraph: Integration proof
+  - tabpanel "Findings & next steps":
+    - status:
+      - paragraph: AI report generated and validated. Evidence and recommendations are below.
+    - heading "What happened?" [level=3]:
+      - text: What happened?
+      - link "Link to heading":
+        - /url: "#what-happened"
+    - paragraph: User reports EC2 CPU utilization is above 90%. Observed metrics show CPU percent with 4 samples, min=88, max=97, mean=93.75; 3 strictly above demo threshold 90. Memory percent with 4 samples, min=54, max=56, mean=55.00; 0 strictly above demo threshold 90. Window 2026-10-22T09:00:00+00:00 to 2026-10-22T09:06:00+00:00.
+    - paragraph:
+      - strong: Why this urgency was suggested
+    - paragraph: Severity is unknown due to limited observations and lack of service-specific SLOs and impact assessment.
+    - paragraph: "Based on: M1 — CPU usage · M2 — Memory usage"
+    - heading "What to check next" [level=3]:
+      - text: What to check next
+      - link "Link to heading":
+        - /url: "#what-to-check-next"
+    - list:
+      - listitem: Review application logs for any errors or unusual activity during the observed period.
+    - list:
+      - listitem: Check for any recent changes in application configuration or deployment that could have increased CPU usage.
+    - paragraph: These are suggestions for a person to review. OpsPilot has not made any infrastructure changes.
+    - heading "Possible explanations" [level=3]:
+      - text: Possible explanations
+      - link "Link to heading":
+        - /url: "#possible-explanations"
+    - paragraph: These are hypotheses, not confirmed root causes.
+    - paragraph: The current evidence does not support a specific explanation yet.
+    - heading "What is still uncertain?" [level=3]:
+      - text: What is still uncertain?
+      - link "Link to heading":
+        - /url: "#what-is-still-uncertain"
+    - paragraph: • Thresholds are demo heuristics, not service SLOs. Samples do not establish a root cause.
+    - heading "More information to collect" [level=3]:
+      - text: More information to collect
+      - link "Link to heading":
+        - /url: "#more-information-to-collect"
+    - paragraph: • Service-specific SLOs and impact assessment to determine the severity of the incident.
+    - generic "Report source and validation":
+      - generic: keyboard_arrow_right
+      - paragraph: Report source and validation

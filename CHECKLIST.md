@@ -56,3 +56,68 @@ disposable test instance was used; no production workload was inspected.
 - [x] Delete the recording-demo EC2, disk and security group; independently verify deletion.
 
 - [ ] Record successful new Bedrock report in bhoomil: still blocked by AWS daily token quota, including after user access recheck. Do not claim this review video demonstrates successful reporting.
+
+## EC2 loading and visible output fix — October 23
+
+- [x] Re-fetch historical CloudWatch CPU data in bhoomil/us-west-2 without creating resources: two actual samples; receipt saved in `artifacts/cloudwatch-reload-check.json`.
+- [x] Show sample count, average, peak, UTC chart and exact rows before AI starts; keep the percentage axis at 0–100.
+- [x] Add explicit past-instance selection and recorded demo window, plus a refreshable last-hour window.
+- [x] Preserve a matching prior collection on refresh failure; reject stale data when selections change.
+- [x] Add clearly labeled saved AWS snapshots retaining original collection timestamps for replay after EC2 deletion.
+- [x] Show investigation stages and a link to output; retain diagnostic findings when Bedrock fails.
+- [x] Verify actual browser flow: bhoomil account discovery, historical CPU fetch, real Decider selection and Metrics Analyzer findings.
+- [x] Pass 78 tests, with 1 optional environment check skipped; check lint and formatting.
+- [ ] Successful fresh full AI report in bhoomil remains blocked: Bedrock rejects report-sized calls with daily token quota error. Read-only Service Quotas check reports Amazon Nova Lite daily model-invocation allowance as 0 in us-west-2. Enabling model access alone has not resolved this. No successful report or replacement success video is claimed.
+
+No AWS resources were created during this fix. The earlier cleanup records remain intact.
+
+## New narrated video request — male voice, no subtitles
+
+- [x] Recheck bhoomil/us-west-2 inventory: no active instance remains after cleanup.
+- [x] Retry a complete evidence-grounded Bedrock report before provisioning: still rejected for daily token quota (`artifacts/video-new-preflight.json`).
+- [x] Implement a clean video renderer with no subtitles, subtitle stream or text overlays; preserve real frame timestamps and verify final decode.
+- [x] Prepare male Amazon Polly Stephen narration generation using bhoomil only, with service receipts.
+- [x] Generate the male Stephen voice preview and complete eight-chapter narration draft; verify audio decoding and a subtitle-free 1080p encode using existing actual UI captures. This is renderer verification, not a new successful demonstration.
+- [ ] Restore Bedrock reporting allowance in bhoomil (user notified; awaiting resolution).
+- [ ] Once reporting works, create/check the temporary live demo instance, collect fresh measurements, and verify full agent output before recording.
+- [ ] Capture and narrate the complete working flow, inspect playback/audio, then delete and independently verify temporary demo resource cleanup.
+
+The old video has not been relabeled as the new successful demonstration. No new EC2 was provisioned while full reporting remains blocked.
+
+
+## Ordered diagnosis, verified sample report and final recording — October 23
+
+- [x] Verify actual bhoomil identity privately, region, exact model, bedrock-runtime endpoint and SDK operation.
+- [x] Capture complete HTTP 429 / ThrottlingException message and request receipt from the actual SDK call.
+- [x] Inspect model-specific and cross-model applied quotas plus model and aggregate CloudWatch token/error metrics; distinguish absent metrics from zero usage.
+- [x] Prepare the exact adjustable request route and small proposed allowance without submitting or changing quotas.
+- [x] Add explicit sample-report mode using genuine Decider selection and selected diagnostic evidence; label UI, report and JSON provenance. No silent fallback.
+- [x] Verify real model decisions and reports for metrics, logs and releases in all four fixture workflows; verify report and provenance in the browser.
+- [x] Pass 83 tests, 1 optional check skipped; lint, formatting and dependency consistency checks passed.
+- [x] Re-fetch actual historical CloudWatch data while recording: two samples, visible UTC window and collection time; no instance created.
+- [x] Exercise Full AI mode on that real evidence in the browser: genuine Strands SDK response is 429; retain diagnostics and report no success.
+- [x] Update README, architecture, current/historical verification, narration script and submission checklist with verified repository link.
+- [x] Capture all eight final UI scenes and generate male Stephen narration in bhoomil only.
+- [x] Export and verify the final 1080p, 30fps video: 149.50 seconds; H.264/AAC; zero subtitle streams and no added text overlays. Full decode, representative visual frames, audio loudness (-16.4 LUFS), browser playback and seeking passed.
+- [ ] Publish the reviewed local changes and upload the new video to an accepted public host; add the actual public demo URL.
+- [ ] Restore live Bedrock reporting allowance, rerun a real combined report and update the successful-live-demo evidence.
+- [ ] Publish the Builder Center article, verify final links, accept entrant terms and submit.
+
+No quota change, new EC2, disk or security group was created for this recording.
+
+
+## Final temporarily authorized hardik live recording — October 23
+
+- [x] Authenticate hardik privately and inspect model-specific allowances in us-east-1.
+- [x] Run genuine Decider/Strands/Bedrock CPU and HTTP-error CLI reports; preserve AWS receipts and validation results.
+- [x] Verify the HTTP-error report in the browser with logs, release evidence, citations and next checks.
+- [x] Diagnose rejected CPU reports: empty citation lists and missing required information; improve exact-field correction feedback without weakening validation.
+- [x] Verify a fresh Nova Pro CPU report in the browser with exact sample counts, unknown impact and low causal confidence.
+- [x] Record accepted live reports with male narration and no subtitles; export 158.16 seconds at 1080p/30fps; full decode, eight representative scenes, audio, browser playback and seeking checks passed.
+- [x] Pass 84 tests, 1 optional runtime check skipped; lint, format, compile, dependency and focused secret checks passed.
+- [x] Stop temporary hardik dashboard; verify port closure and preserved bhoomil default. No infrastructure provisioned or quota changes submitted.
+- [x] Audit project-tagged resources in hardik/us-east-1 and us-west-2: zero remaining demo EC2 instances, volumes and security groups.
+- [ ] Publish reviewed local changes and upload the latest live video; verify actual public URLs.
+- [ ] Publish Builder Center article and complete final submission/entrant approvals.
+
+Latest deliverable: `artifacts/video-hardik-final/OpsPilot-AI-Demo-Male-No-Subtitles.mp4`. Earlier unchecked bhoomil quota-restoration items remain historical blockers for that account; hardik success does not imply bhoomil was fixed.

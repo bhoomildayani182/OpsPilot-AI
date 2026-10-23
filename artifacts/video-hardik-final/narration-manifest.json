@@ -1,0 +1,68 @@
+{
+  "created_at_utc": "2026-10-23T09:38:26.348265+00:00",
+  "profile": "hardik",
+  "region": "us-east-1",
+  "provider": "Amazon Polly",
+  "voice": "Stephen",
+  "gender": "Male",
+  "engine": "generative",
+  "synthetic": true,
+  "requests": [
+    {
+      "chapter": "01-introduction",
+      "request_id": "92d610fa-3de6-4b86-bda1-bd5a4a4d5e81",
+      "characters": 297,
+      "audio_bytes": 110492,
+      "audio_sha256": "88634455a5eb2f732cc1b61b1cf0be90b8bd25b4996bf8be413fc6ed07bbc13f"
+    },
+    {
+      "chapter": "02-input-data",
+      "request_id": "2e1f14a3-ec87-4559-8650-dcd4f9764762",
+      "characters": 330,
+      "audio_bytes": 115532,
+      "audio_sha256": "bec4032be3dbb1df0eaaa782c0ed28dc7508efd3fb7225032d8579fb7a77afab"
+    },
+    {
+      "chapter": "03-investigation",
+      "request_id": "f1cebfe4-2559-433d-8668-932ceb4c2415",
+      "characters": 302,
+      "audio_bytes": 115820,
+      "audio_sha256": "5a94ffc6e05e5f03e6167f7c1bc2d2df17f30affd347b710f3ced42505702d42"
+    },
+    {
+      "chapter": "04-live-report",
+      "request_id": "c6a12c55-b878-4577-bffa-93eedac7a737",
+      "characters": 371,
+      "audio_bytes": 135116,
+      "audio_sha256": "e2e3873571ee4d051d926c2d54dfd8a2823d2486aca74e384b1e021d7497cf0a"
+    },
+    {
+      "chapter": "05-evidence-and-selection",
+      "request_id": "3ec55ca4-a63f-495c-9b60-e06590a6422f",
+      "characters": 274,
+      "audio_bytes": 90188,
+      "audio_sha256": "9dd7d5e0cf45c9b7514b318c5fcd3e7d8d13f106aa1687c17b14bf00cbd26f20"
+    },
+    {
+      "chapter": "06-integration-proof",
+      "request_id": "242644cb-0584-4277-b956-7ae8799a5a22",
+      "characters": 325,
+      "audio_bytes": 108188,
+      "audio_sha256": "2ae3ca50e1d12f247e2bc396c5966fef98c91c9477a2afc968377797e00005a2"
+    },
+    {
+      "chapter": "07-cpu-investigation",
+      "request_id": "c6103bbc-f3bf-4e33-aab6-9a229fd3d13f",
+      "characters": 343,
+      "audio_bytes": 126044,
+      "audio_sha256": "01c6d54f117d52936df6b98cbfe5e65316dc4cee67d827f39df8d345959e4210"
+    },
+    {
+      "chapter": "08-boundaries",
+      "request_id": "09fa60ee-f225-4054-bcb2-79bb42bdfbd6",
+      "characters": 362,
+      "audio_bytes": 128348,
+      "audio_sha256": "2beb75237d6685ee087002641033ae1ff01e1f21797cf505b22d77299fba3816"
+    }
+  ]
+}

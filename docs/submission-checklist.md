@@ -1,5 +1,16 @@
 # Submission compliance checklist
 
+## Current review links and outstanding publication
+
+- Public repository (existence and visibility verified): [OpsPilot-AI](https://github.com/bhoomildayani182/OpsPilot-AI). New local fixes and documentation must be reviewed and published before claiming that the public branch contains this version.
+- New local review video: [Male narration, no subtitles](../artifacts/video-hardik-final/OpsPilot-AI-Demo-Male-No-Subtitles.mp4). Public video URL: **not published yet**.
+- Written technical explanation: [architecture](architecture.md). Narration text: [final scene script](../artifacts/video-hardik-final/edit-plan.json).
+- Exact current execution status: [verification](verification.md). Bedrock reporting remains blocked in bhoomil; temporarily authorized hardik/us-east-1 combined runs and the latest browser video show accepted live reports.
+- Builder Center article and final entry URLs: **not published/submitted**. Keep these unchecked until their actual public links are available.
+
+## Event requirements
+
+
 Checked against official About page and detailed Rules tab on October 22, 2026.
 [Official event and rules](https://builder.aws.com/build/hackathons/4f50957c-1d08-37ab-b11c-97516b9adeb4/agent-experience-hackathon?tab=rules)
 · [AWS Builder Terms](https://builder.aws.com/terms).
@@ -12,11 +23,11 @@ Checked against official About page and detailed Rules tab on October 22, 2026.
 | Working agent on AWS, Decider meaningful decision + Bedrock generation | Implementation in `src/agent.py`; actual execution status in `docs/verification.md`. Do not mark compliant without a real combined run. |
 | Exactly one declared pattern and pattern tag | Tool selection; #tool-selection. |
 | Required Decider tag | #strands-decider-2b. |
-| Public source repository | Local Git repository prepared; GitHub authentication verified; publication pending review. |
+| Public source repository | Existing public repository verified above; current local version publication pending review. |
 | OSI-approved open-source license | Apache-2.0 in `LICENSE`; upstream attribution in `NOTICE`. |
 | Clearly labeled reusable pattern | `src/decider.py` + `docs/decision-pattern.md`: typed question/options, enforced wiring, instructions. |
 | Written article published on AWS Builder Center | Review `docs/builder-center-article.md`, add final repo/video links and verified observations, publish. |
-| Public video showing agent and real Decider decision | Record using `docs/demo-script.md`. Must show actual Decider + Bedrock run, not preview. |
+| Public video showing agent and real Decider decision | Latest local recording shows genuine Decider decisions and accepted live Bedrock reports. Upload it to an accepted public host and verify its URL before marking publication complete. |
 | Video shorter than three minutes | Target 2:45; verify exported duration. Judges need not watch beyond three minutes. |
 | Accepted public video host | YouTube, Vimeo, Facebook Video or Youku, per detailed Rules. |
 | Video rights | Own narration/screens; no unlicensed music, third-party trademarks or copyrighted material. |

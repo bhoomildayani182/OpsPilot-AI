@@ -55,11 +55,19 @@ def test_abstention_never_calls_reporter(settings, health, response):
 def test_bedrock_failure_preserves_evidence(settings, health, response):
     reporter = Mock()
     reporter.generate.side_effect = ReportError("Access unavailable")
+    progress = []
     run = investigate(
-        get_sample("CPU saturation"), client_for(settings, health, response), reporter
+        get_sample("CPU saturation"),
+        client_for(settings, health, response),
+        reporter,
+        on_progress=progress.append,
     )
     assert run.results and not run.report
     assert run.report_error == "Access unavailable"
+    assert len(progress) == 3
+    assert "Decider" in progress[0]
+    assert "checks" in progress[1]
+    assert "Bedrock" in progress[2]
 
 
 def test_reject_fabricated_evidence_ids(report_dict):
@@ -76,6 +84,17 @@ def test_reject_uncited_claim_when_evidence_exists(report_dict):
             Report.model_validate(report_dict),
             preview(get_sample("CPU saturation"), ["metrics"]).results,
         )
+
+
+def test_unknown_severity_feedback_identifies_missing_citation_field(report_dict):
+    report_dict.update(severity="unknown", confidence="low", potential_root_causes=[])
+    report_dict["severity_rationale"]["evidence_ids"] = []
+    with pytest.raises(ReportError, match="severity_rationale") as rejected:
+        validate_report(
+            Report.model_validate(report_dict),
+            preview(get_sample("CPU saturation"), ["metrics"]).results,
+        )
+    assert "including when severity is unknown" in str(rejected.value)
 
 
 def test_no_evidence_does_not_support_root_cause(report_dict):

@@ -1,5 +1,6 @@
 """Local-only artifact preview with byte ranges for native video seeking."""
 
+import argparse
 import io
 import re
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
@@ -40,4 +41,9 @@ class Handler(SimpleHTTPRequestHandler):
 
 
 if __name__ == "__main__":
-    ThreadingHTTPServer(("127.0.0.1", 8512), Handler).serve_forever()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--root", type=Path, default=ROOT)
+    parser.add_argument("--port", type=int, default=8512)
+    args = parser.parse_args()
+    ROOT = args.root.resolve()
+    ThreadingHTTPServer(("127.0.0.1", args.port), Handler).serve_forever()

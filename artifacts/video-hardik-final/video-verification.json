@@ -1,0 +1,37 @@
+{
+  "duration_seconds": 158.155989,
+  "bytes": 7866784,
+  "sha256": "3e3fb5ec5367aa5cdd939d9daf6b5d033354e00bf17a6f9b45eb4ea87a980481",
+  "streams": [
+    {
+      "codec_type": "video",
+      "codec_name": "h264",
+      "width": 1920,
+      "height": 1080,
+      "r_frame_rate": "30/1",
+      "sample_rate": null,
+      "channels": null
+    },
+    {
+      "codec_type": "audio",
+      "codec_name": "aac",
+      "width": null,
+      "height": null,
+      "r_frame_rate": "0/0",
+      "sample_rate": "48000",
+      "channels": 1
+    }
+  ],
+  "subtitle_streams": 0,
+  "full_decode_passed": true,
+  "no_added_text_overlays": true,
+  "input_data": "labelled synthetic incident fixtures",
+  "live_ai": "real Decider 2B and Bedrock via Strands; HTTP uses Nova Lite, CPU uses Nova Pro",
+  "profile": "hardik",
+  "region": "us-east-1",
+  "audio_integrated_lufs": -16.4,
+  "audio_true_peak_dbfs": -1.4,
+  "representative_frames_reviewed": 8,
+  "browser_playback_and_seeking_passed": true,
+  "browser_receipt": "browser-playback-check.json"
+}

@@ -1,0 +1,43 @@
+{
+  "profile": "bhoomil",
+  "checked_at_utc": "2026-10-22T16:18:38.641786+00:00",
+  "regions": [
+    {
+      "region": "us-east-1",
+      "account_suffix": "4677",
+      "active_demo_instance_ids": [],
+      "remaining_demo_volume_ids": [],
+      "remaining_demo_security_group_ids": [],
+      "recorded_resources": [
+        {
+          "instance_id": "i-0ea40e9455bfbb6f9",
+          "instance_removed": true,
+          "security_group_removed": true,
+          "known_volumes_removed": true
+        }
+      ]
+    },
+    {
+      "region": "us-west-2",
+      "account_suffix": "4677",
+      "active_demo_instance_ids": [],
+      "remaining_demo_volume_ids": [],
+      "remaining_demo_security_group_ids": [],
+      "recorded_resources": [
+        {
+          "instance_id": "i-09dcc93acbe302730",
+          "instance_removed": true,
+          "security_group_removed": true,
+          "known_volumes_removed": true
+        },
+        {
+          "instance_id": "i-0cbeba2a7d1c17f9a",
+          "instance_removed": true,
+          "security_group_removed": true,
+          "known_volumes_removed": true
+        }
+      ]
+    }
+  ],
+  "all_recorded_demo_resources_removed": true
+}

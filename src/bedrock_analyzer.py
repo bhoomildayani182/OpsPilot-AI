@@ -23,6 +23,7 @@ Always state uncertainty and missing information. With sparse or absent evidence
 Use at most three narrowly relevant hypotheses; fewer is better. Do not enumerate attacks, DDoS, I/O wait, resource leaks, network faults or host faults without specific supporting observations.
 CPU samples are discrete: report the exact count above the demo threshold. Never say consistently, always, sustained, or continuously above a threshold when any supplied sample is below it.
 Memory below a demo threshold does not establish acceptable health or compliance with a service SLO.
+Do not rule out memory involvement just because memory samples are below the demo threshold; those samples alone cannot establish or exclude a contribution.
 Temporal proximity of a release does not establish a high likelihood of causation. A failed health check is an observed deployment outcome, not an established application root cause.
 With evidence from only one diagnostic family, causal confidence MUST be low. Severity is tentative; state that service/user impact and SLOs are unknown when not supplied.
 Recommend safe troubleshooting steps for a human. Any operational change requires separate human approval.
@@ -49,12 +50,18 @@ def capture_receipt(receipts, *, parsed, model, **kwargs):
 
 def validate_report(report: Report, results: list[ToolResult]) -> Report:
     known = {e.id for result in results for e in result.evidence}
-    for finding in [report.severity_rationale, *report.potential_root_causes]:
+    findings = [("severity_rationale", report.severity_rationale)] + [
+        (f"potential_root_causes[{index}]", finding)
+        for index, finding in enumerate(report.potential_root_causes)
+    ]
+    for field, finding in findings:
         if set(finding.evidence_ids) - known:
             raise ReportError("Bedrock cited evidence IDs that were not observed. Report rejected.")
         if known and not finding.evidence_ids:
             raise ReportError(
-                "Bedrock returned an unsupported finding without evidence citations. Report rejected."
+                f"Bedrock returned an unsupported finding without evidence citations in {field}. "
+                "Set this finding's evidence_ids to the supplied observations that ground it, "
+                "including when severity is unknown. Omit unsupported root-cause hypotheses. Report rejected."
             )
     if not known and (
         report.severity != "unknown" or report.confidence != "low" or report.potential_root_causes
@@ -84,6 +91,7 @@ class BedrockAnalyzer:
             "provider": "Amazon Bedrock" if not self.agent_factory else "test double",
             "model_id": self.settings.bedrock_model,
             "region": self.settings.region,
+            "aws_profile": self.settings.aws_profile,
             "started_at_utc": datetime.now(UTC).isoformat(),
             "sdk": "strands-agents",
             "structured_output_validated": False,
@@ -108,6 +116,14 @@ class BedrockAnalyzer:
                     if len({r.tool for r in results if r.evidence}) < 2
                     else "assess conservatively",
                     "output": "Call EvidenceBoundReport directly with the complete report. Do not write a preliminary prose answer. Every finding needs an allowed evidence ID.",
+                    "required_fields": {
+                        "incident_summary": "State exact sample counts and values. A memory value below a DEMO threshold is only a comparison, never 'within acceptable limits', normal, healthy or evidence that memory cannot contribute. Service-specific acceptable limits are unknown.",
+                        "severity_rationale": "Include a statement and nonempty evidence_ids when observations exist, even for unknown severity. Cite the limited observations and explain why impact cannot be assessed.",
+                        "potential_root_causes": "Use an empty list if the observations do not support a useful hypothesis. Never include a finding with empty evidence_ids when observations exist.",
+                        "uncertainty": "At least one specific limitation.",
+                        "recommended_steps": "At least one safe next check.",
+                        "additional_information_required": "At least one missing item needed to assess the incident.",
+                    },
                 },
             }
         )
@@ -155,6 +171,10 @@ class BedrockAnalyzer:
                     temperature=0,
                     max_tokens=2400,
                 )
+                self.last_metadata["endpoint"] = model.client.meta.endpoint_url
+                self.last_metadata["endpoint_service"] = (
+                    model.client.meta.service_model.service_name
+                )
                 agent = Agent(
                     model=model,
                     tools=[],
@@ -167,6 +187,13 @@ class BedrockAnalyzer:
             report = result.structured_output
             if report is None:
                 self.last_metadata["failure_type"] = "MissingStructuredReport"
+                messages = getattr(agent, "messages", [])
+                self.last_metadata["validation_feedback"] = [
+                    block["toolResult"].get("content", [])
+                    for message in (messages if isinstance(messages, list) else [])
+                    for block in message.get("content", [])
+                    if "toolResult" in block and block["toolResult"].get("status") == "error"
+                ][-6:]
                 raise ReportError(
                     "Bedrock did not produce a valid evidence-cited report within the six-turn limit. No AI report was accepted. Diagnostic evidence remains available."
                 )
@@ -192,7 +219,7 @@ class BedrockAnalyzer:
             message = str(exc).lower()
             if "too many tokens per day" in message:
                 raise ReportError(
-                    "Bedrock daily token quota is exhausted for this model/account. Use an authorized model with available quota or wait for reset. Diagnostic evidence remains available."
+                    "Bedrock returned a daily token quota error for this model/account (ThrottlingException). Check the applied daily allowance and AWS quota support. No AI report was accepted; diagnostic evidence remains available."
                 ) from exc
             if "throttl" in type(exc).__name__.lower() or "throttl" in message:
                 raise ReportError(

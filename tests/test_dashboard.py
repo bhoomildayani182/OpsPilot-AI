@@ -6,6 +6,33 @@ from streamlit.testing.v1 import AppTest
 from src.data.sample_incidents import get_sample
 
 
+def test_sample_report_ui_has_explicit_source_without_bedrock_success(
+    monkeypatch, settings, health, response
+):
+    from src.decider import DeciderClient
+    from tests.test_decider import client_for
+
+    select = DeciderClient.select
+    monkeypatch.setattr(
+        "src.decider.DeciderClient.select",
+        lambda self, incident: select(client_for(settings, health, response), incident),
+    )
+    app = AppTest.from_file(
+        Path(__file__).resolve().parents[1] / "app.py", default_timeout=20
+    ).run()
+    app.radio(key="investigation_mode").set_value("Decider 2B + sample report").run()
+    app.button(key="investigate").click().run()
+    assert not app.exception
+    assert any("DEMO / SAMPLE REPORT" in w.value for w in app.warning)
+    assert not any("AI report generated and validated" in s.value for s in app.success)
+    run = app.session_state["investigation"]
+    assert run.decision and run.report and run.report_metadata["bedrock_called"] is False
+    assert not run.report_metadata["aws_responses"]
+    assert any("Local sample report: no Bedrock" in item.value for item in app.info)
+    app.radio(key="investigation_mode").set_value("Decider 2B + evidence only").run()
+    assert "investigation" not in app.session_state
+
+
 @pytest.mark.parametrize("scenario", ["CPU saturation", "Failed deployment"])
 def test_dashboard_two_incidents_and_export(scenario):
     app = AppTest.from_file(
@@ -157,3 +184,96 @@ def test_live_fetch_and_changed_window_clears_previous_data(monkeypatch):
     assert "investigation" not in app.session_state
     app.button(key="investigate").click().run()
     assert any("Fetch real CloudWatch" in e.value for e in app.error)
+
+
+def test_saved_aws_snapshot_exposes_cpu_output_before_any_ai_call():
+    app = AppTest.from_file(
+        Path(__file__).resolve().parents[1] / "app.py", default_timeout=20
+    ).run()
+    app.radio(key="data_origin").set_value("Saved AWS snapshot").run()
+    assert not app.exception
+    assert any(m.label == "CPU samples loaded" and int(m.value) > 0 for m in app.metric)
+    assert any("Recorded AWS snapshot" in m.value for m in app.markdown)
+    app.button(key="investigate").click().run()
+    assert not app.exception
+    run = app.session_state["investigation"]
+    assert run.ingestion_metadata["read_mode"] == "recorded_snapshot"
+    assert run.results and run.report is None
+
+
+def test_empty_inventory_allows_explicit_historical_id_and_refetch_failure_retains_data(
+    monkeypatch,
+):
+    from datetime import UTC, datetime
+
+    from src.aws_telemetry import TelemetryError
+    from src.models import Incident
+
+    monkeypatch.setattr(
+        "boto3.Session", lambda *a, **k: type("Session", (), {"available_profiles": ["test"]})()
+    )
+    monkeypatch.setattr(
+        "src.aws_telemetry.AwsTelemetry.discover",
+        lambda self: {"account_suffix": "1234", "instances": []},
+    )
+
+    def fetched(*args):
+        return Incident(
+            title="Historical CPU incident",
+            started_at=datetime.now(UTC),
+            data_source="live CloudWatch",
+            metrics=[{"name": "cpu_percent", "value": 12.5, "timestamp": datetime.now(UTC)}],
+        ), {
+            "instance_id": "i-0123456789abcdef0",
+            "source": "Amazon CloudWatch",
+            "request_id": "test-receipt",
+        }
+
+    monkeypatch.setattr("src.aws_telemetry.AwsTelemetry.fetch_cpu", fetched)
+    app = AppTest.from_file(
+        Path(__file__).resolve().parents[1] / "app.py", default_timeout=20
+    ).run()
+    app.radio(key="data_origin").set_value("Live AWS EC2 metrics").run()
+    next(b for b in app.button if b.label == "Connect account and list EC2 instances").click().run()
+    app.text_input(key="past_instance_id").set_value("i-0123456789abcdef0").run()
+    next(b for b in app.button if b.label == "Fetch real CPU data").click().run()
+    assert any(m.label == "Average CPU" and m.value == "12.50%" for m in app.metric)
+
+    def failed(*args):
+        raise TelemetryError("Temporary read failure")
+
+    monkeypatch.setattr("src.aws_telemetry.AwsTelemetry.fetch_cpu", failed)
+    next(b for b in app.button if b.label == "Fetch real CPU data").click().run()
+    assert not app.exception
+    assert any("Temporary read failure" in e.value for e in app.error)
+    assert any(m.label == "Average CPU" and m.value == "12.50%" for m in app.metric)
+
+
+def test_bedrock_quota_failure_keeps_loaded_aws_output_visible(monkeypatch):
+    import json
+
+    from src.agent import Investigation
+    from src.decider import Decision
+    from src.models import ToolResult
+
+    root = Path(__file__).resolve().parents[1]
+    saved = json.loads((root / "artifacts/video/live-investigation.json").read_text())
+    run = Investigation(
+        mode=saved["mode"],
+        incident=saved["incident"],
+        selected_tools=saved["selected_tools"],
+        results=[ToolResult.model_validate(item) for item in saved["results"]],
+        decision=Decision(**saved["decision"]),
+        report_error="Amazon Bedrock daily token quota reached. Request a quota increase or wait for reset.",
+    )
+    monkeypatch.setattr("src.agent.investigate", lambda *a, **k: run)
+    app = AppTest.from_file(root / "app.py", default_timeout=20).run()
+    app.radio(key="data_origin").set_value("Saved AWS snapshot").run()
+    app.radio(key="investigation_mode").set_value("Decider 2B + Bedrock").run()
+    app.button(key="investigate").click().run()
+    assert not app.exception
+    assert any(m.label == "CPU samples loaded" and int(m.value) > 0 for m in app.metric)
+    assert any("daily token quota" in e.value for e in app.error)
+    assert any("M1" in m.value for m in app.markdown)
+    assert any("Diagnostic output is available" in w.value for w in app.warning)
+    assert app.session_state["investigation"].report is None

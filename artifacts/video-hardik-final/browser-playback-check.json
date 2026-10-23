@@ -1,0 +1,24 @@
+{
+  "playing": {
+    "currentTime": 36.528423,
+    "duration": 158.155989,
+    "error": null,
+    "height": 1080,
+    "muted": false,
+    "paused": false,
+    "readyState": 4,
+    "textTracks": 0,
+    "width": 1920
+  },
+  "seeked": {
+    "currentTime": 63.280177,
+    "duration": 158.155989,
+    "error": null,
+    "height": 1080,
+    "muted": false,
+    "paused": false,
+    "readyState": 4,
+    "textTracks": 0,
+    "width": 1920
+  }
+}
